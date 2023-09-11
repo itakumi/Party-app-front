@@ -7,9 +7,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
+import ReactLoading from "react-loading";
 
 export default function MediaCard() {
   const [jsonData, setJsonData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // サーバーからJSONデータを取得する関数
@@ -18,6 +20,7 @@ export default function MediaCard() {
         const response = await fetch("http://127.0.0.1:5000/get_json_data");
         const data = await response.json();
         setJsonData(data); // JSONデータをステートに設定
+        setLoading(false);
         console.log(data);
       } catch (error) {
         console.error("データの取得に失敗しました", error);
@@ -28,23 +31,47 @@ export default function MediaCard() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-    {jsonData.map((item, index) => (
-      <div key={index} style={{ flexBasis: '50%', padding: '10px' }}>
-        <Card variant="outlined" style={{ width: '100%', height: '300px' }}>
-          {/* 画像を表示 */}
-          <img src={`data:image/png;base64,${item.image}`} alt="Image" style={{ width: '100%', height: '40%' }} />
-          <CardContent>
-            <h6>{item.name}</h6>
-            <div>Team: {item.Place}</div>
-            <div>{item.Birth}</div>
-          </CardContent>
-          <CardActions>
-          <Button size="small">Delete</Button>
-        </CardActions>
-        </Card>
+    <>
+      <div>
+        {loading ? (
+          <>
+            <ReactLoading
+              type="spin"
+              color="#000000"
+              height="50px"
+              width="50px"
+              className="mx-auto"
+            />
+            <p className="text-center mt-3">Loading</p>
+          </>
+        ) : (
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {jsonData.map((item, index) => (
+              <div key={index} style={{ flexBasis: "50%", padding: "10px" }}>
+                <Card
+                  variant="outlined"
+                  style={{ width: "100%", height: "300px" }}
+                >
+                  {/* 画像を表示 */}
+                  <img
+                    src={`data:image/png;base64,${item.image}`}
+                    alt="Image"
+                    style={{ width: "100%", height: "40%" }}
+                  />
+                  <CardContent>
+                    <h6>{item.name}</h6>
+                    <div>Team: {item.Place}</div>
+                    <div>{item.Birth}</div>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Delete</Button>
+                  </CardActions>
+                </Card>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-    ))}
-  </div>
+    </>
   );
 }
