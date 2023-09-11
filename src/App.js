@@ -32,12 +32,12 @@ function App() {
       <div class="text">
         <br></br>
         <Text text={langValue.greeting} />
-        <Text text={"Please input your profile!!"} />
+        <Text text={langValue.inputprofile} />
         <br></br>
       </div>
 
       <div class="centered-container">
-        <IntroForm />
+        <IntroForm langValue={langValue}/>
       </div>
 
       <br></br>
@@ -45,7 +45,7 @@ function App() {
       <br></br>
 
       <div class="text">
-        <Text text={"Profiles"} />
+        <Text text={langValue.profiles} />
       </div>
 
       <br></br>

@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
+import { langdata } from "./Lang_pack";
 
 export default function MediaCard() {
   const [jsonData, setJsonData] = useState([]);

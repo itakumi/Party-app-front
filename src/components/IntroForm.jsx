@@ -17,7 +17,7 @@ const bull = (
   </Box>
 );
 
-export default function Message() {
+export default function Message({ langValue }) {
   const [nameValue, setNameValue] = useState("");
   const [teamValue, setTeamValue] = useState("");
   const [othersValue, setOthersValue] = useState("");
@@ -85,8 +85,7 @@ export default function Message() {
       <Card sx={{ minWidth: 275, maxWidth: 300 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Name / Nickname:
-            <br />
+            {langValue.name_nickname} <br />
             <TextField
               label="Name"
               value={nameValue} //変数みたいな感じ。
@@ -95,7 +94,7 @@ export default function Message() {
             {/* 名前 */}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Team:
+            {langValue.team}
             <br />
             <TextField
               label="Team"
@@ -105,7 +104,7 @@ export default function Message() {
             {/* チーム */}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Others{"("}hobby, greetings, etc...{")"}:
+            {langValue.others}
             <br />
             {/* その他 */}
             <TextField
@@ -115,7 +114,7 @@ export default function Message() {
             />{" "}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Your image:
+            {langValue.your_image}
             {/* 画像 */}
             <div>
               {/* <button onClick={fileUpload}>ファイルアップロード</button> */}
@@ -127,14 +126,17 @@ export default function Message() {
             </div>
             {fileData && (
               <div>
-                <img src={`data:image/jpeg;base64,${fileData}`} alt="選択された画像" />
+                <img
+                  src={`data:image/jpeg;base64,${fileData}`}
+                  alt="選択された画像"
+                />
               </div>
             )}
           </Typography>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={handleSubmit}>
-            Submit
+            {langValue.submit}
           </Button>
         </CardActions>
       </Card>
