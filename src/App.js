@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 
 function App() {
-  const [langValue, setLangValue] = useState("");
+  const [langValue, setLangValue] = useState(langdata.English);
   // console.log(langdata.Japanese);
   console.log(langValue.greeting);
 
