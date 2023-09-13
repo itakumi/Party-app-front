@@ -50,7 +50,7 @@ function App() {
 
       <br></br>
 
-      <Profile />
+      <Profile langValue={langValue}/>
     </>
   );
 }

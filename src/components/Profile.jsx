@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { langdata } from "./Lang_pack";
 
-export default function MediaCard() {
+export default function MediaCard({ langValue }) {
   const [jsonData, setJsonData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +31,36 @@ export default function MediaCard() {
     fetchData(); // データを取得する関数を実行
   }, []);
 
+  const handleDelete = (id) => {
+    console.log(id);
+
+    const postData = {
+      id: id,
+    };
+
+    // PythonバックエンドのURLを指定
+    const backendURL = "http://127.0.0.1:5000/delete"; // あなたのバックエンドのURLに置き換えてください
+
+    // データをPOSTリクエストで送信
+    fetch(backendURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // レスポンスを処理するコードをここに追加
+        console.log(data);
+      })
+      .catch((error) => {
+        // エラーハンドリングを行うコードをここに追加
+        console.error("Error:", error);
+      });
+  };
+
+  console.log(jsonData);
   return (
     <>
       <div>
@@ -55,17 +85,20 @@ export default function MediaCard() {
                 >
                   {/* 画像を表示 */}
                   <img
-                    src={`data:image/png;base64,${item.image}`}
+                    src={`data:image/png;base64,${item.fileData}`}
                     alt="Image"
                     style={{ width: "100%", height: "40%" }}
                   />
                   <CardContent>
                     <h6>{item.name}</h6>
-                    <div>Team: {item.Place}</div>
-                    <div>{item.Birth}</div>
+                    <div>Team: {item.team}</div>
+                    <div>{item.others}</div>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Delete</Button>
+                    <Button size="small" onClick={() => handleDelete(item.id)}>
+                      {" "}
+                      {langValue.delete}
+                    </Button>
                   </CardActions>
                 </Card>
               </div>

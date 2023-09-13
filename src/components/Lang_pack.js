@@ -13,6 +13,7 @@ export const langdata = {
     submit_error: "Please input something in Name, Team, Others, image",
     select_files: "Select file",
     profiles: "Profiles",
+    delete: "Delete",
   },
   Japanese: {
     greeting: "ようこそ！ QAの皆さん！",
@@ -28,6 +29,7 @@ export const langdata = {
     submit_error: "Name, Team, Others, imageには何か入力してください",
     select_files: "ファイルを選択",
     profiles: "プロフィール",
+    delete: "削除",
   },
   Chinese: {
     greeting: "欢迎！QA团队成员！",
@@ -43,6 +45,7 @@ export const langdata = {
     submit_error: "Name, Team, Others, image请输入信息。",
     select_files: "选择文件",
     profiles: "档案",
+    delete: "刪除",
   },
   Hindi: {
     greeting: "नमस्ते!! क्यूए टीम के सदस्यों!!",
@@ -58,5 +61,6 @@ export const langdata = {
     submit_error: "Name, Team, Others, image कुछ भी दर्ज करें।",
     select_files: "फ़ाइल का चयन करें ",
     profiles: "प्रोफ़ाइल",
+    delete: "मिटाएँ",
   },
 };
