@@ -1,5 +1,6 @@
 export const langdata = {
   English: {
+    lang: "English",
     greeting: "Hello!! QA members!!",
     inputprofile: "Please input your profile!!",
     name_nickname: "Name / Nickname",
@@ -16,6 +17,7 @@ export const langdata = {
     delete: "Delete",
   },
   Japanese: {
+    lang: "Japanese",
     greeting: "ようこそ！ QAの皆さん！",
     inputprofile: "あなたのプロファイルを入力してください！",
     name_nickname: "名前 / ニックネーム",
@@ -32,6 +34,7 @@ export const langdata = {
     delete: "削除",
   },
   Chinese: {
+    lang: "中文",
     greeting: "欢迎！QA团队成员！",
     inputprofile: "请输入您的个人资料！",
     name_nickname: "姓名 / 昵称",
@@ -48,6 +51,7 @@ export const langdata = {
     delete: "刪除",
   },
   Hindi: {
+    lang: "हिन्दी",
     greeting: "नमस्ते!! क्यूए टीम के सदस्यों!!",
     inputprofile: "कृपया अपनी प्रोफ़ाइल दर्ज करें!!",
     name_nickname: "नाम / उपनाम",

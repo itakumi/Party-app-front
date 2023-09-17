@@ -6,46 +6,45 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
-
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import { useState, useRef, useEffect } from "react";
+import ImageCropper from "./ImageCropper"; // ImageCropperコンポーネントのファイルパスを指定
 
 export default function Message({ langValue }) {
   const [nameValue, setNameValue] = useState("");
   const [teamValue, setTeamValue] = useState("");
   const [othersValue, setOthersValue] = useState("");
   const [fileData, setFileData] = useState(null); // ファイルデータを保持するステート
+  const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   console.log(nameValue + " " + teamValue + " " + othersValue);
 
-  const onFileInputChange = (event) => {
-    const selectedFile = event.target.files[0]; // 最初の選択されたファイルを取得
+  // const onFileInputChange = (event) => {
+  //   const selectedFile = event.target.files[0]; // 最初の選択されたファイルを取得
 
-    if (selectedFile) {
-      const reader = new FileReader();
+  //   if (selectedFile) {
+  //     const reader = new FileReader();
 
-      // ファイルの読み込みが完了したときの処理
-      reader.onload = (e) => {
-        const fileBinaryData = e.target.result; // ファイルの生データ（バイナリデータ）を取得
+  //     // ファイルの読み込みが完了したときの処理
+  //     reader.onload = (e) => {
+  //       const fileBinaryData = e.target.result; // ファイルの生データ（バイナリデータ）を取得
 
-        // ファイルの生データをbase64に変換
-        const base64Data = btoa(fileBinaryData);
+  //       // ファイルの生データをbase64に変換
+  //       const base64Data = btoa(fileBinaryData);
 
-        // ファイルのbase64でエンコードしたデータをステートに設定
-        setFileData(base64Data);
-      };
+  //       // ファイルのbase64でエンコードしたデータをステートに設定
+  //       setFileData(base64Data);
+  //     };
 
-      // ファイルを読み込む
-      reader.readAsBinaryString(selectedFile);
-    }
-  };
+  //     // ファイルを読み込む
+  //     reader.readAsBinaryString(selectedFile);
+  //   }
+  // };
 
   const handleSubmit = () => {
     // データをJSON形式に整形
@@ -80,6 +79,33 @@ export default function Message({ langValue }) {
       });
   };
 
+  const handleOpenSubmitDialog = () => {
+    setIsSubmitDialogOpen(true);
+  };
+
+  const handleConfirmSubmit = () => {
+    // ボタンがクリックされたときの処理をここに記述
+    // たとえば、フォームの送信処理を行う
+    handleSubmit();
+
+    // ポップアップを閉じる
+    setIsSubmitDialogOpen(false);
+  };
+
+  const handleCloseSubmitDialog = () => {
+    setIsSubmitDialogOpen(false);
+  };
+
+  const handleOthersChange = (event) => {
+    const inputValue = event.target.value;
+    if (inputValue.length <= 150) {
+      setOthersValue(inputValue);
+      setErrorMessage("");
+    } else {
+      setErrorMessage("150文字以内で入力してください");
+    }
+  };
+
   return (
     <>
       <Card sx={{ minWidth: 275, maxWidth: 300 }}>
@@ -110,36 +136,40 @@ export default function Message({ langValue }) {
             <TextField
               label="Others"
               value={othersValue}
-              onChange={(event) => setOthersValue(event.target.value)} //こっちは入力して変更したときのイベント
+              onChange={handleOthersChange}
+              error={errorMessage !== ""}
+              helperText={errorMessage}
             />{" "}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {langValue.your_image}
             {/* 画像 */}
             <div>
-              {/* <button onClick={fileUpload}>ファイルアップロード</button> */}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={onFileInputChange}
-              />
+              <ImageCropper />
             </div>
-            {fileData && (
-              <div>
-                <img
-                  src={`data:image/jpeg;base64,${fileData}`}
-                  alt="選択された画像"
-                />
-              </div>
-            )}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={handleSubmit}>
+          <Button size="small" onClick={handleOpenSubmitDialog}>
             {langValue.submit}
           </Button>
         </CardActions>
       </Card>
+
+      <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
+        <DialogTitle>確認</DialogTitle>
+        <DialogContent>
+          <DialogContentText>本当に送信しますか？</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseSubmitDialog} color="primary">
+            キャンセル
+          </Button>
+          <Button onClick={handleConfirmSubmit} color="primary">
+            送信
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
