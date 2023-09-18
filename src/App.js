@@ -73,6 +73,10 @@ function App() {
       <br></br>
 
       <Profile langValue={langValue} />
+
+      <br></br>
+      <br></br>
+      <br></br>
     </>
   );
 }

@@ -55,7 +55,7 @@ export default function Message({ langValue }) {
       fileData: fileData,
     };
 
-    // console.log("File Data:", fileData); // fileDataの中身をログに出力
+    console.log("File Data:", fileData); // fileDataの中身をログに出力
 
     // PythonバックエンドのURLを指定
     const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
@@ -145,7 +145,7 @@ export default function Message({ langValue }) {
             {langValue.your_image}
             {/* 画像 */}
             <div>
-              <ImageCropper />
+              <ImageCropper fileData={fileData} setFileData={setFileData}/>
             </div>
           </Typography>
         </CardContent>

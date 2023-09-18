@@ -108,15 +108,19 @@ function MediaCard({ langValue }) {
               <div key={index} style={{ flexBasis: "50%", padding: "10px" }}>
                 <Card
                   variant="outlined"
-                  style={{ width: "100%", height: "525px" }}
+                  // style={{ width: "100%", height: "800px" }}
+                  style={{ width: "100%", height: "auto", display: "flex", flexDirection: "column" }}
+
                 >
                   {/* 画像を表示 */}
+                  <div style={{ flex: "3", overflow: "hidden" }}>
                   <img
-                    src={`data:image/png;base64,${item.fileData}`}
+                    src={item.fileData}
                     alt="Image"
-                    style={{ width: "100%", height: "35%" }}
-                  />
-                  <CardContent>
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  </div>
+                  <CardContent style={{ flex: "2" }}>
                     <h6 style={{ whiteSpace: "pre-line" }}>{item.name.match(/.{1,17}/g).join('\n')}</h6>
                     <div style={{ whiteSpace: "pre-line" }}>Team: {item.team.match(/.{1,17}/g).join('\n')}</div>
                     <div style={{ whiteSpace: "pre-line" }}>{item.others.match(/.{1,17}/g).join('\n')}</div>
