@@ -17,22 +17,22 @@ function MediaCard({ langValue }) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
 
-  useEffect(() => {
-    // サーバーからJSONデータを取得する関数
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:5000/get_json_data");
-        const data = await response.json();
-        setJsonData(data); // JSONデータをステートに設定
-        setLoading(false);
-        console.log(data);
-      } catch (error) {
-        console.error("データの取得に失敗しました", error);
-      }
-    };
+  // サーバーからJSONデータを取得する関数
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/get_json_data");
+      const data = await response.json();
+      setJsonData(data); // JSONデータをステートに設定
+      setLoading(false);
+      console.log(data);
+    } catch (error) {
+      console.error("データの取得に失敗しました", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData(); // データを取得する関数を実行
-  }, []);
+  }, []); //［］なら最初だけ実行する
 
   const handleDelete = (itemId) => {
     setItemToDelete(itemId);
@@ -60,10 +60,14 @@ function MediaCard({ langValue }) {
       .then((data) => {
         // レスポンスを処理するコードをここに追加
         console.log(data);
+        fetchData();
+        window.alert("削除しました！リロードします！");
+        // window.location.reload();
       })
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
         console.error("Error:", error);
+        // window.alert("削除できませんでした");
       });
 
     // 削除が完了したらダイアログを閉じる
@@ -80,8 +84,6 @@ function MediaCard({ langValue }) {
     // 削除をキャンセルした場合、ダイアログを閉じる
     setIsDeleteDialogOpen(false);
   };
-
-  
 
   console.log(jsonData);
   return (
@@ -109,21 +111,38 @@ function MediaCard({ langValue }) {
                 <Card
                   variant="outlined"
                   // style={{ width: "100%", height: "800px" }}
-                  style={{ width: "100%", height: "auto", display: "flex", flexDirection: "column" }}
-
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                 >
                   {/* 画像を表示 */}
                   <div style={{ flex: "3", overflow: "hidden" }}>
-                  <img
-                    src={item.fileData}
-                    alt="Image"
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    <img
+                      src={item.fileData}
+                      alt="Image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
                     />
                   </div>
                   <CardContent style={{ flex: "2" }}>
-                    <h6 style={{ whiteSpace: "pre-line" }}>{item.name.match(/.{1,17}/g).join('\n')}</h6>
-                    <div style={{ whiteSpace: "pre-line" }}>Team: {item.team.match(/.{1,17}/g).join('\n')}</div>
-                    <div style={{ whiteSpace: "pre-line" }}>{item.others.match(/.{1,17}/g).join('\n')}</div>
+                    <h5 style={{ whiteSpace: "pre-line" }}>
+                      {item.name}
+                      {/* {item.name.match(/.{1,17}/g).join("\n")} */}
+                    </h5>
+                    <div style={{ whiteSpace: "pre-line" }}>
+                      Team: {item.team}
+                      {/* Team: {item.team.match(/.{1,17}/g).join("\n")} */}
+                    </div>
+                    <div style={{ whiteSpace: "pre-line" }}>
+                      {item.others}
+                      {/* {item.others.match(/.{1,17}/g).join("\n")} */}
+                    </div>
                   </CardContent>
                   <CardActions>
                     <Button size="small" onClick={() => handleDelete(item.id)}>

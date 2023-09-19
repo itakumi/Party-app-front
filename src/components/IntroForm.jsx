@@ -20,7 +20,9 @@ export default function Message({ langValue }) {
   const [othersValue, setOthersValue] = useState("");
   const [fileData, setFileData] = useState(null); // ファイルデータを保持するステート
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorNameMessage, setErrorNameMessage] = useState("");
+  const [errorTeamMessage, setErrorTeamMessage] = useState("");
+  const [errorOthersMessage, setErrorOthersMessage] = useState("");
 
   console.log(nameValue + " " + teamValue + " " + othersValue);
 
@@ -46,6 +48,8 @@ export default function Message({ langValue }) {
   //   }
   // };
 
+  // サーバーからJSONデータを取得する関数
+
   const handleSubmit = () => {
     // データをJSON形式に整形
     const postData = {
@@ -57,26 +61,38 @@ export default function Message({ langValue }) {
 
     console.log("File Data:", fileData); // fileDataの中身をログに出力
 
-    // PythonバックエンドのURLを指定
-    const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
+    console.log(nameValue.length + teamValue.length + othersValue.length);
+    if (
+      nameValue.length <= 50 &&
+      teamValue.length <= 50 &&
+      othersValue.length <= 300
+    ) {
+      // PythonバックエンドのURLを指定
+      const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
 
-    // データをPOSTリクエストで送信
-    fetch(backendURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // レスポンスを処理するコードをここに追加
-        console.log(data);
+      // データをPOSTリクエストで送信
+      fetch(backendURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
       })
-      .catch((error) => {
-        // エラーハンドリングを行うコードをここに追加
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          // レスポンスを処理するコードをここに追加
+          console.log(data);
+          window.alert("登録しました！リロードします！");
+          window.location.reload();
+        })
+        .catch((error) => {
+          // エラーハンドリングを行うコードをここに追加
+          console.error("Error:", error);
+          window.alert("登録が失敗しました。");
+        });
+    } else {
+      window.alert("入力が正しくありません");
+    }
   };
 
   const handleOpenSubmitDialog = () => {
@@ -96,13 +112,35 @@ export default function Message({ langValue }) {
     setIsSubmitDialogOpen(false);
   };
 
+  const handleNameChange = (event) => {
+    const inputValue = event.target.value;
+    setNameValue(inputValue);
+
+    if (inputValue.length <= 30) {
+      setErrorNameMessage("");
+    } else {
+      setErrorNameMessage("30文字以内で入力してください");
+    }
+  };
+
+  const handleTeamChange = (event) => {
+    const inputValue = event.target.value;
+    setTeamValue(inputValue);
+    if (inputValue.length <= 30) {
+      setErrorTeamMessage("");
+    } else {
+      setErrorTeamMessage("30文字以内で入力してください");
+    }
+  };
+
   const handleOthersChange = (event) => {
     const inputValue = event.target.value;
-    if (inputValue.length <= 150) {
-      setOthersValue(inputValue);
-      setErrorMessage("");
+    setOthersValue(inputValue);
+
+    if (inputValue.length <= 300) {
+      setErrorOthersMessage("");
     } else {
-      setErrorMessage("150文字以内で入力してください");
+      setErrorOthersMessage("300文字以内で入力してください");
     }
   };
 
@@ -115,7 +153,9 @@ export default function Message({ langValue }) {
             <TextField
               label="Name"
               value={nameValue} //変数みたいな感じ。
-              onChange={(event) => setNameValue(event.target.value)} //こっちは入力して変更したときのイベント
+              onChange={handleNameChange} //こっちは入力して変更したときのイベント
+              error={errorNameMessage !== ""}
+              helperText={errorNameMessage}
             />{" "}
             {/* 名前 */}
           </Typography>
@@ -125,7 +165,9 @@ export default function Message({ langValue }) {
             <TextField
               label="Team"
               value={teamValue}
-              onChange={(event) => setTeamValue(event.target.value)} //こっちは入力して変更したときのイベント
+              onChange={handleTeamChange} //こっちは入力して変更したときのイベント
+              error={errorTeamMessage !== ""}
+              helperText={errorTeamMessage}
             />{" "}
             {/* チーム */}
           </Typography>
@@ -137,15 +179,15 @@ export default function Message({ langValue }) {
               label="Others"
               value={othersValue}
               onChange={handleOthersChange}
-              error={errorMessage !== ""}
-              helperText={errorMessage}
+              error={errorOthersMessage !== ""}
+              helperText={errorOthersMessage}
             />{" "}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             {langValue.your_image}
             {/* 画像 */}
             <div>
-              <ImageCropper fileData={fileData} setFileData={setFileData}/>
+              <ImageCropper fileData={fileData} setFileData={setFileData} />
             </div>
           </Typography>
         </CardContent>

@@ -5,6 +5,7 @@ import "cropperjs/dist/cropper.css";
 
 function ImageCropper({ fileData, setFileData }) {
   const [croppedDataUrl, setCroppedDataUrl] = useState(null);
+  const [crop, setCrop] = useState({ x: 50, y: 50 });
 
   const cropperRef = useRef(null);
 
@@ -44,11 +45,19 @@ function ImageCropper({ fileData, setFileData }) {
     }
   };
 
-  useEffect(() => {// useStateが非同期なのでこれで対処する
+  useEffect(() => {
+    // useStateが非同期なのでこれで対処する
     setFileData(croppedDataUrl);
     console.log(croppedDataUrl);
     console.log(fileData);
   }, [croppedDataUrl]);
+
+   // トリミング位置をリセットする関数
+   const resetCrop = () => {
+    if (cropperRef.current) {
+      cropperRef.current.cropper.reset();
+    }
+  };
 
   return (
     <div>
@@ -60,10 +69,13 @@ function ImageCropper({ fileData, setFileData }) {
             src={fileData}
             style={{ height: "100%", width: "100%" }}
             movable={false}
-            aspectRatio={ 5 / 3 }
+            aspectRatio={5 / 3}
             cropBoxResizable={false}
+            crop={crop}
           />
           <button onClick={handleCrop}>トリミング</button>
+          <button onClick={resetCrop}>トリミングをリセット</button>
+
         </div>
       )}
       {croppedDataUrl && (
@@ -71,7 +83,7 @@ function ImageCropper({ fileData, setFileData }) {
           src={croppedDataUrl}
           alt="トリミング後の画像"
           style={{ width: "auto", height: "100%", maxWidth: "100%" }}
-          />
+        />
       )}
     </div>
   );
