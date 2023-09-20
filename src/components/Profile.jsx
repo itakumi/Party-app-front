@@ -16,6 +16,7 @@ function MediaCard({ langValue }) {
   const [loading, setLoading] = useState(true);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [showAllOthers, setShowAllOthers] = useState(false);
 
   // サーバーからJSONデータを取得する関数
   const fetchData = async () => {
@@ -110,7 +111,6 @@ function MediaCard({ langValue }) {
               <div key={index} style={{ flexBasis: "50%", padding: "10px" }}>
                 <Card
                   variant="outlined"
-                  // style={{ width: "100%", height: "800px" }}
                   style={{
                     width: "100%",
                     height: "auto",
@@ -118,7 +118,6 @@ function MediaCard({ langValue }) {
                     flexDirection: "column",
                   }}
                 >
-                  {/* 画像を表示 */}
                   <div style={{ flex: "3", overflow: "hidden" }}>
                     <img
                       src={item.fileData}
@@ -131,18 +130,47 @@ function MediaCard({ langValue }) {
                     />
                   </div>
                   <CardContent style={{ flex: "2" }}>
-                    <h5 style={{ whiteSpace: "pre-line" }}>
+                    <h5
+                      style={{
+                        whiteSpace: "pre-line",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        width: "100%",
+                      }}
+                    >
                       {item.name}
                       {/* {item.name.match(/.{1,17}/g).join("\n")} */}
                     </h5>
-                    <div style={{ whiteSpace: "pre-line" }}>
+                    <div
+                      style={{
+                        whiteSpace: "pre-line",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        width: "100%",
+                      }}
+                    >
                       Team: {item.team}
                       {/* Team: {item.team.match(/.{1,17}/g).join("\n")} */}
                     </div>
-                    <div style={{ whiteSpace: "pre-line" }}>
+                    <div
+                      style={{
+                        whiteSpace: "pre-line",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        width: "100%",
+                        maxHeight: showAllOthers ? "none" : "2.4em", // 2.4emは約2行分の高さ
+                        WebkitLineClamp: showAllOthers ? "unset" : 2, // ブラウザごとに異なる可能性があるので注意
+                        display: "-webkit-box", // ブラウザごとに必要
+                      }}
+                    >
                       {item.others}
                       {/* {item.others.match(/.{1,17}/g).join("\n")} */}
                     </div>
+                    {item.others.length > 200 && (
+                      <button onClick={() => setShowAllOthers(!showAllOthers)}>
+                        {showAllOthers ? "折りたたむ" : "もっと見る"}
+                      </button>
+                    )}{" "}
                   </CardContent>
                   <CardActions>
                     <Button size="small" onClick={() => handleDelete(item.id)}>

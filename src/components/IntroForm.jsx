@@ -61,37 +61,49 @@ export default function Message({ langValue }) {
 
     console.log("File Data:", fileData); // fileDataの中身をログに出力
 
-    console.log(nameValue.length + teamValue.length + othersValue.length);
-    if (
-      nameValue.length <= 50 &&
-      teamValue.length <= 50 &&
-      othersValue.length <= 300
-    ) {
-      // PythonバックエンドのURLを指定
-      const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
+    console.log(
+      nameValue.length + " " + teamValue.length + " " + othersValue.length
+    );
 
-      // データをPOSTリクエストで送信
-      fetch(backendURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // レスポンスを処理するコードをここに追加
-          console.log(data);
-          window.alert("登録しました！リロードします！");
-          window.location.reload();
+    if (
+      nameValue.length != 0 &&
+      teamValue.length != 0 &&
+      othersValue.length != 0 &&
+      fileData != null
+    ) {
+      if (
+        nameValue.length <= 50 &&
+        teamValue.length <= 50 &&
+        othersValue.length <= 300
+      ) {
+        // PythonバックエンドのURLを指定
+        const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
+
+        // データをPOSTリクエストで送信
+        fetch(backendURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
         })
-        .catch((error) => {
-          // エラーハンドリングを行うコードをここに追加
-          console.error("Error:", error);
-          window.alert("登録が失敗しました。");
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            // レスポンスを処理するコードをここに追加
+            console.log(data);
+            window.alert("登録しました！リロードします！");
+            window.location.reload();
+          })
+          .catch((error) => {
+            // エラーハンドリングを行うコードをここに追加
+            console.error("Error:", error);
+            window.alert("登録が失敗しました。");
+          });
+      } else {
+        window.alert("入力が正しくありません");
+      }
     } else {
-      window.alert("入力が正しくありません");
+      window.alert("すべて入力してください");
     }
   };
 
