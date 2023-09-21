@@ -49,6 +49,9 @@ export default function Message({ langValue }) {
   // };
 
   // サーバーからJSONデータを取得する関数
+  console.log(
+    nameValue.length + " " + teamValue.length + " " + othersValue.length
+  );
 
   const handleSubmit = () => {
     // データをJSON形式に整形
@@ -61,10 +64,32 @@ export default function Message({ langValue }) {
 
     console.log("File Data:", fileData); // fileDataの中身をログに出力
 
-    console.log(
-      nameValue.length + " " + teamValue.length + " " + othersValue.length
-    );
+    // PythonバックエンドのURLを指定
+    const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
 
+    // データをPOSTリクエストで送信
+    fetch(backendURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // レスポンスを処理するコードをここに追加
+        console.log(data);
+        window.alert("登録しました！リロードします！");
+        window.location.reload();
+      })
+      .catch((error) => {
+        // エラーハンドリングを行うコードをここに追加
+        console.error("Error:", error);
+        window.alert("登録が失敗しました。");
+      });
+  };
+
+  const handleOpenSubmitDialog = () => {
     if (
       nameValue.length != 0 &&
       teamValue.length != 0 &&
@@ -76,44 +101,28 @@ export default function Message({ langValue }) {
         teamValue.length <= 50 &&
         othersValue.length <= 300
       ) {
-        // PythonバックエンドのURLを指定
-        const backendURL = "http://127.0.0.1:5000/backend"; // あなたのバックエンドのURLに置き換えてください
-
-        // データをPOSTリクエストで送信
-        fetch(backendURL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // レスポンスを処理するコードをここに追加
-            console.log(data);
-            window.alert("登録しました！リロードします！");
-            window.location.reload();
-          })
-          .catch((error) => {
-            // エラーハンドリングを行うコードをここに追加
-            console.error("Error:", error);
-            window.alert("登録が失敗しました。");
-          });
+        setIsSubmitDialogOpen(true);
       } else {
-        window.alert("入力が正しくありません");
+        window.alert("長すぎる入力があります");
       }
     } else {
       window.alert("すべて入力してください");
+      if (nameValue.length == 0) {
+        setErrorNameMessage("必須");
+      }
+      if (teamValue.length == 0) {
+        setErrorTeamMessage("必須");
+      }
+      if (othersValue.length == 0) {
+        setErrorOthersMessage("必須");
+      }
     }
-  };
-
-  const handleOpenSubmitDialog = () => {
-    setIsSubmitDialogOpen(true);
   };
 
   const handleConfirmSubmit = () => {
     // ボタンがクリックされたときの処理をここに記述
     // たとえば、フォームの送信処理を行う
+
     handleSubmit();
 
     // ポップアップを閉じる

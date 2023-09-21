@@ -17,6 +17,7 @@ function MediaCard({ langValue }) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showAllOthers, setShowAllOthers] = useState(false);
+  const [showFullText, setShowFullText] = useState([]);
 
   // サーバーからJSONデータを取得する関数
   const fetchData = async () => {
@@ -26,6 +27,9 @@ function MediaCard({ langValue }) {
       setJsonData(data); // JSONデータをステートに設定
       setLoading(false);
       console.log(data);
+      // 長さが20で、すべての要素がfalseの配列を作成
+      const myArray = new Array(data.length).fill(false);
+      setShowFullText(myArray);
     } catch (error) {
       console.error("データの取得に失敗しました", error);
     }
@@ -86,6 +90,14 @@ function MediaCard({ langValue }) {
     setIsDeleteDialogOpen(false);
   };
 
+  // 表示するテキストの最大文字数
+  const maxCharacters = 17;
+
+  // テキストを折り返す関数
+  const foldText = (text) => {
+    return text.length > maxCharacters ? text.slice(0, maxCharacters) : text;
+  };
+
   console.log(jsonData);
   return (
     <>
@@ -108,17 +120,25 @@ function MediaCard({ langValue }) {
         ) : (
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {jsonData.map((item, index) => (
-              <div key={index} style={{ flexBasis: "50%", padding: "10px" }}>
+              <div
+                key={index}
+                style={{
+                  flexBasis: "50%",
+                  padding: "10px",
+                  maxWidth: "50%",
+                }}
+              >
                 <Card
                   variant="outlined"
                   style={{
                     width: "100%",
                     height: "auto",
+                    minHeight: "400px",
                     display: "flex",
                     flexDirection: "column",
                   }}
                 >
-                  <div style={{ flex: "3", overflow: "hidden" }}>
+                  <div style={{ flex: "3" }}>
                     <img
                       src={item.fileData}
                       alt="Image"
@@ -129,12 +149,23 @@ function MediaCard({ langValue }) {
                       }}
                     />
                   </div>
-                  <CardContent style={{ flex: "2" }}>
+
+                  <CardContent
+                    style={{
+                      flex: "2",
+                      wordWrap: "break-word", // word-wrapの設定
+                    }}
+                  >
+                    {/* <div
+                      style={{
+                        maxHeight: showAllOthers ? "none" : "2.4em", // 2.4emは約2行分の高さ
+                        WebkitLineClamp: showAllOthers ? "unset" : 2, // ブラウザごとに異なる可能性があるので注意
+                        display: "-webkit-box", // ブラウザごとに必要
+                      }}
+                    > */}
                     <h5
                       style={{
                         whiteSpace: "pre-line",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
                         width: "100%",
                       }}
                     >
@@ -144,8 +175,6 @@ function MediaCard({ langValue }) {
                     <div
                       style={{
                         whiteSpace: "pre-line",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
                         width: "100%",
                       }}
                     >
@@ -155,22 +184,43 @@ function MediaCard({ langValue }) {
                     <div
                       style={{
                         whiteSpace: "pre-line",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
                         width: "100%",
-                        maxHeight: showAllOthers ? "none" : "2.4em", // 2.4emは約2行分の高さ
-                        WebkitLineClamp: showAllOthers ? "unset" : 2, // ブラウザごとに異なる可能性があるので注意
-                        display: "-webkit-box", // ブラウザごとに必要
                       }}
                     >
-                      {item.others}
+                      {showFullText[index]
+                        ? item.others
+                        : foldText(item.others)}
+                      {item.others.length > maxCharacters && (
+                        <span
+                          onClick={() => {
+                            const newArray = [...showFullText]; // 配列のコピーを作成
+                            newArray[index] = !newArray[index]; // インデックスiの要素を反転
+                            setShowFullText(newArray); // 新しい配列でsetStateを更新
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            color: "blue",
+                            marginLeft: "5px",
+                          }}
+                        >
+                          {showFullText[index] ? "▲" : "▼"}
+                        </span>
+                      )}
+
+                      {/* {item.others} */}
                       {/* {item.others.match(/.{1,17}/g).join("\n")} */}
                     </div>
-                    {item.others.length > 200 && (
-                      <button onClick={() => setShowAllOthers(!showAllOthers)}>
-                        {showAllOthers ? "折りたたむ" : "もっと見る"}
-                      </button>
-                    )}{" "}
+                    {/* {item.name.length +
+                        item.team.length +
+                        item.others.length >
+                        50 && (
+                        <button
+                          onClick={() => setShowAllOthers(!showAllOthers)}
+                        >
+                          {showAllOthers ? "折りたたむ" : "もっと見る"}
+                        </button>
+                      )}{" "} */}
+                    {/* </div> */}
                   </CardContent>
                   <CardActions>
                     <Button size="small" onClick={() => handleDelete(item.id)}>
