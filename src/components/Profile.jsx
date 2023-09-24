@@ -51,7 +51,7 @@ function MediaCard({ langValue }) {
       id: id,
     };
     // PythonバックエンドのURLを指定
-    const backendURL = "http://127.0.0.1:5000/delete"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL = "http://0.0.0.0:10000/delete"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
