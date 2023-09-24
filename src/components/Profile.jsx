@@ -22,7 +22,7 @@ function MediaCard({ langValue }) {
   // サーバーからJSONデータを取得する関数
   const fetchData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/get_json_data");
+      const response = await fetch("http://0.0.0.0:10000/get_json_data");
       const data = await response.json();
       setJsonData(data); // JSONデータをステートに設定
       setLoading(false);
