@@ -2,16 +2,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
+import { Button } from "@mui/material";
 
-function ImageCropper({ fileData, setFileData }) {
-  const [croppedDataUrl, setCroppedDataUrl] = useState(null);
+function ImageCropper({ fileData, setFileData, croppedData, setCroppedData }) {
   const [crop, setCrop] = useState({ x: 50, y: 50 });
+  console.log("oooooooooooooooooooooooooo");
 
   const cropperRef = useRef(null);
 
   const onFileInputChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
+    setCroppedData(null);
 
     reader.onload = (e) => {
       setFileData(e.target.result);
@@ -40,20 +42,13 @@ function ImageCropper({ fileData, setFileData }) {
         console.error("クロップに失敗しました");
         return;
       } else {
-        setCroppedDataUrl(croppedCanvas.toDataURL());
+        setCroppedData(croppedCanvas.toDataURL());
       }
     }
   };
 
-  useEffect(() => {
-    // useStateが非同期なのでこれで対処する
-    setFileData(croppedDataUrl);
-    console.log(croppedDataUrl);
-    console.log(fileData);
-  }, [croppedDataUrl]);
-
-   // トリミング位置をリセットする関数
-   const resetCrop = () => {
+  // トリミング位置をリセットする関数
+  const resetCrop = () => {
     if (cropperRef.current) {
       cropperRef.current.cropper.reset();
     }
@@ -61,8 +56,33 @@ function ImageCropper({ fileData, setFileData }) {
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={onFileInputChange} />
-      {fileData && croppedDataUrl === null && (
+      <label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onFileInputChange}
+          style={{ display: "none" }}
+        />
+        {/* <Button variant="contained">File Select</Button> */}
+        <div
+          style={{
+            display: "block",
+
+            padding: "8px 16px",
+
+            backgroundColor: "#007bff",
+
+            color: "#fff",
+
+            borderRadius: "4px",
+
+            cursor: "pointer",
+          }}
+        >
+          File Select
+        </div>
+      </label>
+      {fileData && croppedData === null && (
         <div>
           <Cropper
             ref={cropperRef}
@@ -70,19 +90,20 @@ function ImageCropper({ fileData, setFileData }) {
             style={{ height: "100%", width: "100%" }}
             movable={false}
             aspectRatio={5 / 3}
-            cropBoxResizable={false}
+            cropBoxResizable={true}
             crop={crop}
+            dragMode="move"
+            // cropBoxMovable={false}
           />
           <button onClick={handleCrop}>トリミング</button>
           <button onClick={resetCrop}>トリミングをリセット</button>
-
         </div>
       )}
-      {croppedDataUrl && (
+      {croppedData && (
         <img
-          src={croppedDataUrl}
+          src={croppedData}
           alt="トリミング後の画像"
-          style={{ width: "auto", height: "100%", maxWidth: "100%" }}
+          style={{ width: "auto", height: "auto", maxWidth: "100%" }}
         />
       )}
     </div>

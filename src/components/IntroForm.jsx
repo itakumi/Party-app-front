@@ -13,12 +13,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import { useState, useRef, useEffect } from "react";
 import ImageCropper from "./ImageCropper"; // ImageCropperコンポーネントのファイルパスを指定
+import "../App.css";
 
 export default function Message({ langValue }) {
   const [nameValue, setNameValue] = useState("");
   const [teamValue, setTeamValue] = useState("");
   const [othersValue, setOthersValue] = useState("");
   const [fileData, setFileData] = useState(null); // ファイルデータを保持するステート
+  const [croppedData, setCroppedData] = useState(null);
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
   const [errorNameMessage, setErrorNameMessage] = useState("");
   const [errorTeamMessage, setErrorTeamMessage] = useState("");
@@ -94,7 +96,7 @@ export default function Message({ langValue }) {
       nameValue.length != 0 &&
       teamValue.length != 0 &&
       othersValue.length != 0 &&
-      fileData != null
+      croppedData != null
     ) {
       if (
         nameValue.length <= 50 &&
@@ -167,72 +169,99 @@ export default function Message({ langValue }) {
 
   return (
     <>
-      <Card sx={{ minWidth: 275, maxWidth: 300 }}>
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {langValue.name_nickname} <br />
-            <TextField
-              label="Name"
-              value={nameValue} //変数みたいな感じ。
-              onChange={handleNameChange} //こっちは入力して変更したときのイベント
-              error={errorNameMessage !== ""}
-              helperText={errorNameMessage}
-            />{" "}
-            {/* 名前 */}
-          </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {langValue.team}
-            <br />
-            <TextField
-              label="Team"
-              value={teamValue}
-              onChange={handleTeamChange} //こっちは入力して変更したときのイベント
-              error={errorTeamMessage !== ""}
-              helperText={errorTeamMessage}
-            />{" "}
-            {/* チーム */}
-          </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {langValue.others}
-            <br />
-            {/* その他 */}
-            <TextField
-              label="Others"
-              value={othersValue}
-              onChange={handleOthersChange}
-              error={errorOthersMessage !== ""}
-              helperText={errorOthersMessage}
-            />{" "}
-          </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {langValue.your_image}
-            {/* 画像 */}
-            <div>
-              <ImageCropper fileData={fileData} setFileData={setFileData} />
-            </div>
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={handleOpenSubmitDialog}>
-            {langValue.submit}
-          </Button>
-        </CardActions>
-      </Card>
+      <div>
+        <Card sx={{ minWidth: 275, maxWidth: 300 }}>
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {langValue.name_nickname} <br />
+              <TextField
+                label="Name"
+                value={nameValue} //変数みたいな感じ。
+                onChange={handleNameChange} //こっちは入力して変更したときのイベント
+                error={errorNameMessage !== ""}
+                helperText={errorNameMessage}
+              />{" "}
+              {/* 名前 */}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {langValue.team}
+              <br />
+              <TextField
+                label="Team"
+                value={teamValue}
+                onChange={handleTeamChange} //こっちは入力して変更したときのイベント
+                error={errorTeamMessage !== ""}
+                helperText={errorTeamMessage}
+              />{" "}
+              {/* チーム */}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {langValue.others}
+              <br />
+              {/* その他 */}
+              <TextField
+                label="Others"
+                value={othersValue}
+                onChange={handleOthersChange}
+                error={errorOthersMessage !== ""}
+                helperText={errorOthersMessage}
+              />{" "}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {langValue.your_image}
+              {/* 画像 */}
+              <div>
+                <ImageCropper
+                  fileData={fileData}
+                  setFileData={setFileData}
+                  croppedData={croppedData}
+                  setCroppedData={setCroppedData}
+                />
+              </div>
+            </Typography>
+          </CardContent>
+          <CardActions>
+              <Button size="small" onClick={handleOpenSubmitDialog}>
+                <div
+                  className={` ${fileData && !croppedData ? "SubmitGray" : ""}`}
+                >
+                  {langValue.submit}
+                </div>
+              </Button>
+          </CardActions>
+        </Card>
 
-      <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
-        <DialogTitle>確認</DialogTitle>
-        <DialogContent>
-          <DialogContentText>本当に送信しますか？</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseSubmitDialog} color="primary">
-            キャンセル
-          </Button>
-          <Button onClick={handleConfirmSubmit} color="primary">
-            送信
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
+          <DialogTitle>確認</DialogTitle>
+          <DialogContent>
+            <DialogContentText>本当に送信しますか？</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseSubmitDialog} color="primary">
+              キャンセル
+            </Button>
+            <Button onClick={handleConfirmSubmit} color="primary">
+              送信
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </>
   );
 }
