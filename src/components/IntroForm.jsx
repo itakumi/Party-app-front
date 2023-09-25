@@ -65,7 +65,7 @@ export default function Message({ langValue }) {
     console.log("File Data:", fileData); // fileDataの中身をログに出力
 
     // PythonバックエンドのURLを指定
-    const backendURL = "http://0.0.0.0:10000/backend"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL = "https://party-back.onrender.com/backend"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {

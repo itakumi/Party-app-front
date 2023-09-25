@@ -22,7 +22,9 @@ function MediaCard({ langValue }) {
   // サーバーからJSONデータを取得する関数
   const fetchData = async () => {
     try {
-      const response = await fetch("http://0.0.0.0:10000/get_json_data");
+      const response = await fetch(
+        "https://party-back.onrender.com/get_json_data"
+      );
       const data = await response.json();
       setJsonData(data); // JSONデータをステートに設定
       setLoading(false);
@@ -51,7 +53,7 @@ function MediaCard({ langValue }) {
       id: id,
     };
     // PythonバックエンドのURLを指定
-    const backendURL = "http://0.0.0.0:10000/delete"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL = "https://party-back.onrender.com/delete"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
