@@ -93,7 +93,7 @@ function MediaCard({ langValue }) {
   };
 
   // 表示するテキストの最大文字数
-  const maxCharacters = 17;
+  const maxCharacters = 20;
 
   // テキストを折り返す関数
   const foldText = (text) => {
@@ -189,7 +189,7 @@ function MediaCard({ langValue }) {
                       {showFullText[index] //文字を省略するかしないか
                         ? item.team + "\n" + item.others
                         : foldText(item.team + "\n" + item.others)}
-                      {item.team.length > maxCharacters && ( //矢印付け加える
+                      {item.team.length + item.others.length > maxCharacters && ( //矢印付け加える
                         <span
                           onClick={() => {
                             const newArray = [...showFullText]; // 配列のコピーを作成
