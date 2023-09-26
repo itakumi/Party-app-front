@@ -256,7 +256,7 @@ export default function Message({ langValue }) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseSubmitDialog} color="primary">
-              {langValue.cancell}
+              {langValue.cancel}
             </Button>
             <Button onClick={handleConfirmSubmit} color="primary">
               {langValue.submit}

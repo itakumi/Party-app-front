@@ -31,9 +31,9 @@ export const langdata = {
     Loading: "Loading",
     delete_confirmation: "Delete confirmation",
     really_delete_confirmation: "Are you sure you want to delete?",
-    Yes: "Yes",
-    No: "No",
-    delete_complete: "Deleted! Reloading!"
+    yes: "Yes",
+    no: "No",
+    delete_complete: "Deleted! Reloading!",
   },
   Japanese: {
     lang: "Japanese",
@@ -60,7 +60,7 @@ export const langdata = {
     please_input_300: "300文字以内で入力してください",
     confirm: "確認",
     really_submit_question: "本当に送信しますか？",
-    cancell: "キャンセル",
+    cancel: "キャンセル",
     trimming: "トリミング",
     trimming_reset: "トリミングをリセット",
     file_choose: "ファイル選択",
@@ -69,7 +69,7 @@ export const langdata = {
     really_delete_question: "本当に削除しますか？",
     yes: "はい",
     no: "いいえ",
-    delete_complete: "削除しました！リロードします！"
+    delete_complete: "削除しました！リロードします！",
   },
   Chinese: {
     lang: "中文",
@@ -103,9 +103,9 @@ export const langdata = {
     Loading: "加载中",
     delete_confirmation: "删除确认",
     really_delete_confirmation: "确定要删除吗？",
-    Yes: "是",
-    No: "否",
-    delete_complete:"已删除！重新加载！"
+    yes: "是",
+    no: "否",
+    delete_complete: "已删除！重新加载！",
   },
   Hindi: {
     lang: "हिन्दी",
@@ -139,8 +139,8 @@ export const langdata = {
     Loading: "लोड हो रहा है",
     delete_confirmation: "हटाने की पुष्टि",
     really_delete_confirmation: "क्या आप सचमुच हटाना चाहते हैं?",
-    Yes: "हां",
-    No: "नहीं",
-    delete_complete: "हटा दिया गया! पुनः लोड हो रहा है!"
+    yes: "हां",
+    no: "नहीं",
+    delete_complete: "हटा दिया गया! पुनः लोड हो रहा है!",
   },
 };
