@@ -68,7 +68,7 @@ function MediaCard({ langValue }) {
         // レスポンスを処理するコードをここに追加
         console.log(data);
         fetchData();
-        window.alert("削除しました！リロードします！");
+        window.alert(langValue.delete_complete);
         // window.location.reload();
       })
       .catch((error) => {
@@ -115,7 +115,7 @@ function MediaCard({ langValue }) {
                   width="50px"
                   className="mx-auto"
                 />
-                <p className="text-center mt-3">Loading</p>
+                <p className="text-center mt-3">{langValue.Loading}</p>
               </div>
             </div>
           </>
@@ -257,16 +257,16 @@ function MediaCard({ langValue }) {
 
                 {/* 削除確認ダイアログ */}
                 <Dialog open={isDeleteDialogOpen} onClose={cancelDelete}>
-                  <DialogTitle>削除の確認</DialogTitle>
+                  <DialogTitle>{langValue.delete_confirmation}</DialogTitle>
                   <DialogContent>
-                    <DialogContentText>本当に削除しますか？</DialogContentText>
+                    <DialogContentText>{langValue.really_delete_question}</DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={cancelDelete} color="primary">
-                      いいえ
+                      {langValue.no}
                     </Button>
                     <Button onClick={confirmDelete} color="primary">
-                      はい
+                      {langValue.yes}
                     </Button>
                   </DialogActions>
                 </Dialog>

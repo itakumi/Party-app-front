@@ -21,63 +21,63 @@ function App() {
 
   return (
     <>
-        <Box
-          sx={{
-            minWidth: 130,
-            maxWidth: 300,
-            height: "50px",
-            position: "absolute",
-            top: 5,
-            right: 10,
-          }}
-        >
-          <FormControl fullWidth>
-            <InputLabel
-              variant="standard"
-              htmlFor="uncontrolled-native"
-              style={{ width: "100%", textAlign: "center" }}
-            >
-              Language
-            </InputLabel>
-            <Select value={langValue.language} onChange={handleLanguageChange}>
-              {Object.keys(langdata).map((language) => (
-                <MenuItem key={language} value={language}>
-                  {language}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+      <Box
+        sx={{
+          minWidth: 130,
+          maxWidth: 300,
+          height: "50px",
+          position: "absolute",
+          top: 5,
+          right: 10,
+        }}
+      >
+        <FormControl fullWidth>
+          <InputLabel
+            variant="standard"
+            htmlFor="uncontrolled-native"
+            style={{ width: "100%", textAlign: "center" }}
+          >
+            Language
+          </InputLabel>
+          <Select value={langValue.language} onChange={handleLanguageChange}>
+            {Object.keys(langdata).map((language) => (
+              <MenuItem key={language} value={language}>
+                {language}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
-        <br></br>
-        <br></br>
+      <br></br>
+      <br></br>
 
-        <div class="text">
-          <br></br>
-          <Text text={langValue.greeting} />
-          <Text text={langValue.inputprofile} />
-          <br></br>
-        </div>
-
-        <div class="centered-container">
-          <IntroForm langValue={langValue}/>
-        </div>
-
+      <div class="text">
         <br></br>
-        <Line />
+        <Text text={langValue.greeting} />
+        <Text text={langValue.inputprofile} />
         <br></br>
+      </div>
 
-        <div class="text">
-          <Text text={langValue.profiles} />
-        </div>
+      <div class="centered-container">
+        <IntroForm langValue={langValue} />
+      </div>
 
-        <br></br>
+      <br></br>
+      <Line />
+      <br></br>
 
-        <Profile langValue={langValue} />
+      <div class="text">
+        <Text text={langValue.profiles} />
+      </div>
 
-        <br></br>
-        <br></br>
-        <br></br>
+      <br></br>
+
+      <Profile langValue={langValue} />
+
+      <br></br>
+      <br></br>
+      <br></br>
     </>
   );
 }

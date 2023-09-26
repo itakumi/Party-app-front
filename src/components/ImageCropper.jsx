@@ -4,7 +4,7 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { Button } from "@mui/material";
 
-function ImageCropper({ fileData, setFileData, croppedData, setCroppedData }) {
+function ImageCropper({ fileData, setFileData, croppedData, setCroppedData, langValue }) {
   const [crop, setCrop] = useState({ x: 50, y: 50 });
   console.log("oooooooooooooooooooooooooo");
 
@@ -79,7 +79,7 @@ function ImageCropper({ fileData, setFileData, croppedData, setCroppedData }) {
             cursor: "pointer",
           }}
         >
-          File Select
+          {langValue.file_choose}
         </div>
       </label>
       {fileData && croppedData === null && (
@@ -95,8 +95,8 @@ function ImageCropper({ fileData, setFileData, croppedData, setCroppedData }) {
             dragMode="move"
             // cropBoxMovable={false}
           />
-          <button onClick={handleCrop}>トリミング</button>
-          <button onClick={resetCrop}>トリミングをリセット</button>
+          <button onClick={handleCrop}>{langValue.trimming}</button>
+          <button onClick={resetCrop}>{langValue.trimming_reset}</button>
         </div>
       )}
       {croppedData && (

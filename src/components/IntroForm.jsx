@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -81,13 +80,13 @@ export default function Message({ langValue }) {
       .then((data) => {
         // レスポンスを処理するコードをここに追加
         console.log(data);
-        window.alert("登録しました！リロードします！");
+        window.alert(langValue.submit_complete);
         window.location.reload();
       })
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
         console.error("Error:", error);
-        window.alert("登録が失敗しました。");
+        window.alert(langValue.submit_fail);
       });
   };
 
@@ -105,18 +104,18 @@ export default function Message({ langValue }) {
       ) {
         setIsSubmitDialogOpen(true);
       } else {
-        window.alert("長すぎる入力があります");
+        window.alert(langValue.input_too_long);
       }
     } else {
-      window.alert("すべて入力してください");
+      window.alert(langValue.input_all);
       if (nameValue.length == 0) {
-        setErrorNameMessage("必須");
+        setErrorNameMessage(langValue.mandatory);
       }
       if (teamValue.length == 0) {
-        setErrorTeamMessage("必須");
+        setErrorTeamMessage(langValue.mandatory);
       }
       if (othersValue.length == 0) {
-        setErrorOthersMessage("必須");
+        setErrorOthersMessage(langValue.mandatory);
       }
     }
   };
@@ -142,7 +141,7 @@ export default function Message({ langValue }) {
     if (inputValue.length <= 30) {
       setErrorNameMessage("");
     } else {
-      setErrorNameMessage("30文字以内で入力してください");
+      setErrorNameMessage(langValue.please_input_30);
     }
   };
 
@@ -152,7 +151,7 @@ export default function Message({ langValue }) {
     if (inputValue.length <= 30) {
       setErrorTeamMessage("");
     } else {
-      setErrorTeamMessage("30文字以内で入力してください");
+      setErrorTeamMessage(langValue.please_input_30);
     }
   };
 
@@ -163,7 +162,7 @@ export default function Message({ langValue }) {
     if (inputValue.length <= 300) {
       setErrorOthersMessage("");
     } else {
-      setErrorOthersMessage("300文字以内で入力してください");
+      setErrorOthersMessage(langValue.please_input_300);
     }
   };
 
@@ -179,7 +178,7 @@ export default function Message({ langValue }) {
             >
               {langValue.name_nickname} <br />
               <TextField
-                label="Name"
+                // label="Name"
                 value={nameValue} //変数みたいな感じ。
                 onChange={handleNameChange} //こっちは入力して変更したときのイベント
                 error={errorNameMessage !== ""}
@@ -195,7 +194,7 @@ export default function Message({ langValue }) {
               {langValue.team}
               <br />
               <TextField
-                label="Team"
+                // label={langValue.team}
                 value={teamValue}
                 onChange={handleTeamChange} //こっちは入力して変更したときのイベント
                 error={errorTeamMessage !== ""}
@@ -212,7 +211,7 @@ export default function Message({ langValue }) {
               <br />
               {/* その他 */}
               <TextField
-                label="Others"
+                // label={langValue.others}
                 value={othersValue}
                 onChange={handleOthersChange}
                 error={errorOthersMessage !== ""}
@@ -232,6 +231,7 @@ export default function Message({ langValue }) {
                   setFileData={setFileData}
                   croppedData={croppedData}
                   setCroppedData={setCroppedData}
+                  langValue={langValue}
                 />
               </div>
             </Typography>
@@ -248,16 +248,18 @@ export default function Message({ langValue }) {
         </Card>
 
         <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
-          <DialogTitle>確認</DialogTitle>
+          <DialogTitle>{langValue.confirm}</DialogTitle>
           <DialogContent>
-            <DialogContentText>本当に送信しますか？</DialogContentText>
+            <DialogContentText>
+              {langValue.really_submit_question}
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseSubmitDialog} color="primary">
-              キャンセル
+              {langValue.cancell}
             </Button>
             <Button onClick={handleConfirmSubmit} color="primary">
-              送信
+              {langValue.submit}
             </Button>
           </DialogActions>
         </Dialog>
