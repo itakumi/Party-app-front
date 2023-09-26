@@ -61,7 +61,7 @@ export default function Message({ langValue }) {
       name: nameValue,
       team: teamValue,
       others: othersValue,
-      fileData: fileData,
+      fileData: croppedData,
     };
 
     console.log("File Data:", fileData); // fileDataの中身をログに出力
@@ -99,8 +99,8 @@ export default function Message({ langValue }) {
       croppedData != null
     ) {
       if (
-        nameValue.length <= 50 &&
-        teamValue.length <= 50 &&
+        nameValue.length <= 30 &&
+        teamValue.length <= 30 &&
         othersValue.length <= 300
       ) {
         setIsSubmitDialogOpen(true);
@@ -237,13 +237,13 @@ export default function Message({ langValue }) {
             </Typography>
           </CardContent>
           <CardActions>
-              <Button size="small" onClick={handleOpenSubmitDialog}>
-                <div
-                  className={` ${fileData && !croppedData ? "SubmitGray" : ""}`}
-                >
-                  {langValue.submit}
-                </div>
-              </Button>
+            <Button size="small" onClick={handleOpenSubmitDialog}>
+              <div
+                className={` ${fileData && !croppedData ? "SubmitGray" : ""}`}
+              >
+                {langValue.submit}
+              </div>
+            </Button>
           </CardActions>
         </Card>
 

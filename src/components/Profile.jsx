@@ -154,7 +154,7 @@ function MediaCard({ langValue }) {
 
                   <CardContent
                     style={{
-                      flex: "2",
+                      flex: "60",
                       wordWrap: "break-word", // word-wrapの設定
                     }}
                   >
@@ -165,14 +165,17 @@ function MediaCard({ langValue }) {
                         display: "-webkit-box", // ブラウザごとに必要
                       }}
                     > */}
+
                     <h5
                       style={{
                         whiteSpace: "pre-line",
                         width: "100%",
                       }}
                     >
-                      {item.name}
-                      {/* {item.name.match(/.{1,17}/g).join("\n")} */}
+                      <b>
+                        {item.name}
+                        {/* {item.name.match(/.{1,17}/g).join("\n")} */}
+                      </b>
                     </h5>
                     <div
                       style={{
@@ -180,10 +183,30 @@ function MediaCard({ langValue }) {
                         width: "100%",
                       }}
                     >
-                      Team: {item.team}
+                      Team:
+                      {/* Team: {item.team} */}
                       {/* Team: {item.team.match(/.{1,17}/g).join("\n")} */}
+                      {showFullText[index] //文字を省略するかしないか
+                        ? item.team + "\n" + item.others
+                        : foldText(item.team + "\n" + item.others)}
+                      {item.team.length > maxCharacters && ( //矢印付け加える
+                        <span
+                          onClick={() => {
+                            const newArray = [...showFullText]; // 配列のコピーを作成
+                            newArray[index] = !newArray[index]; // インデックスiの要素を反転
+                            setShowFullText(newArray); // 新しい配列でsetStateを更新
+                          }}
+                          style={{
+                            cursor: "pointer",
+                            color: "blue",
+                            marginLeft: "5px",
+                          }}
+                        >
+                          {showFullText[index] ? "▲" : "▼"}
+                        </span>
+                      )}
                     </div>
-                    <div
+                    {/* <div
                       style={{
                         whiteSpace: "pre-line",
                         width: "100%",
@@ -210,8 +233,8 @@ function MediaCard({ langValue }) {
                       )}
 
                       {/* {item.others} */}
-                      {/* {item.others.match(/.{1,17}/g).join("\n")} */}
-                    </div>
+                    {/* {item.others.match(/.{1,17}/g).join("\n")} */}
+                    {/* </div>  */}
                     {/* {item.name.length +
                         item.team.length +
                         item.others.length >
