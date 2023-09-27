@@ -9,6 +9,7 @@ import { useState } from "react";
 
 function App() {
   const [langValue, setLangValue] = useState(langdata.English);
+  const [submitting, setSubmitting] = useState(false);
 
   // console.log(langdata.Japanese);
   console.log(langValue.greeting);
@@ -60,7 +61,7 @@ function App() {
       </div>
 
       <div class="centered-container">
-        <IntroForm langValue={langValue} />
+        <IntroForm langValue={langValue} setSubmitting={setSubmitting}/>
       </div>
 
       <br></br>
@@ -73,7 +74,7 @@ function App() {
 
       <br></br>
 
-      <Profile langValue={langValue} />
+      <Profile langValue={langValue} submitting={submitting}/>
 
       <br></br>
       <br></br>

@@ -11,7 +11,7 @@ import DialogActions from "@mui/material/DialogActions";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 
-function MediaCard({ langValue }) {
+function MediaCard({ langValue, submitting }) {
   const [jsonData, setJsonData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -110,7 +110,7 @@ function MediaCard({ langValue }) {
               <div className="popup-content">
                 <ReactLoading
                   type="spin"
-                  color="#000000"
+                  color="#3366ff"
                   height="50px"
                   width="50px"
                   className="mx-auto"
@@ -119,7 +119,24 @@ function MediaCard({ langValue }) {
               </div>
             </div>
           </>
+        ) : submitting ? (
+          // submittingがtrueの場合の処理をここに記述
+          <>
+            <div className="popup-overlay">
+              <div className="popup-content">
+                <ReactLoading
+                  type="spin"
+                  color="#3366ff"
+                  height="50px"
+                  width="50px"
+                  className="mx-auto"
+                />
+                <p className="text-center mt-3">{langValue.submitting}</p>
+              </div>
+            </div>
+          </>
         ) : (
+          // submittingがfalseかつloadingがfalseの場合の処理をここに記述
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {jsonData.map((item, index) => (
               <div
@@ -189,7 +206,8 @@ function MediaCard({ langValue }) {
                       {showFullText[index] //文字を省略するかしないか
                         ? item.team + "\n" + item.others
                         : foldText(item.team + "\n" + item.others)}
-                      {item.team.length + item.others.length > maxCharacters && ( //矢印付け加える
+                      {item.team.length + item.others.length >
+                        maxCharacters && ( //矢印付け加える
                         <span
                           onClick={() => {
                             const newArray = [...showFullText]; // 配列のコピーを作成
@@ -206,46 +224,6 @@ function MediaCard({ langValue }) {
                         </span>
                       )}
                     </div>
-                    {/* <div
-                      style={{
-                        whiteSpace: "pre-line",
-                        width: "100%",
-                      }}
-                    >
-                      {showFullText[index]
-                        ? item.others
-                        : foldText(item.others)}
-                      {item.others.length > maxCharacters && (
-                        <span
-                          onClick={() => {
-                            const newArray = [...showFullText]; // 配列のコピーを作成
-                            newArray[index] = !newArray[index]; // インデックスiの要素を反転
-                            setShowFullText(newArray); // 新しい配列でsetStateを更新
-                          }}
-                          style={{
-                            cursor: "pointer",
-                            color: "blue",
-                            marginLeft: "5px",
-                          }}
-                        >
-                          {showFullText[index] ? "▲" : "▼"}
-                        </span>
-                      )}
-
-                      {/* {item.others} */}
-                    {/* {item.others.match(/.{1,17}/g).join("\n")} */}
-                    {/* </div>  */}
-                    {/* {item.name.length +
-                        item.team.length +
-                        item.others.length >
-                        50 && (
-                        <button
-                          onClick={() => setShowAllOthers(!showAllOthers)}
-                        >
-                          {showAllOthers ? "折りたたむ" : "もっと見る"}
-                        </button>
-                      )}{" "} */}
-                    {/* </div> */}
                   </CardContent>
                   <CardActions>
                     <Button size="small" onClick={() => handleDelete(item.id)}>
@@ -259,7 +237,9 @@ function MediaCard({ langValue }) {
                 <Dialog open={isDeleteDialogOpen} onClose={cancelDelete}>
                   <DialogTitle>{langValue.delete_confirmation}</DialogTitle>
                   <DialogContent>
-                    <DialogContentText>{langValue.really_delete_question}</DialogContentText>
+                    <DialogContentText>
+                      {langValue.really_delete_question}
+                    </DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={cancelDelete} color="primary">

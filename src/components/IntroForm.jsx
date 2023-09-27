@@ -14,7 +14,7 @@ import { useState, useRef, useEffect } from "react";
 import ImageCropper from "./ImageCropper"; // ImageCropperコンポーネントのファイルパスを指定
 import "../App.css";
 
-export default function Message({ langValue }) {
+export default function Message({ langValue, setSubmitting }) {
   const [nameValue, setNameValue] = useState("");
   const [teamValue, setTeamValue] = useState("");
   const [othersValue, setOthersValue] = useState("");
@@ -27,29 +27,6 @@ export default function Message({ langValue }) {
 
   console.log(nameValue + " " + teamValue + " " + othersValue);
 
-  // const onFileInputChange = (event) => {
-  //   const selectedFile = event.target.files[0]; // 最初の選択されたファイルを取得
-
-  //   if (selectedFile) {
-  //     const reader = new FileReader();
-
-  //     // ファイルの読み込みが完了したときの処理
-  //     reader.onload = (e) => {
-  //       const fileBinaryData = e.target.result; // ファイルの生データ（バイナリデータ）を取得
-
-  //       // ファイルの生データをbase64に変換
-  //       const base64Data = btoa(fileBinaryData);
-
-  //       // ファイルのbase64でエンコードしたデータをステートに設定
-  //       setFileData(base64Data);
-  //     };
-
-  //     // ファイルを読み込む
-  //     reader.readAsBinaryString(selectedFile);
-  //   }
-  // };
-
-  // サーバーからJSONデータを取得する関数
   console.log(
     nameValue.length + " " + teamValue.length + " " + othersValue.length
   );
@@ -80,6 +57,7 @@ export default function Message({ langValue }) {
       .then((data) => {
         // レスポンスを処理するコードをここに追加
         console.log(data);
+        setSubmitting(false);
         window.alert(langValue.submit_complete);
         window.location.reload();
       })
@@ -142,6 +120,7 @@ export default function Message({ langValue }) {
 
     // ポップアップを閉じる
     setIsSubmitDialogOpen(false);
+    setSubmitting(true); //送信中のポップアップを表示するためtrueにする
   };
 
   const handleCloseSubmitDialog = () => {
