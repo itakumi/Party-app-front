@@ -35,7 +35,7 @@ export const langdata = {
     no: "No",
     delete_complete: "Deleted! Reloading!",
     donot_input_blankonly: "Blank input is not allowed",
-    submitting: "Submitting",
+    submitting: "Submitting"
   },
   Japanese: {
     lang: "Japanese",
@@ -73,7 +73,7 @@ export const langdata = {
     no: "いいえ",
     delete_complete: "削除しました！リロードします！",
     donot_input_blankonly: "空白のみの入力はできません",
-    submitting: "送信中",
+    submitting: "送信中"
   },
   Chinese: {
     lang: "中文",
@@ -111,7 +111,7 @@ export const langdata = {
     no: "否",
     delete_complete: "已删除！重新加载！",
     donot_input_blankonly: "不允许空白输入",
-    submitting: "提交中",
+    submitting: "提交中"
   },
   Hindi: {
     lang: "हिन्दी",
@@ -149,6 +149,6 @@ export const langdata = {
     no: "नहीं",
     delete_complete: "हटा दिया गया! पुनः लोड हो रहा है!",
     donot_input_blankonly: "खाली इनपुट अनुमति नहीं है।",
-    submitting: "सबमिट कर रहा है",
+    submitting: "सबमिट कर रहा है"
   },
 };

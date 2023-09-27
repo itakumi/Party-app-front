@@ -100,7 +100,6 @@ function MediaCard({ langValue, submitting }) {
     return text.length > maxCharacters ? text.slice(0, maxCharacters) : text;
   };
 
-  console.log(jsonData);
   return (
     <>
       <div>
