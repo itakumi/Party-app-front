@@ -97,16 +97,30 @@ export default function Message({ langValue }) {
       othersValue.length != 0 &&
       croppedData != null
     ) {
+      //各textfieldに何かしら入力があった時の処理
       if (
-        nameValue.length <= 30 &&
-        teamValue.length <= 30 &&
-        othersValue.length <= 300
+        nameValue.match(/\S/g) === null ||
+        teamValue.match(/\S/g) === null ||
+        othersValue.match(/\S/g) === null
       ) {
-        setIsSubmitDialogOpen(true);
+        // 空白のみの入力があった場合
+        window.alert(langValue.donot_input_blankonly);
       } else {
-        window.alert(langValue.input_too_long);
+        //空白のみの入力がなかった場合
+        if (
+          nameValue.length <= 30 &&
+          teamValue.length <= 30 &&
+          othersValue.length <= 300
+        ) {
+          // 文字数制限で合格した場合
+          setIsSubmitDialogOpen(true);
+        } else {
+          //　文字数制限でアウトだった場合
+          window.alert(langValue.input_too_long);
+        }
       }
     } else {
+      // 入力されていないtextfieldがある場合の処理
       window.alert(langValue.input_all);
       if (nameValue.length == 0) {
         setErrorNameMessage(langValue.mandatory);
