@@ -10,6 +10,36 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
+import Text from "../components/Text";
+import { createStyles } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    WholeCard: {
+      color: "black",
+      backgroundColor: "#ffffe0",
+    },
+    BlueButton: {
+      color: "white",
+      background: "#4169e1",
+    },
+    WhiteButton: {
+      color: "#4169e1",
+      background: "white",
+    },
+    BlueBack: {
+      background: "#4169e1",
+      border: "none",
+    },
+    Halfcircle: {
+      width: "100%" /* 半円の横幅 */,
+      height: "100px" /* 半円の高さ */,
+      background: "#4169e1" /* 半円の背景色 */,
+      borderRadius: "50% 50% 0 0",
+    },
+  })
+);
 
 function MediaCard({ langValue, submitting }) {
   const [jsonData, setJsonData] = useState([]);
@@ -18,6 +48,8 @@ function MediaCard({ langValue, submitting }) {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showAllOthers, setShowAllOthers] = useState(false);
   const [showFullText, setShowFullText] = useState([]);
+
+  const classes = useStyles();
 
   // サーバーからJSONデータを取得する関数
   const fetchData = async () => {
@@ -100,6 +132,22 @@ function MediaCard({ langValue, submitting }) {
 
   return (
     <>
+      <div class="parent_button">
+        <button class="fixed_btn">
+          <p class="plus">+</p>
+        </button>
+      </div>
+
+      <div class="bluetext">
+        <br></br>
+        <Text text={langValue.greeting} />
+        <Text text={langValue.inputprofile} />
+        <br></br>
+      </div>
+      <div class="text" className={classes.Halfcircle + " text"}>
+        <br></br>
+        <Text text={langValue.profiles} />
+      </div>
       <div>
         {loading ? (
           <>
@@ -134,7 +182,10 @@ function MediaCard({ langValue, submitting }) {
           </>
         ) : (
           // submittingがfalseかつloadingがfalseの場合の処理をここに記述
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div
+            style={{ display: "flex", flexWrap: "wrap" }}
+            className={classes.BlueBack}
+          >
             {jsonData.map((item, index) => (
               <div
                 key={index}
@@ -143,6 +194,7 @@ function MediaCard({ langValue, submitting }) {
                   padding: "10px",
                   maxWidth: "50%",
                 }}
+                className={classes.BlueBack}
               >
                 <Card
                   variant="outlined"
@@ -171,6 +223,7 @@ function MediaCard({ langValue, submitting }) {
                       flex: "60",
                       wordWrap: "break-word", // word-wrapの設定
                     }}
+                    className={classes.WholeCard}
                   >
                     {/* <div
                       style={{
@@ -222,7 +275,7 @@ function MediaCard({ langValue, submitting }) {
                       )}
                     </div>
                   </CardContent>
-                  <CardActions>
+                  <CardActions className={classes.WholeCard}>
                     <Button size="small" onClick={() => handleDelete(item.id)}>
                       {" "}
                       {langValue.delete}
@@ -239,10 +292,10 @@ function MediaCard({ langValue, submitting }) {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={cancelDelete}>
+                    <Button onClick={cancelDelete} color="primary">
                       {langValue.no}
                     </Button>
-                    <Button onClick={confirmDelete}>
+                    <Button onClick={confirmDelete} color="primary">
                       {langValue.yes}
                     </Button>
                   </DialogActions>

@@ -11,22 +11,68 @@
 }
 
 .Card {
-  border: aqua;
+  border: red;
 }
 
 .text {
   text-align: center;
   font-weight: bold;
   font-style: italic;
-  color: #3366ff;
+  color: white;
+  font-size: 18pt;
+}
+
+.bluetext {
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  color: #4169e1;
   font-size: 18pt;
 }
 
 .centered-container {
   display: flex;
-  justify-content: center; /* 水平方向に中央配置 */
-  align-items: center; /* 垂直方向に中央配置 */
-  /* height: 100vh; ウィンドウの高さいっぱいに配置 */
+  justify-content: center;
+  /* 水平方向に中央配置 */
+  align-items: center;
+  /* 垂直方向に中央配置  */
+  height: 100vh;
+  /* ウィンドウの高さいっぱいに配置 */
+}
+
+.center-text {
+  text-align: center; /* テキストを中央揃えにする */
+  position: absolute;
+  top: 20%; /* 上端から50%の位置に配置 */
+  left: 50%; /* 左端から50%の位置に配置 */
+  transform: translate(-50%, -50%); /* テキストを中央に配置 */
+}
+
+.center-card-text {
+  text-align: center; /* テキストを中央揃えにする */
+}
+
+.card_radius {
+  border-radius: 10%;
+}
+
+.blueword {
+  color: #4169e1;
+}
+
+.round_shape {
+  border-radius: 100%;
+  background: chartreuse;
+}
+
+.page_title {
+  color: white;
+  text-align: center; /* テキストを中央揃えにする */
+  position: absolute;
+  top: 20%; /* 上端から50%の位置に配置 */
+  left: 50%; /* 左端から50%の位置に配置 */
+  transform: translate(-50%, -50%); /* テキストを中央に配置 */
+  font-weight: bold;
 }
 
 .stylish-text {
@@ -58,4 +104,32 @@
 
 .SubmitGray {
   color: #bbb;
+}
+
+.fixed_btn {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  /* padding: 5px; */
+  width: 80px; /* 半円の横幅 */
+  height: 80px; /* 半円の高さ */
+  background-color: #4169e1; /* 半円の背景色 */
+  border-radius: 100%;
+  font-weight: bold;
+  color: white;
+  font-size: 50pt;
+}
+
+.parent_button {
+  /* justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  position: relative; */
+}
+
+.plus {
+  top: 50%; /* テキストを垂直方向の中央に配置 */
+  left: 50%; /* テキストを水平方向の中央に配置 */
+  transform: translate(-0%, -20%); /* 中央揃えの調整 */
 }

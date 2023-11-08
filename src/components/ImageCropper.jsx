@@ -4,7 +4,13 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { Button } from "@mui/material";
 
-function ImageCropper({ fileData, setFileData, croppedData, setCroppedData, langValue }) {
+function ImageCropper({
+  fileData,
+  setFileData,
+  croppedData,
+  setCroppedData,
+  langValue,
+}) {
   const [crop, setCrop] = useState({ x: 50, y: 50 });
   console.log("oooooooooooooooooooooooooo");
 
@@ -67,16 +73,13 @@ function ImageCropper({ fileData, setFileData, croppedData, setCroppedData, lang
         <div
           style={{
             display: "block",
-
             padding: "8px 16px",
-
-            backgroundColor: "#007bff",
-
-            color: "#fff",
-
+            backgroundColor: "#c6c6ff",
+            color: "#6b68ff",
             borderRadius: "4px",
-
             cursor: "pointer",
+            borderRadius: "40px 40px",
+            border: "1px solid #6b68ff",
           }}
         >
           {langValue.file_choose}

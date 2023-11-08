@@ -1,11 +1,16 @@
 import "./App.css";
-import Text from "./components/Text";
-import Line from "./components/Line";
-import Profile from "./components/Profile";
-import IntroForm from "./components/IntroForm";
 import { langdata } from "./components/Lang_pack";
 import { MenuItem, InputLabel, FormControl, Select, Box } from "@mui/material";
 import { useState } from "react";
+import Button from "@mui/material";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { LogIn } from "./pages/LogIn";
+import Profile_Submit from "./pages/Profile_Submit";
+import Profiles from "./pages/Profiles";
+import { SignUp } from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
+
+
 
 function App() {
   const [langValue, setLangValue] = useState(langdata.English);
@@ -50,7 +55,19 @@ function App() {
         </FormControl>
       </Box>
 
-      <br></br>
+      <Router>
+      <Routes>
+        <Route path="/" element={<LogIn langValue={langValue} setSubmitting={setSubmitting} />} />
+        <Route path="/SignUp" element={<SignUp langValue={langValue} setSubmitting={setSubmitting} />} />
+        <Route path="/Profiles" element={<Profiles langValue={langValue} submitting={submitting} />} />
+        <Route path="/Profile_Submit" element={<Profile_Submit langValue={langValue} setSubmitting={setSubmitting} />} />
+        {/* <Route component={NotFound} /> */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+
+
+      {/* <br></br>
       <br></br>
 
       <div class="text">
@@ -58,27 +75,23 @@ function App() {
         <Text text={langValue.greeting} />
         <Text text={langValue.inputprofile} />
         <br></br>
-      </div>
+      </div> */}
 
-      <div class="centered-container">
-        <IntroForm langValue={langValue} setSubmitting={setSubmitting}/>
-      </div>
+      {/* <div class="centered-container">
+        <IntroForm langValue={langValue} setSubmitting={setSubmitting} />
+      </div> */}
 
-      <br></br>
-      <Line />
-      <br></br>
-
-      <div class="text">
+      {/* <div class="text">
         <Text text={langValue.profiles} />
       </div>
 
       <br></br>
 
-      <Profile langValue={langValue} submitting={submitting}/>
+      <Profile langValue={langValue} submitting={submitting} />
 
       <br></br>
       <br></br>
-      <br></br>
+      <br></br> */}
     </>
   );
 }
