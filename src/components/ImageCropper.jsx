@@ -3,6 +3,36 @@ import React, { useState, useRef, useEffect } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { Button } from "@mui/material";
+import CardActions from "@mui/material/CardActions";
+import { createStyles } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    WholeCard: {
+      color: "black",
+      backgroundColor: "#ffffe0",
+    },
+    BlueButton: {
+      color: "white",
+      background: "#6b68ff",
+    },
+    WhiteButton: {
+      color: "#4169e1",
+      background: "white",
+    },
+    BlueBack: {
+      background: "#6b68ff",
+      border: "none",
+    },
+    Halfcircle: {
+      width: "100%" /* 半円の横幅 */,
+      height: "100px" /* 半円の高さ */,
+      background: "#6b68ff" /* 半円の背景色 */,
+      borderRadius: "50% 50% 0 0",
+    },
+  })
+);
 
 function ImageCropper({
   fileData,
@@ -13,6 +43,8 @@ function ImageCropper({
 }) {
   const [crop, setCrop] = useState({ x: 50, y: 50 });
   console.log("oooooooooooooooooooooooooo");
+
+  const classes = useStyles();
 
   const cropperRef = useRef(null);
 
@@ -98,8 +130,36 @@ function ImageCropper({
             dragMode="move"
             // cropBoxMovable={false}
           />
-          <button onClick={handleCrop}>{langValue.trimming}</button>
-          <button onClick={resetCrop}>{langValue.trimming_reset}</button>
+          {/* <button onClick={handleCrop}>{langValue.trimming}</button>
+          <button onClick={resetCrop}>{langValue.trimming_reset}</button> */}
+            <button
+              size="small"
+              onClick={handleCrop}
+              style={{backgroundColor: "#6b68ff", borderRadius: "30px 30px", border: "1px solid #6b68ff",
+            }}
+            >
+              <div
+                style={{
+                  color: "white",
+                }}
+              >
+                {langValue.trimming}
+              </div>
+            </button>
+            <button
+              size="small"
+              onClick={handleCrop}
+              style={{backgroundColor: "#6b68ff", borderRadius: "30px 30px", border: "1px solid #6b68ff",
+            }}
+            >
+              <div
+                style={{
+                  color: "white",
+                }}
+              >
+                {langValue.trimming_reset}
+              </div>
+            </button>
         </div>
       )}
       {croppedData && (

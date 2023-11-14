@@ -213,139 +213,143 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
 
   return (
     <>
-      <h3 className={classes.Halfcircle + " text"}>
+      <h1
+        className={classes.Halfcircle + " text"}
+        style={{
+          marginBottom: "0px",
+          marginTop: "0px",
+          display: "block",
+          transform: "translate(0%, 50%)",
+          fontWeight: "bold",
+        }}
+      >
+        <br></br>
         {langValue.Profile_input}
-      </h3>
+      </h1>
       <div class={classes.BlueBack}>
+        {/* これは有効 */}
         <div class="centered-container">
-          <div>
-            <div class="text" className={classes.Halfcircle + " text"}>
-              <br></br>
-            </div>
-            <div className={classes.BlueBack}>
-              <Card sx={{ minWidth: 275, maxWidth: 300 }}>
-                <CardContent className={classes.WholeCard + " card_radius"}>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    className={classes.ovalTextField}
-                  >
-                    <br />
-                    <TextField
-                      label="Name"
-                      value={nameValue} //変数みたいな感じ。
-                      onChange={handleNameChange} //こっちは入力して変更したときのイベント
-                      error={errorNameMessage !== ""}
-                      helperText={errorNameMessage}
-                    />{" "}
-                    {/* 名前 */}
-                  </Typography>
-
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    <br />
-                    <TextField
-                      label={langValue.team}
-                      value={teamValue}
-                      onChange={handleTeamChange} //こっちは入力して変更したときのイベント
-                      error={errorTeamMessage !== ""}
-                      helperText={errorTeamMessage}
-                      className={classes.ovalTextField}
-                    />{" "}
-                    {/* チーム */}
-                  </Typography>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    <br />
-                    {/* その他 */}
-                    <TextField
-                      label={langValue.others}
-                      value={othersValue}
-                      onChange={handleOthersChange}
-                      error={errorOthersMessage !== ""}
-                      helperText={errorOthersMessage}
-                      className={classes.ovalTextField}
-                    />{" "}
-                  </Typography>
-
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {langValue.your_image}
-                    {/* 画像 */}
-                    <div className={classes.ChooseFile}>
-                      <ImageCropper
-                        fileData={fileData}
-                        setFileData={setFileData}
-                        croppedData={croppedData}
-                        setCroppedData={setCroppedData}
-                        langValue={langValue}
-                      />
-                    </div>
-                  </Typography>
-
+          <div className={classes.BlueBack}>
+            <Card sx={{ minWidth: 275, maxWidth: 300 }}>
+              <CardContent className={classes.WholeCard + " card_radius"}>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                  className={classes.ovalTextField}
+                >
                   <br />
+                  <TextField
+                    label="Name"
+                    value={nameValue} //変数みたいな感じ。
+                    onChange={handleNameChange} //こっちは入力して変更したときのイベント
+                    error={errorNameMessage !== ""}
+                    helperText={errorNameMessage}
+                  />{" "}
+                  {/* 名前 */}
+                </Typography>
 
-                  <CardActions className={classes.BlueButton}>
-                    <Button
-                      size="small"
-                      onClick={handleOpenSubmitDialog}
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  <br />
+                  <TextField
+                    label={langValue.team}
+                    value={teamValue}
+                    onChange={handleTeamChange} //こっちは入力して変更したときのイベント
+                    error={errorTeamMessage !== ""}
+                    helperText={errorTeamMessage}
+                    className={classes.ovalTextField}
+                  />{" "}
+                  {/* チーム */}
+                </Typography>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  <br />
+                  {/* その他 */}
+                  <TextField
+                    label={langValue.others}
+                    value={othersValue}
+                    onChange={handleOthersChange}
+                    error={errorOthersMessage !== ""}
+                    helperText={errorOthersMessage}
+                    className={classes.ovalTextField}
+                  />{" "}
+                </Typography>
+
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  {langValue.your_image}
+                  {/* 画像 */}
+                  <div className={classes.ChooseFile}>
+                    <ImageCropper
+                      fileData={fileData}
+                      setFileData={setFileData}
+                      croppedData={croppedData}
+                      setCroppedData={setCroppedData}
+                      langValue={langValue}
+                    />
+                  </div>
+                </Typography>
+
+                <br />
+
+                <CardActions className={classes.BlueButton}>
+                  <Button
+                    size="small"
+                    onClick={handleOpenSubmitDialog}
+                    style={{
+                      margin: "auto",
+                      width: "50%",
+                    }}
+                  >
+                    <div
+                      className={` ${
+                        fileData && !croppedData ? "SubmitGray" : ""
+                      }`}
                       style={{
-                        margin: "auto",
-                        width: "50%",
+                        color: "white",
+                        fontWeight: "bold",
                       }}
                     >
-                      <div
-                        className={` ${
-                          fileData && !croppedData ? "SubmitGray" : ""
-                        }`}
-                        style={{
-                          color: "white",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {langValue.submit}
-                      </div>
-                    </Button>
-                  </CardActions>
-                </CardContent>
-              </Card>
+                      {langValue.submit}
+                    </div>
+                  </Button>
+                </CardActions>
+              </CardContent>
+            </Card>
 
-              <h6
-                style={{
-                  color: "white",
-                }}
-              >
-                {langValue.Back}
-              </h6>
-            </div>
-
-            <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
-              <DialogTitle>{langValue.confirm}</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  {langValue.really_submit_question}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCloseSubmitDialog}>
-                  {langValue.cancel}
-                </Button>
-                <Button onClick={handleConfirmSubmit}>
-                  {langValue.submit}
-                </Button>
-              </DialogActions>
-            </Dialog>
+            <h6
+              style={{
+                color: "white",
+              }}
+            >
+              {langValue.Back}
+            </h6>
           </div>
+
+          <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
+            <DialogTitle>{langValue.confirm}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                {langValue.really_submit_question}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseSubmitDialog}>
+                {langValue.cancel}
+              </Button>
+              <Button onClick={handleConfirmSubmit}>{langValue.submit}</Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </div>
     </>

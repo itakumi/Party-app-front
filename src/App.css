@@ -17,16 +17,13 @@
 .text {
   text-align: center;
   font-weight: bold;
-  font-style: italic;
   color: white;
-  font-size: 18pt;
 }
 
 .bluetext {
   text-align: center;
   font-weight: bold;
-  font-style: italic;
-  color: #4169e1;
+  color: #6b68ff;
   font-size: 18pt;
 }
 
@@ -54,10 +51,6 @@
 
 .card_radius {
   border-radius: 10%;
-}
-
-.blueword {
-  color: #4169e1;
 }
 
 .round_shape {
@@ -113,7 +106,7 @@
   /* padding: 5px; */
   width: 80px; /* 半円の横幅 */
   height: 80px; /* 半円の高さ */
-  background-color: #4169e1; /* 半円の背景色 */
+  background-color: #6b68ff; /* 半円の背景色 */
   border-radius: 100%;
   font-weight: bold;
   color: white;
@@ -131,5 +124,5 @@
 .plus {
   top: 50%; /* テキストを垂直方向の中央に配置 */
   left: 50%; /* テキストを水平方向の中央に配置 */
-  transform: translate(-0%, -20%); /* 中央揃えの調整 */
+  transform: translate(20%, -15%); /* 中央揃えの調整 */
 }

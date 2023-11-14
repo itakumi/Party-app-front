@@ -22,20 +22,20 @@ const useStyles = makeStyles(() =>
     },
     BlueButton: {
       color: "white",
-      background: "#4169e1",
+      background: "#6b68ff",
     },
     WhiteButton: {
-      color: "#4169e1",
+      color: "#6b68ff",
       background: "white",
     },
     BlueBack: {
-      background: "#4169e1",
+      background: "#6b68ff",
       border: "none",
     },
     Halfcircle: {
       width: "100%" /* 半円の横幅 */,
       height: "100px" /* 半円の高さ */,
-      background: "#4169e1" /* 半円の背景色 */,
+      background: "#6b68ff" /* 半円の背景色 */,
       borderRadius: "50% 50% 0 0",
     },
   })
@@ -133,20 +133,24 @@ function MediaCard({ langValue, submitting }) {
   return (
     <>
       <div class="parent_button">
-        <button class="fixed_btn">
+        <a href="/Profile_Submit" class="fixed_btn">
+          {" "}
           <p class="plus">+</p>
-        </button>
+        </a>
+        {/* <button class="fixed_btn">
+        
+        </button> */}
       </div>
 
       <div class="bluetext">
         <br></br>
-        <Text text={langValue.greeting} />
-        <Text text={langValue.inputprofile} />
+        <h4 style={{ fontWeight: "bold" }}>{langValue.greeting} </h4>
+        <h4 style={{ fontWeight: "bold" }}>{langValue.inputprofile} </h4>
         <br></br>
       </div>
-      <div class="text" className={classes.Halfcircle + " text"}>
+      <div className={classes.Halfcircle + " text"}>
         <br></br>
-        <Text text={langValue.profiles} />
+        <h1 style={{ fontWeight: "bold" }}>{langValue.profiles} </h1>
       </div>
       <div>
         {loading ? (

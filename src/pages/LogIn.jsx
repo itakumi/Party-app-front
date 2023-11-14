@@ -224,7 +224,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                         fontWeight: "bold",
                       }}
                     >
-                      {langValue.Sign_up}
+                      {langValue.Log_in}
                     </div>
                   </Button>
                 </CardActions>
@@ -251,7 +251,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                         fontWeight: "bold",
                       }}
                     >
-                      {langValue.Log_in}
+                      {langValue.Sign_up}
                     </div>
                   </Button>
                 </CardActions>
