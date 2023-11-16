@@ -11,6 +11,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { createStyles } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
@@ -58,6 +59,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
   const [mailValue, setMailValue] = useState("");
   const [passValue, setPassValue] = useState("");
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   const classes = useStyles();
 
@@ -70,7 +72,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
     };
 
     // PythonバックエンドのURLを指定
-    const backendURL = "http://localhost:5000/backend"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL = "http://localhost:5000/SignUp"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
@@ -131,7 +133,11 @@ export const SignUp = ({ langValue, setSubmitting }) => {
   const handleOpenSubmitDialog = () => {
     if (usernameValue != 0 && mailValue.length != 0 && passValue.length != 0) {
       //各textfieldに何かしら入力があった時の処理
-      if (usernameValue.match(/\S/g) === null || mailValue.match(/\S/g) === null || passValue.match(/\S/g) === null) {
+      if (
+        usernameValue.match(/\S/g) === null ||
+        mailValue.match(/\S/g) === null ||
+        passValue.match(/\S/g) === null
+      ) {
         // 空白のみの入力があった場合
         window.alert(langValue.donot_input_blankonly);
       } else {
@@ -141,7 +147,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
           setIsSubmitDialogOpen(true);
         } else {
           //　文字数制限でアウトだった場合
-          window.alert(langValue.input_too_long);
+          window.alert(langValue.input_too_short);
         }
       }
     } else {
@@ -267,8 +273,8 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                   className={classes.WhiteButton + " center-card-text"}
                 >
                   <Button
+                    onClick={() => (document.location = "/")}
                     size="small"
-                    onClick={handleOpenSubmitDialog}
                     style={{
                       margin: "auto",
                       width: "50%",
@@ -284,6 +290,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                       {langValue.Log_in}
                     </div>
                   </Button>
+                  {/* </Link> */}
                 </CardActions>
               </CardContent>
             </Card>

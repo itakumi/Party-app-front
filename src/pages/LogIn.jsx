@@ -68,7 +68,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
     };
 
     // PythonバックエンドのURLを指定
-    const backendURL = "http://localhost:5000/backend"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL = "http://localhost:5000/LogIn"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
@@ -128,7 +128,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
           setIsSubmitDialogOpen(true);
         } else {
           //　文字数制限でアウトだった場合
-          window.alert(langValue.input_too_long);
+          window.alert(langValue.input_too_short);
         }
       }
     } else {
@@ -238,7 +238,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                 >
                   <Button
                     size="small"
-                    onClick={handleOpenSubmitDialog}
+                    onClick={() => (document.location = "/SignUp")}
                     style={{
                       margin: "auto",
                       width: "50%",

@@ -18,6 +18,7 @@ export const langdata = {
     submit_complete: "Registration complete! Reloading...",
     submit_fail: "Registration failed.",
     input_too_long: "Input is too long.",
+    input_too_short: "Input is too short.",
     input_all: "Please fill in all fields.",
     mandatory: "Required",
     please_input_30: "Please enter within 30 characters.",

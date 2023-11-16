@@ -138,7 +138,6 @@ function MediaCard({ langValue, submitting }) {
           <p class="plus">+</p>
         </a>
         {/* <button class="fixed_btn">
-        
         </button> */}
       </div>
 

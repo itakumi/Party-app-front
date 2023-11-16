@@ -13,7 +13,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "cropperjs": "^1.6.0",
+    "cropperjs": "^1.6.1",
+    "package_name": "^1.0.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-cropper": "^2.3.3",
@@ -22,7 +23,7 @@
     "react-image-crop": "^10.1.8",
     "react-loading": "^2.0.3",
     "react-native-image-base64": "^0.1.4",
-    "react-router-dom": "^6.16.0",
+    "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.8",
     "web-vitals": "^2.1.4"
