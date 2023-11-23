@@ -17,303 +17,303 @@ import { createStyles } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() =>
-  createStyles({
-    WholeCard: {
-      color: "black",
-      background: "#fafad2",
-    },
-    BlueButton: {
-      color: "white",
-      background: "#6b68ff",
-      // borderRadius: "40%",
-      borderRadius: "40px 40px",
-    },
-    WhiteButton: {
-      color: "#6b68ff",
-      background: "white",
-      borderRadius: "40px 40px",
-      border: "1px solid #6b68ff",
-    },
-    BlueBack: {
-      background: "#6b68ff",
-      height: "50%",
-    },
-    // textField: { [`& fieldset`]: { borderRadius: "40% 40% 40% 40%" } },
-    ovalTextField: {
-      "& .MuiOutlinedInput-root": { borderRadius: "40px 40px" },
-      // borderRadius: "40px 40px"
-      // background: "red",
-    },
+	createStyles({
+		WholeCard: {
+			color: "black",
+			background: "#fafad2",
+		},
+		BlueButton: {
+			color: "white",
+			background: "#6b68ff",
+			// borderRadius: "40%",
+			borderRadius: "40px 40px",
+		},
+		WhiteButton: {
+			color: "#6b68ff",
+			background: "white",
+			borderRadius: "40px 40px",
+			border: "1px solid #6b68ff",
+		},
+		BlueBack: {
+			background: "#6b68ff",
+			height: "50%",
+		},
+		// textField: { [`& fieldset`]: { borderRadius: "40% 40% 40% 40%" } },
+		ovalTextField: {
+			"& .MuiOutlinedInput-root": { borderRadius: "40px 40px" },
+			// borderRadius: "40px 40px"
+			// background: "red",
+		},
 
-    UnderHalfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "50vh" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      borderRadius: "0 0 25% 25%",
-    },
-  })
+		UnderHalfcircle: {
+			width: "100%" /* 半円の横幅 */,
+			height: "50vh" /* 半円の高さ */,
+			background: "#6b68ff" /* 半円の背景色 */,
+			borderRadius: "0 0 25% 25%",
+		},
+	})
 );
 
 export const SignUp = ({ langValue, setSubmitting }) => {
-  const [usernameValue, setUsernameValue] = useState("");
-  const [mailValue, setMailValue] = useState("");
-  const [passValue, setPassValue] = useState("");
-  const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
-  const navigate = useNavigate();
+	const [usernameValue, setUsernameValue] = useState("");
+	const [mailValue, setMailValue] = useState("");
+	const [passValue, setPassValue] = useState("");
+	const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
+	const navigate = useNavigate();
 
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const handleSubmit = () => {
-    // データをJSON形式に整形
-    const postData = {
-      username: usernameValue,
-      mail: mailValue,
-      pass: passValue,
-    };
+	const handleSubmit = () => {
+		// データをJSON形式に整形
+		const postData = {
+			username: usernameValue,
+			mail: mailValue,
+			pass: passValue,
+		};
 
-    // PythonバックエンドのURLを指定
-    const backendURL = "http://localhost:5000/SignUp"; // あなたのバックエンドのURLに置き換えてください
+		// PythonバックエンドのURLを指定
+		const backendURL = "http://localhost:5000/SignUp"; // あなたのバックエンドのURLに置き換えてください
 
-    // データをPOSTリクエストで送信
-    fetch(backendURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // レスポンスを処理するコードをここに追加
-        console.log(data);
-        setSubmitting(false);
-        window.alert(langValue.submit_complete);
-        window.location.reload();
-      })
-      .catch((error) => {
-        // エラーハンドリングを行うコードをここに追加
-        console.error("Error:", error);
-        window.alert(langValue.submit_fail);
-      });
-  };
+		// データをPOSTリクエストで送信
+		fetch(backendURL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(postData),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				// レスポンスを処理するコードをここに追加
+				console.log(data);
+				setSubmitting(false);
+				window.alert(langValue.submit_complete);
+				window.location.reload();
+			})
+			.catch((error) => {
+				// エラーハンドリングを行うコードをここに追加
+				console.error("Error:", error);
+				window.alert(langValue.submit_fail);
+			});
+	};
 
-  const handleUsernameChange = (event) => {
-    const inputValue = event.target.value;
-    setUsernameValue(inputValue);
+	const handleUsernameChange = (event) => {
+		const inputValue = event.target.value;
+		setUsernameValue(inputValue);
 
-    // if (inputValue.length <= 30) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
-  };
+		// if (inputValue.length <= 30) {
+		//   setErrorNameMessage("");
+		// } else {
+		//   setErrorNameMessage(langValue.please_input_30);
+		// }
+	};
 
-  const handleMailChange = (event) => {
-    const inputValue = event.target.value;
-    setMailValue(inputValue);
+	const handleMailChange = (event) => {
+		const inputValue = event.target.value;
+		setMailValue(inputValue);
 
-    // if (inputValue.length <= 30) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
-  };
+		// if (inputValue.length <= 30) {
+		//   setErrorNameMessage("");
+		// } else {
+		//   setErrorNameMessage(langValue.please_input_30);
+		// }
+	};
 
-  const handlePassChange = (event) => {
-    const inputValue = event.target.value;
-    setPassValue(inputValue);
+	const handlePassChange = (event) => {
+		const inputValue = event.target.value;
+		setPassValue(inputValue);
 
-    // if (inputValue.length >= 8) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
-  };
+		// if (inputValue.length >= 8) {
+		//   setErrorNameMessage("");
+		// } else {
+		//   setErrorNameMessage(langValue.please_input_30);
+		// }
+	};
 
-  const handleOpenSubmitDialog = () => {
-    if (usernameValue != 0 && mailValue.length != 0 && passValue.length != 0) {
-      //各textfieldに何かしら入力があった時の処理
-      if (
-        usernameValue.match(/\S/g) === null ||
-        mailValue.match(/\S/g) === null ||
-        passValue.match(/\S/g) === null
-      ) {
-        // 空白のみの入力があった場合
-        window.alert(langValue.donot_input_blankonly);
-      } else {
-        //空白のみの入力がなかった場合
-        if (passValue.length >= 8) {
-          // 文字数制限で合格した場合
-          setIsSubmitDialogOpen(true);
-        } else {
-          //　文字数制限でアウトだった場合
-          window.alert(langValue.input_too_short);
-        }
-      }
-    } else {
-      // 入力されていないtextfieldがある場合の処理
-      window.alert(langValue.input_all);
-      if (usernameValue.length == 0) {
-        // setErrorNameMessage(langValue.mandatory);
-      }
-      if (mailValue.length == 0) {
-        // setErrorNameMessage(langValue.mandatory);
-      }
-      if (passValue.length == 0) {
-        // setErrorTeamMessage(langValue.mandatory);
-      }
-    }
-  };
+	const handleOpenSubmitDialog = () => {
+		if (usernameValue != 0 && mailValue.length != 0 && passValue.length != 0) {
+			//各textfieldに何かしら入力があった時の処理
+			if (
+				usernameValue.match(/\S/g) === null ||
+				mailValue.match(/\S/g) === null ||
+				passValue.match(/\S/g) === null
+			) {
+				// 空白のみの入力があった場合
+				window.alert(langValue.donot_input_blankonly);
+			} else {
+				//空白のみの入力がなかった場合
+				if (passValue.length >= 8) {
+					// 文字数制限で合格した場合
+					setIsSubmitDialogOpen(true);
+				} else {
+					//　文字数制限でアウトだった場合
+					window.alert(langValue.input_too_short);
+				}
+			}
+		} else {
+			// 入力されていないtextfieldがある場合の処理
+			window.alert(langValue.input_all);
+			if (usernameValue.length == 0) {
+				// setErrorNameMessage(langValue.mandatory);
+			}
+			if (mailValue.length == 0) {
+				// setErrorNameMessage(langValue.mandatory);
+			}
+			if (passValue.length == 0) {
+				// setErrorTeamMessage(langValue.mandatory);
+			}
+		}
+	};
 
-  const handleConfirmSubmit = () => {
-    // ボタンがクリックされたときの処理をここに記述
-    // たとえば、フォームの送信処理を行う
+	const handleConfirmSubmit = () => {
+		// ボタンがクリックされたときの処理をここに記述
+		// たとえば、フォームの送信処理を行う
 
-    handleSubmit();
+		handleSubmit();
 
-    // ポップアップを閉じる
-    setIsSubmitDialogOpen(false);
-    setSubmitting(true); //送信中のポップアップを表示するためtrueにする
-  };
+		// ポップアップを閉じる
+		setIsSubmitDialogOpen(false);
+		setSubmitting(true); //送信中のポップアップを表示するためtrueにする
+	};
 
-  const handleCloseSubmitDialog = () => {
-    setIsSubmitDialogOpen(false);
-  };
+	const handleCloseSubmitDialog = () => {
+		setIsSubmitDialogOpen(false);
+	};
 
-  return (
-    <>
-      <div className={classes.UnderHalfcircle}>
-        <h1 class="page_title">Party App</h1>
-        <div className="centered-container">
-          <div class="card_radius">
-            <Card sx={{ minWidth: 275, maxWidth: 300 }} class="card_radius">
-              {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
-              <CardContent className={classes.WholeCard + " card_radius"}>
-                <h3 class="center-card-text">{langValue.Sign_up}</h3>
+	return (
+		<>
+			<div className={classes.UnderHalfcircle}>
+				<h1 class="page_title">Party App</h1>
+				<div className="centered-container">
+					<div class="card_radius">
+						<Card sx={{ minWidth: 275, maxWidth: 300 }} class="card_radius">
+							{/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
+							<CardContent className={classes.WholeCard + " card_radius"}>
+								<h3 class="center-card-text">{langValue.Sign_up}</h3>
 
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  className={classes.ovalTextField}
-                >
-                  <TextField
-                    label={langValue.User_name}
-                    value={usernameValue} //変数みたいな感じ。
-                    onChange={handleUsernameChange}
-                    // className="round_shape"
-                    // error={errorNameMessage !== ""}
-                    // helperText={errorNameMessage}
-                  />
-                  {/* user name */}
-                </Typography>
+								<Typography
+									sx={{ fontSize: 14 }}
+									color="text.secondary"
+									gutterBottom
+									className={classes.ovalTextField}
+								>
+									<TextField
+										label={langValue.User_name}
+										value={usernameValue} //変数みたいな感じ。
+										onChange={handleUsernameChange}
+										// className="round_shape"
+										// error={errorNameMessage !== ""}
+										// helperText={errorNameMessage}
+									/>
+									{/* user name */}
+								</Typography>
 
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  className={classes.ovalTextField}
-                >
-                  <br />
-                  <TextField
-                    label={langValue.Email_address}
-                    value={mailValue}
-                    onChange={handleMailChange}
-                    // error={errorTeamMessage !== ""}
-                    // helperText={errorTeamMessage}
-                  />{" "}
-                  {/* Password */}
-                </Typography>
+								<Typography
+									sx={{ fontSize: 14 }}
+									color="text.secondary"
+									gutterBottom
+									className={classes.ovalTextField}
+								>
+									<br />
+									<TextField
+										label={langValue.Email_address}
+										value={mailValue}
+										onChange={handleMailChange}
+										// error={errorTeamMessage !== ""}
+										// helperText={errorTeamMessage}
+									/>{" "}
+									{/* Password */}
+								</Typography>
 
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  className={classes.ovalTextField}
-                >
-                  <br />
-                  <TextField
-                    label={langValue.Password}
-                    value={passValue}
-                    onChange={handlePassChange}
-                    // error={errorTeamMessage !== ""}
-                    // helperText={errorTeamMessage}
-                  />{" "}
-                  {/* Password */}
-                </Typography>
+								<Typography
+									sx={{ fontSize: 14 }}
+									color="text.secondary"
+									gutterBottom
+									className={classes.ovalTextField}
+								>
+									<br />
+									<TextField
+										label={langValue.Password}
+										value={passValue}
+										onChange={handlePassChange}
+										// error={errorTeamMessage !== ""}
+										// helperText={errorTeamMessage}
+									/>{" "}
+									{/* Password */}
+								</Typography>
 
-                <br />
-                <br />
+								<br />
+								<br />
 
-                <CardActions className={classes.BlueButton}>
-                  <Button
-                    size="small"
-                    onClick={handleOpenSubmitDialog}
-                    style={{
-                      margin: "auto",
-                      width: "50%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        color: "white",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {langValue.Sign_up}
-                    </div>
-                  </Button>
-                </CardActions>
+								<CardActions className={classes.BlueButton}>
+									<Button
+										size="small"
+										onClick={handleOpenSubmitDialog}
+										style={{
+											margin: "auto",
+											width: "50%",
+										}}
+									>
+										<div
+											style={{
+												color: "white",
+												fontWeight: "bold",
+											}}
+										>
+											{langValue.Sign_up}
+										</div>
+									</Button>
+								</CardActions>
 
-                <div className={classes.WholeCard + " center-card-text"}>
-                  {langValue.or}
-                </div>
+								<div className={classes.WholeCard + " center-card-text"}>
+									{langValue.or}
+								</div>
 
-                <CardActions
-                  className={classes.WhiteButton + " center-card-text"}
-                >
-                  <Button
-                    onClick={() => (document.location = "/")}
-                    size="small"
-                    style={{
-                      margin: "auto",
-                      width: "50%",
-                    }}
-                    className={classes.ovalTextField + " center-card-text"}
-                  >
-                    <div
-                      style={{
-                        color: "#6b68ff",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {langValue.Log_in}
-                    </div>
-                  </Button>
-                  {/* </Link> */}
-                </CardActions>
-              </CardContent>
-            </Card>
+								<CardActions
+									className={classes.WhiteButton + " center-card-text"}
+								>
+									<Button
+										onClick={() => (document.location = "/")}
+										size="small"
+										style={{
+											margin: "auto",
+											width: "50%",
+										}}
+										className={classes.ovalTextField + " center-card-text"}
+									>
+										<div
+											style={{
+												color: "#6b68ff",
+												fontWeight: "bold",
+											}}
+										>
+											{langValue.Log_in}
+										</div>
+									</Button>
+									{/* </Link> */}
+								</CardActions>
+							</CardContent>
+						</Card>
 
-            <Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
-              <DialogTitle>{langValue.confirm}</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  {langValue.really_submit_question}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCloseSubmitDialog}>
-                  {langValue.cancel}
-                </Button>
-                <Button onClick={handleConfirmSubmit}>
-                  {langValue.submit}
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+						<Dialog open={isSubmitDialogOpen} onClose={handleCloseSubmitDialog}>
+							<DialogTitle>{langValue.confirm}</DialogTitle>
+							<DialogContent>
+								<DialogContentText>
+									{langValue.really_submit_question}
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={handleCloseSubmitDialog}>
+									{langValue.cancel}
+								</Button>
+								<Button onClick={handleConfirmSubmit}>
+									{langValue.submit}
+								</Button>
+							</DialogActions>
+						</Dialog>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
