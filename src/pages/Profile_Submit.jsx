@@ -18,6 +18,7 @@ import { createStyles } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { NeedLogin } from "../components/NeedLogin";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -64,10 +65,13 @@ const useStyles = makeStyles(() =>
 );
 
 export default function Profile_Submit({ langValue, setSubmitting }) {
-  const [nameValue, setNameValue] = useState("");
-  const [teamValue, setTeamValue] = useState("");
-  const [othersValue, setOthersValue] = useState("");
-  const [fileData, setFileData] = useState(null); // ファイルデータを保持するステート
+  const location = useLocation();
+  const myinfo = location.state;
+
+  const [nameValue, setNameValue] = useState(myinfo ? myinfo.name : "");
+  const [teamValue, setTeamValue] = useState(myinfo ? myinfo.team : "");
+  const [othersValue, setOthersValue] = useState(myinfo ? myinfo.others : "");
+  const [fileData, setFileData] = useState(myinfo ? myinfo.fileData : ""); // ファイルデータを保持するステート
   const [croppedData, setCroppedData] = useState(null);
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
   const [errorNameMessage, setErrorNameMessage] = useState("");
@@ -357,14 +361,16 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
                     </CardActions>
                   </CardContent>
                 </Card>
-
-                <h6
-                  style={{
-                    color: "white",
-                  }}
-                >
-                  {langValue.Back}
-                </h6>
+                <a href="/Profiles">
+                  {/* 遷移してくれる */}
+                  <h6
+                    style={{
+                      color: "white",
+                    }}
+                  >
+                    {langValue.Back}
+                  </h6>
+                </a>
               </div>
 
               <Dialog

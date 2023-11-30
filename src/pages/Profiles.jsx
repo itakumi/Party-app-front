@@ -15,6 +15,7 @@ import { createStyles } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { NeedLogin } from "../components/NeedLogin";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -55,6 +56,7 @@ function MediaCard({ langValue, submitting }) {
 
   const classes = useStyles();
   console.log(cookies);
+  const navigate = useNavigate();
 
   // サーバーからJSONデータを取得する関数
   // const fetchData = async () => {
@@ -175,6 +177,28 @@ function MediaCard({ langValue, submitting }) {
     return text.length > maxCharacters ? text.slice(0, maxCharacters) : text;
   };
 
+  const handleEdit = () => {
+    // 編集ボタン押されたときに値をsabmitに渡す
+    jsonData.map((profile) => console.log(profile));
+    // const filteredData = jsonData.filter(profile => profile.age >= 30);
+    // navigate("/Profile_Submit", { state: index});
+    // cookie 探す自分見つける
+    const filteredData = jsonData.filter(
+      (profile) => profile.id === cookies["session"]["id"]
+    );
+    console.log(filteredData);
+    // 自分の情報から、name、team、others、写真を持ってきて、Json形式にしてstate:にいれる
+    console.log(filteredData[0].name);
+    navigate("/Profile_Submit", {
+      state: {
+        name: filteredData[0].name,
+        team: filteredData[0].team,
+        others: filteredData[0].others,
+        fileData: filteredData[0].fileData,
+      },
+    });
+  };
+
   console.log(jsonData);
 
   return (
@@ -182,9 +206,11 @@ function MediaCard({ langValue, submitting }) {
       {cookies["session"] ? (
         <>
           <div class="parent_button">
-            <a href="/Profile_Submit" class="fixed_btn">
-              <p class="plus">🖊️</p>
-            </a>
+            {/* <a href="/Profile_Submit" class="fixed_btn" > */}
+            <p class="plus fixed_btn" onClick={handleEdit}>
+              🖊️
+            </p>
+            {/* </a> */}
             {/* <button class="fixed_btn">
         </button> */}
           </div>
