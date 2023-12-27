@@ -104,6 +104,10 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
     // PythonバックエンドのURLを指定
     const backendURL = process.env.REACT_APP_BACKEND_ENTRYPOINT + "/backend"; // あなたのバックエンドのURLに置き換えてください
 
+    //SubmitしたタイミングでCookieのteamをprofileに記入したteamにセットし直す。
+    //全部[name]: [name]みたいに値をセットするのは面倒くさいので、以下の書き方でteamだけ変更する。
+    setCookie("session", { ...cookies["session"], team: teamValue });
+
     console.log("SUbmit the following data");
     console.log(postData);
     // データをPOSTリクエストで送信

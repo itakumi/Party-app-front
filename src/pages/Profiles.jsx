@@ -8,7 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import { useEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactLoading from "react-loading";
 import Text from "../components/Text";
 import { createStyles } from "@mui/material/styles";
@@ -49,14 +49,35 @@ function MediaCard({ langValue, submitting }) {
   const [jsonData, setJsonData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isUserDeleteDialogOpen, setIsUserDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showAllOthers, setShowAllOthers] = useState(false);
   const [showFullText, setShowFullText] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef();
 
   const classes = useStyles();
   console.log(cookies);
   const navigate = useNavigate();
+
+  // メニュー外をクリックしたらメニューを非表示にする
+  const handleOutsideClick = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mouseup", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mouseup", handleOutsideClick);
+    };
+  }, []);
+
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
   // サーバーからJSONデータを取得する関数
   // const fetchData = async () => {
@@ -98,9 +119,21 @@ function MediaCard({ langValue, submitting }) {
       const postData = {
         team: cookies["session"]["team"],
       };
+      if (cookies["session"]["team"] == null) {
+        setLoading(false);
+        return;
+      }
+      // team自体が無いということはユーザーのteamを追加していないということですので、profileに何も表示しません
       try {
         const response = await fetch(
-          process.env.REACT_APP_BACKEND_ENTRYPOINT + "/get_json_data"
+          process.env.REACT_APP_BACKEND_ENTRYPOINT + "/get_my_team",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postData),
+          }
         );
         const data = await response.json();
         setJsonData(data); // JSONデータをステートに設定
@@ -118,19 +151,67 @@ function MediaCard({ langValue, submitting }) {
     fetchData(); // データを取得する関数を実行
   }, []); //［］なら最初だけ実行する
 
+  //Profileの方のDelete
   const handleDelete = (itemId) => {
     setItemToDelete(itemId);
     setIsDeleteDialogOpen(true);
   };
 
-  const deleteItem = (id) => {
+  const handleUserDelete = (itemId) => {
+    console.log("sfdaadfadfsafsdaf");
+    setItemToDelete(itemId);
+    setIsUserDeleteDialogOpen(true);
+  };
+
+  //User削除
+  const deleteUser = (id) => {
     console.log(id);
 
     const postData = {
       id: id,
     };
     // PythonバックエンドのURLを指定
-    const backendURL = process.env.REACT_APP_BACKEND_ENTRYPOINT + "/delete"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL =
+      process.env.REACT_APP_BACKEND_ENTRYPOINT + "/delete_user"; // あなたのバックエンドのURLに置き換えてください
+
+    // データをPOSTリクエストで送信
+    fetch(backendURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // レスポンスを処理するコードをここに追加
+        console.log(data);
+        fetchData();
+        window.alert(langValue.delete_complete);
+        // window.location.reload();
+        removeCookie("session");
+        document.location = "/";
+      })
+      .catch((error) => {
+        // エラーハンドリングを行うコードをここに追加
+        console.error("Error:", error);
+        // window.alert("削除できませんでした");
+      });
+
+    // 削除が完了したらダイアログを閉じる
+    setIsUserDeleteDialogOpen(false);
+  };
+
+  //Profileを削除
+  const deleteProfile = (id) => {
+    console.log(id);
+
+    const postData = {
+      id: id,
+    };
+    // PythonバックエンドのURLを指定
+    const backendURL =
+      process.env.REACT_APP_BACKEND_ENTRYPOINT + "/delete_profile"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
@@ -161,12 +242,23 @@ function MediaCard({ langValue, submitting }) {
   const confirmDelete = () => {
     // 実際の削除処理を行う
     // itemToDelete を使用してカードを削除するコードをここに追加
-    deleteItem(itemToDelete);
+    deleteProfile(itemToDelete);
   };
 
   const cancelDelete = () => {
     // 削除をキャンセルした場合、ダイアログを閉じる
     setIsDeleteDialogOpen(false);
+  };
+
+  const confirmUserDelete = () => {
+    // 実際の削除処理を行う
+    // itemToDelete を使用してカードを削除するコードをここに追加
+    deleteUser(itemToDelete);
+  };
+
+  const cancelUserDelete = () => {
+    // 削除をキャンセルした場合、ダイアログを閉じる
+    setIsUserDeleteDialogOpen(false);
   };
 
   // 表示するテキストの最大文字数
@@ -188,15 +280,18 @@ function MediaCard({ langValue, submitting }) {
     );
     console.log(filteredData);
     // 自分の情報から、name、team、others、写真を持ってきて、Json形式にしてstate:にいれる
-    console.log(filteredData[0].name);
-    navigate("/Profile_Submit", {
-      state: {
-        name: filteredData[0].name,
-        team: filteredData[0].team,
-        others: filteredData[0].others,
-        fileData: filteredData[0].fileData,
-      },
-    });
+    if (filteredData.length !== 0) {
+      navigate("/Profile_Submit", {
+        state: {
+          name: filteredData[0].name,
+          team: filteredData[0].team,
+          others: filteredData[0].others,
+          fileData: filteredData[0].fileData,
+        },
+      });
+    } else {
+      document.location = "/Profile_Submit";
+    }
   };
 
   console.log(jsonData);
@@ -216,9 +311,44 @@ function MediaCard({ langValue, submitting }) {
           </div>
           <div className="d-flex">
             <p style={{ marginRight: "10px" }} class="User_Name">
-              User: {cookies["session"]["username"]}
+              <button onClick={toggleMenu}>
+                User: {cookies["session"]["username"]}
+              </button>
+              {isMenuOpen && (
+                <div
+                  ref={menuRef}
+                  style={{
+                    display: "block",
+                    position: "absolute",
+                    backgroundColor: "#f9f9f9",
+                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+                    zIndex: 1,
+                  }}
+                  className="menu"
+                >
+                  <a
+                    href="#"
+                    onClick={() => {
+                      removeCookie("session");
+                      document.location = "/";
+                    }}
+                  >
+                    {langValue.Log_out}
+                  </a>
+                  <br />
+                  <a
+                    href="#"
+                    style={{ color: "#ff5050" }}
+                    onClick={() => {
+                      handleUserDelete(cookies["session"]["id"]);
+                    }}
+                  >
+                    {langValue.delete_user}
+                  </a>
+                </div>
+              )}
             </p>
-            <p
+            {/* <p
               style={{
                 cursor: "pointer",
                 color: "#6b68ff",
@@ -231,7 +361,7 @@ function MediaCard({ langValue, submitting }) {
               }}
             >
               {langValue.Log_out}
-            </p>
+            </p> */}
           </div>
           <div class="bluetext">
             <br></br>
@@ -413,7 +543,32 @@ function MediaCard({ langValue, submitting }) {
                         )}
                       </Card>
 
-                      {/* 削除確認ダイアログ */}
+                      {/* ここから始めてください！！！！！！ 中身はprofileコピーしただけです！！User削除ダイアログ作成、deleteProfileを使っていい感じにやってください*/}
+                      {/* User削除確認ダイアログ */}
+                      <Dialog
+                        open={isUserDeleteDialogOpen}
+                        onClose={cancelUserDelete}
+                      >
+                        <DialogTitle>
+                          {langValue.delete_confirmation}
+                        </DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                            {langValue.really_delete_question}
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={cancelUserDelete} color="primary">
+                            {langValue.no}
+                          </Button>
+                          <Button onClick={confirmUserDelete} color="primary">
+                            {langValue.yes}
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                      {/* ここまでです */}
+
+                      {/* Profile削除確認ダイアログ */}
                       <Dialog open={isDeleteDialogOpen} onClose={cancelDelete}>
                         <DialogTitle>
                           {langValue.delete_confirmation}

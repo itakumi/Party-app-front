@@ -171,6 +171,27 @@
   height: 22px; /* 半円の高さ */
   transform: translate(500%, -1100%); /* 中央揃えの調整 */
 }
+.menu {
+  display: block;
+  position: absolute;
+  color: #6b68ff;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 3px;
+  text-align: left; /* 左揃えにするスタイルを追加 */
+}
+
+.menu a {
+  text-decoration: none;
+  color: #6b68ff;
+  display: block; /* ブロック要素にすることで横幅いっぱいに表示されるようにする */
+  padding: 0px 0; /* 上下に余白を追加 */
+}
+
+.menu a:hover {
+  background-color: #ddd;
+}
 
 .minus {
   top: 50%; /* テキストを垂直方向の中央に配置 */

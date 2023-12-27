@@ -35,6 +35,7 @@ export const langdata = {
     yes: "Yes",
     no: "No",
     delete_complete: "Deleted! Reloading!",
+    delete_user: "Delete user",
     donot_input_blankonly: "Blank input is not allowed",
     submitting: "Submitting",
     forget_pass: "Forget Password?",
