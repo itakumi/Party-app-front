@@ -109,7 +109,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
           if (data["user"]) {
             setCookie("session", data["user"]);
             window.alert(langValue.submit_complete);
-            // document.location = "/Profiles";
+            document.location = "/Profiles";
           } else {
             window.alert(langValue.Login_fail);
           }

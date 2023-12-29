@@ -1,7 +1,7 @@
 export const langdata = {
   English: {
     lang: "English",
-    greeting: "Welcome, QA Team!",
+    greeting: "Welcome, ",
     inputprofile: "Please input your profile.",
     name_nickname: "Name / Nickname",
     name_rule_error: "Invalid name format.",

@@ -16,6 +16,9 @@ import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { NeedLogin } from "../components/NeedLogin";
 import { useNavigate } from "react-router-dom";
+//jsonをダウンロードできる機能追加
+
+// 「部屋（イベント名）を作成して、それと一対のパスワードを決める。それをみんなに伝えれば入れる方式。」
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -158,8 +161,9 @@ function MediaCard({ langValue, submitting }) {
   };
 
   const handleUserDelete = (itemId) => {
-    console.log("sfdaadfadfsafsdaf");
+    console.log(itemId + "を削除");
     setItemToDelete(itemId);
+    console.log("Dialog表示");
     setIsUserDeleteDialogOpen(true);
   };
 
@@ -227,7 +231,12 @@ function MediaCard({ langValue, submitting }) {
         console.log(data);
         fetchData();
         window.alert(langValue.delete_complete);
-        // window.location.reload();
+        const updatedUser = { ...cookies["session"] };
+        delete updatedUser.team;
+        console.log("updatedUserは");
+        console.log(updatedUser);
+        setCookie("session", updatedUser);
+        window.location.reload();
       })
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
@@ -348,6 +357,23 @@ function MediaCard({ langValue, submitting }) {
                 </div>
               )}
             </p>
+            {/* User削除確認ダイアログ */}
+            <Dialog open={isUserDeleteDialogOpen} onClose={cancelUserDelete}>
+              <DialogTitle>User Delete Comfirmation</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  {langValue.really_delete_question}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={cancelUserDelete} color="primary">
+                  {langValue.no}
+                </Button>
+                <Button onClick={confirmUserDelete} color="primary">
+                  {langValue.yes}
+                </Button>
+              </DialogActions>
+            </Dialog>
             {/* <p
               style={{
                 cursor: "pointer",
@@ -365,7 +391,12 @@ function MediaCard({ langValue, submitting }) {
           </div>
           <div class="bluetext">
             <br></br>
-            <h4 style={{ fontWeight: "bold" }}>{langValue.greeting} </h4>
+            <h4 style={{ fontWeight: "bold" }}>
+              {langValue.greeting +
+                (cookies["session"]["team"] !== null
+                  ? cookies["session"]["team"] + " Team!"
+                  : "Party App!")}
+            </h4>
             <h4 style={{ fontWeight: "bold" }}>{langValue.inputprofile} </h4>
             <br></br>
           </div>
@@ -542,31 +573,6 @@ function MediaCard({ langValue, submitting }) {
                           ""
                         )}
                       </Card>
-
-                      {/* ここから始めてください！！！！！！ 中身はprofileコピーしただけです！！User削除ダイアログ作成、deleteProfileを使っていい感じにやってください*/}
-                      {/* User削除確認ダイアログ */}
-                      <Dialog
-                        open={isUserDeleteDialogOpen}
-                        onClose={cancelUserDelete}
-                      >
-                        <DialogTitle>
-                          {langValue.delete_confirmation}
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            {langValue.really_delete_question}
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={cancelUserDelete} color="primary">
-                            {langValue.no}
-                          </Button>
-                          <Button onClick={confirmUserDelete} color="primary">
-                            {langValue.yes}
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-                      {/* ここまでです */}
 
                       {/* Profile削除確認ダイアログ */}
                       <Dialog open={isDeleteDialogOpen} onClose={cancelDelete}>
