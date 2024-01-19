@@ -10,43 +10,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import { useState, useRef, useEffect } from "react";
 import ReactLoading from "react-loading";
-import Text from "../components/Text";
-import { createStyles } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { NeedLogin } from "../components/NeedLogin";
 import { useNavigate } from "react-router-dom";
+import styles from "./Profiles.module.css";
+
 //jsonをダウンロードできる機能追加
 
 // 「部屋（イベント名）を作成して、それと一対のパスワードを決める。それをみんなに伝えれば入れる方式。」
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    WholeCard: {
-      color: "black",
-      backgroundColor: "#ffffe0",
-    },
-    BlueButton: {
-      color: "white",
-      background: "#6b68ff",
-    },
-    WhiteButton: {
-      color: "#6b68ff",
-      background: "white",
-    },
-    BlueBack: {
-      background: "#6b68ff",
-      border: "none",
-    },
-    Halfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "100px" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      // borderRadius: "50% 50% 0 0",
-      clipPath: "ellipse(50% 100% at 50% 100%)",
-    },
-  })
-);
 
 function MediaCard({ langValue, submitting }) {
   const [jsonData, setJsonData] = useState([]);
@@ -54,13 +25,11 @@ function MediaCard({ langValue, submitting }) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isUserDeleteDialogOpen, setIsUserDeleteDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
-  const [showAllOthers, setShowAllOthers] = useState(false);
   const [showFullText, setShowFullText] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef();
 
-  const classes = useStyles();
   console.log(cookies);
   const navigate = useNavigate();
 
@@ -309,15 +278,9 @@ function MediaCard({ langValue, submitting }) {
     <>
       {cookies["session"] ? (
         <>
-          <div class="parent_button">
-            {/* <a href="/Profile_Submit" class="fixed_btn" > */}
-            <p class="plus fixed_btn" onClick={handleEdit}>
-              🖊️
-            </p>
-            {/* </a> */}
-            {/* <button class="fixed_btn">
-        </button> */}
-          </div>
+          <p class="fixed_btn" onClick={handleEdit}>
+            🖊️
+          </p>
           <div className="d-flex">
             <p style={{ marginRight: "10px" }} class="User_Name">
               <button onClick={toggleMenu}>
@@ -400,7 +363,7 @@ function MediaCard({ langValue, submitting }) {
             <h4 style={{ fontWeight: "bold" }}>{langValue.inputprofile} </h4>
             <br></br>
           </div>
-          <div className={classes.Halfcircle + " text"}>
+          <div className={styles.Halfcircle + " text"}>
             <br></br>
             <h1 style={{ fontWeight: "bold" }}>{langValue.profiles} </h1>
           </div>
@@ -426,7 +389,7 @@ function MediaCard({ langValue, submitting }) {
                     margin: "0",
                     minHeight: "100vh",
                   }}
-                  className={classes.BlueBack}
+                  className={styles.BlueBack}
                 ></div>
               </>
             ) : submitting ? (
@@ -451,7 +414,7 @@ function MediaCard({ langValue, submitting }) {
                     margin: "0",
                     minHeight: "100vh",
                   }}
-                  className={classes.BlueBack}
+                  className={styles.BlueBack}
                 ></div>
               </>
             ) : (
@@ -463,7 +426,7 @@ function MediaCard({ langValue, submitting }) {
                   marginTop: "0",
                   minHeight: "100vh",
                 }}
-                className={classes.BlueBack}
+                className={styles.BlueBack}
               >
                 {jsonData.length !== 0 ? (
                   jsonData.map((item, index) => (
@@ -474,7 +437,7 @@ function MediaCard({ langValue, submitting }) {
                         padding: "10px",
                         maxWidth: "50%",
                       }}
-                      className={classes.BlueBack}
+                      className={styles.BlueBack}
                     >
                       <Card
                         variant="outlined"
@@ -488,8 +451,8 @@ function MediaCard({ langValue, submitting }) {
                       >
                         <div style={{ flex: "3" }}>
                           <img
-                            src={item.fileData}
                             alt="Image"
+                            src={item.fileData}
                             style={{
                               width: "100%",
                               height: "100%",
@@ -503,7 +466,7 @@ function MediaCard({ langValue, submitting }) {
                             flex: "60",
                             wordWrap: "break-word", // word-wrapの設定
                           }}
-                          className={classes.WholeCard}
+                          className={styles.WholeCard}
                         >
                           {/* <div
                       style={{
@@ -521,7 +484,7 @@ function MediaCard({ langValue, submitting }) {
                           >
                             <b>
                               {item.name}
-                              {cookies["session"]["id"] == item.id
+                              {cookies["session"]["id"] === item.id
                                 ? langValue.You
                                 : ""}
                               {/* {item.name.match(/.{1,17}/g).join("\n")} */}
@@ -558,8 +521,8 @@ function MediaCard({ langValue, submitting }) {
                             )}
                           </div>
                         </CardContent>
-                        {cookies["session"]["id"] == item.id ? (
-                          <CardActions className={classes.WholeCard}>
+                        {cookies["session"]["id"] === item.id ? (
+                          <CardActions className={styles.WholeCard}>
                             <Button
                               size="small"
                               onClick={() => handleDelete(item.id)}

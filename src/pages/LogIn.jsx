@@ -5,69 +5,22 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import "../App.css";
-import { createStyles } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { AlreadyLogin } from "../components/AlreadyLogin";
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    WholeCard: {
-      color: "black",
-      background: "#fafad2",
-    },
-    BlueButton: {
-      color: "white",
-      background: "#6b68ff",
-      // borderRadius: "40%",
-      borderRadius: "40px 40px",
-    },
-    WhiteButton: {
-      color: "#6b68ff",
-      background: "white",
-      borderRadius: "40px 40px",
-      border: "1px solid #6b68ff",
-    },
-    BlueBack: {
-      background: "#6b68ff",
-      height: "50%",
-    },
-    // textField: { [`& fieldset`]: { borderRadius: "40% 40% 40% 40%" } },
-    ovalTextField: {
-      "& .MuiOutlinedInput-root": { borderRadius: "40px 40px" },
-      // borderRadius: "40px 40px"
-      // background: "red",
-    },
-
-    UnderHalfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "50vh" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      borderRadius: "0 0 25% 25%",
-    },
-  })
-);
+import styles from "./Login.module.css";
 
 export const LogIn = ({ langValue, setSubmitting }) => {
   const [mailValue, setMailValue] = useState("");
   const [emailIsOK, setEmailIsOK] = useState(true);
   const emailRef = useRef(0);
-  const mailRegex = new RegExp(
-    /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
-  );
+  const mailRegex = useMemo(() => {
+    return new RegExp(/^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g);
+  }, []);
 
   const [passValue, setPassValue] = useState("");
-  const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(["session", "team"]);
-
-  const classes = useStyles();
+  const [cookies, setCookie] = useCookies(["session", "team"]);
 
   useEffect(() => {
     if (emailRef.current <= 1) {
@@ -75,7 +28,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
     } else {
       setEmailIsOK(mailRegex.test(mailValue));
     }
-  }, [mailValue]);
+  }, [mailValue, mailRegex]);
 
   const handleSubmit = () => {
     // データをJSON形式に整形
@@ -153,8 +106,6 @@ export const LogIn = ({ langValue, setSubmitting }) => {
 
     handleSubmit();
 
-    // ポップアップを閉じる
-    setIsSubmitDialogOpen(false);
     setSubmitting(true); //送信中のポップアップを表示するためtrueにする
   };
 
@@ -170,20 +121,20 @@ export const LogIn = ({ langValue, setSubmitting }) => {
       {cookies["session"] ? (
         <AlreadyLogin langValue={langValue} />
       ) : (
-        <div className={classes.UnderHalfcircle}>
+        <div className={styles.UnderHalfcircle}>
           <h1 class="page_title">Party App</h1>
           <div className="centered-container">
             <div class="card_radius">
               <Card sx={{ minWidth: 275, maxWidth: 300 }} class="card_radius">
                 {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
-                <CardContent className={classes.WholeCard + " card_radius"}>
+                <CardContent className={styles.WholeCard + " card_radius"}>
                   <h3 class="center-card-text">{langValue.Log_in}</h3>
 
                   <Typography
                     sx={{ fontSize: 14 }}
                     color="text.secondary"
                     gutterBottom
-                    className={classes.ovalTextField}
+                    className={styles.ovalTextField}
                   >
                     <TextField
                       label={langValue.Email_address}
@@ -211,7 +162,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                     sx={{ fontSize: 14 }}
                     color="text.secondary"
                     gutterBottom
-                    className={classes.ovalTextField}
+                    className={styles.ovalTextField}
                   >
                     <br />
                     <TextField
@@ -225,14 +176,13 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                     />{" "}
                     {/* Password */}
                   </Typography>
-
-                  <div className={"center-card-text" + " blueword"}>
+                  <div className="center-card-text blueword">
                     {langValue.forget_pass}
                   </div>
 
                   <br />
 
-                  <CardActions className={classes.BlueButton}>
+                  <CardActions className={styles.BlueButton}>
                     <Button
                       size="small"
                       onClick={handleConfirmSubmit}
@@ -252,12 +202,12 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                     </Button>
                   </CardActions>
 
-                  <div className={classes.WholeCard + " center-card-text"}>
+                  <div className={styles.WholeCard + " center-card-text"}>
                     {langValue.or}
                   </div>
 
                   <CardActions
-                    className={classes.WhiteButton + " center-card-text"}
+                    className={styles.WhiteButton + " center-card-text"}
                   >
                     <Button
                       size="small"
@@ -266,7 +216,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                         margin: "auto",
                         width: "50%",
                       }}
-                      className={classes.ovalTextField + " center-card-text"}
+                      className={styles.ovalTextField + " center-card-text"}
                     >
                       <div
                         style={{

@@ -10,61 +10,17 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import Text from "../components/Text";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import ImageCropper from "../components/ImageCropper"; // ImageCropperコンポーネントのファイルパスを指定
 import "../App.css";
-import { createStyles } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { NeedLogin } from "../components/NeedLogin";
 import { useLocation } from "react-router-dom";
+import styles from "./profile-submit.module.css";
+import { Select, MenuItem } from '@mui/material';
+import { teamList } from "../components/TeamList";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    WholeCard: {
-      color: "black",
-      background: "#fafad2",
-    },
-    BlueButton: {
-      color: "white",
-      background: "#6b68ff",
-      // borderRadius: "40%",
-      borderRadius: "40px 40px",
-    },
-    WhiteButton: {
-      color: "#6b68ff",
-      background: "white",
-      borderRadius: "40px 40px",
-      border: "1px solid #6b68ff",
-    },
-    BlueBack: {
-      background: "#6b68ff",
-      height: "50%",
-    },
-    // textField: { [`& fieldset`]: { borderRadius: "40% 40% 40% 40%" } },
-    ovalTextField: {
-      "& .MuiOutlinedInput-root": { borderRadius: "40px 40px" },
-      // borderRadius: "40px 40px"
-      // background: "red",
-    },
-    Halfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "100px" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      clipPath: "ellipse(50% 100% at 50% 100%)",
-      // borderRadius: "50% 50% 0 0",
-    },
-    UnderHalfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "50vh" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      borderRadius: "0 0 25% 25%",
-    },
-  })
-);
-
-export default function Profile_Submit({ langValue, setSubmitting }) {
+export default function ProfileSubmit({ langValue, setSubmitting }) {
   const location = useLocation();
   const myinfo = location.state;
 
@@ -75,7 +31,6 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
   const [croppedData, setCroppedData] = useState(null);
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
   const [errorNameMessage, setErrorNameMessage] = useState("");
-  const [errorTeamMessage, setErrorTeamMessage] = useState("");
   const [errorOthersMessage, setErrorOthersMessage] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
@@ -84,8 +39,6 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
   console.log(
     nameValue.length + " " + teamValue.length + " " + othersValue.length
   );
-
-  const classes = useStyles();
 
   const handleSubmit = () => {
     console.log("sessionは");
@@ -136,9 +89,9 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
 
   const handleOpenSubmitDialog = () => {
     if (
-      nameValue.length != 0 &&
-      teamValue.length != 0 &&
-      othersValue.length != 0 &&
+      nameValue.length !== 0 &&
+      teamValue.length !== 0 &&
+      othersValue.length !== 0 &&
       croppedData != null
     ) {
       //各textfieldに何かしら入力があった時の処理
@@ -166,13 +119,10 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
     } else {
       // 入力されていないtextfieldがある場合の処理
       window.alert(langValue.input_all);
-      if (nameValue.length == 0) {
+      if (nameValue.length === 0) {
         setErrorNameMessage(langValue.mandatory);
       }
-      if (teamValue.length == 0) {
-        setErrorTeamMessage(langValue.mandatory);
-      }
-      if (othersValue.length == 0) {
+      if (othersValue.length === 0) {
         setErrorOthersMessage(langValue.mandatory);
       }
     }
@@ -207,11 +157,6 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
   const handleTeamChange = (event) => {
     const inputValue = event.target.value;
     setTeamValue(inputValue);
-    if (inputValue.length <= 30) {
-      setErrorTeamMessage("");
-    } else {
-      setErrorTeamMessage(langValue.please_input_30);
-    }
   };
 
   const handleOthersChange = (event) => {
@@ -225,16 +170,16 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
     }
   };
 
-  const download = () => {
-    fetch(process.env.REACT_APP_BACKEND_ENTRYPOINT + "/download_db");
-  };
+  // const download = () => {
+  //   fetch(process.env.REACT_APP_BACKEND_ENTRYPOINT + "/download_db");
+  // };
 
   return (
     <>
       {cookies["session"] ? (
         <>
           <div className="d-flex">
-            <p style={{ marginRight: "10px" }} class="User_Name">
+            <p style={{ marginRight: "10px" }} className="User_Name">
               User: {cookies["session"]["username"]}
             </p>
             <p
@@ -253,7 +198,7 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
             </p>
           </div>
           <h1
-            className={classes.Halfcircle + " text"}
+            className={styles.Halfcircle + " text"}
             style={{
               marginBottom: "0px",
               marginTop: "0px",
@@ -265,17 +210,16 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
             <br></br>
             {langValue.Profile_input}
           </h1>
-          <div class={classes.BlueBack}>
-            {/* これは有効 */}
-            <div class="centered-container-Profile-Submit">
-              <div className={classes.BlueBack} style={{ marginTop: "30px" }}>
-                <Card sx={{ minWidth: 275, maxWidth: 300 }}>
-                  <CardContent className={classes.WholeCard + " card_radius"}>
+          <div className={styles.BlueBack}>
+            <div className="centered-container-Profile-Submit">
+              <div className={styles.BlueBack} style={{ marginTop: "30px" }}>
+                <Card sx={{ minWidth: 275, maxWidth: 300 }}style={{background: "#6b68ff"}}>
+                  <CardContent className={styles.WholeCard + " card_radius"}>
                     <Typography
                       sx={{ fontSize: 14 }}
                       color="text.secondary"
                       gutterBottom
-                      className={classes.ovalTextField}
+                      className={styles.ovalTextField}
                     >
                       <br />
                       <TextField
@@ -284,40 +228,44 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
                         onChange={handleNameChange} //こっちは入力して変更したときのイベント
                         error={errorNameMessage !== ""}
                         helperText={errorNameMessage}
-                      />{" "}
-                      {/* 名前 */}
+                      />
                     </Typography>
-
-                    <Typography
+                    {/* <Typography
                       sx={{ fontSize: 14 }}
                       color="text.secondary"
                       gutterBottom
-                    >
-                      <br />
-                      <TextField
-                        label={langValue.team}
+                      className={styles.ovalTextField}
+                    > */}
+                      <Select
+                        sx={{ width: "57vw", marginTop:"2vh" }}
+                        labelId="team"
                         value={teamValue}
-                        onChange={handleTeamChange} //こっちは入力して変更したときのイベント
-                        error={errorTeamMessage !== ""}
-                        helperText={errorTeamMessage}
-                        className={classes.ovalTextField}
-                      />{" "}
-                      {/* チーム */}
-                    </Typography>
+                        onChange={handleTeamChange}
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'team' }}
+                      >
+                        <MenuItem value="" disabled style={{display:"none"}}>
+                          <em style={{color:"gray"}}>Team</em>
+                        </MenuItem>
+                        {teamList.map((team) => (
+                          <MenuItem key={team} value={team}>
+                            {team}
+                          </MenuItem>
+                        ))}
+                      </Select>
                     <Typography
                       sx={{ fontSize: 14 }}
                       color="text.secondary"
                       gutterBottom
                     >
                       <br />
-                      {/* その他 */}
                       <TextField
                         label={langValue.others}
                         value={othersValue}
                         onChange={handleOthersChange}
                         error={errorOthersMessage !== ""}
                         helperText={errorOthersMessage}
-                        className={classes.ovalTextField}
+                        className={styles.ovalTextField}
                       />{" "}
                     </Typography>
 
@@ -327,8 +275,7 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
                       gutterBottom
                     >
                       {langValue.your_image}
-                      {/* 画像 */}
-                      <div className={classes.ChooseFile}>
+                      <div className={styles.ChooseFile}>
                         <ImageCropper
                           fileData={fileData}
                           setFileData={setFileData}
@@ -341,7 +288,7 @@ export default function Profile_Submit({ langValue, setSubmitting }) {
 
                     <br />
 
-                    <CardActions className={classes.BlueButton}>
+                    <CardActions className={styles.BlueButton}>
                       <Button
                         size="small"
                         onClick={handleOpenSubmitDialog}

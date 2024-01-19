@@ -5,84 +5,44 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect, useMemo } from "react";
 import "../App.css";
-import { createStyles } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useCookies } from "react-cookie";
 import { AlreadyLogin } from "../components/AlreadyLogin";
+import styles from "./SignUp.module.css";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    WholeCard: {
-      color: "black",
-      background: "#fafad2",
-    },
-    BlueButton: {
-      color: "white",
-      background: "#6b68ff",
-      // borderRadius: "40%",
-      borderRadius: "40px 40px",
-    },
-    WhiteButton: {
-      color: "#6b68ff",
-      background: "white",
-      borderRadius: "40px 40px",
-      border: "1px solid #6b68ff",
-    },
-    BlueBack: {
-      background: "#6b68ff",
-      height: "50%",
-    },
-    // textField: { [`& fieldset`]: { borderRadius: "40% 40% 40% 40%" } },
-    ovalTextField: {
-      "& .MuiOutlinedInput-root": { borderRadius: "40px 40px" },
-      // borderRadius: "40px 40px"
-      // background: "red",
-    },
-
-    UnderHalfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "50vh" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      borderRadius: "0 0 25% 25%",
-    },
-  })
-);
 
 export const SignUp = ({ langValue, setSubmitting }) => {
   const [usernameValue, setUsernameValue] = useState("");
   const [mailValue, setMailValue] = useState("");
   const [emailIsOK, setEmailIsOK] = useState(true);
   const emailRef = useRef(0);
-  const mailRegex = new RegExp(
-    /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
-  );
-  const passwordRegex = new RegExp(/^[a-zA-Z0-9]{8,}$/g);
+  const mailRegex = useMemo(() => {
+    // ここで mailRegex オブジェクトを初期化して返します
+    return new RegExp(/^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g);
+  }, []);
+  // const mailRegex = new RegExp(
+  //   /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
+  // );
+  const passwordRegex = useMemo(()=>{
+    return new RegExp(/^[a-zA-Z0-9]{8,}$/g);
+  },[]);
+  // const passwordRegex = new RegExp(/^[a-zA-Z0-9]{8,}$/g);
   const [passValue, setPassValue] = useState("");
   const passwordRef = useRef(0);
   const [passwordIsOK, setPasswordIsOK] = useState(true);
   const [confirmPassValue, setConfirmPassValue] = useState("");
   const [confirmationPasswordIsOK, setConfirmationPasswordIsOK] =
     useState(true);
-  const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(["session"]);
-  const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["session"]);
 
-  const classes = useStyles();
   useEffect(() => {
     if (emailRef.current <= 1) {
       emailRef.current += 1;
     } else {
       setEmailIsOK(mailRegex.test(mailValue));
     }
-  }, [mailValue]);
+  }, [mailValue, mailRegex]);
 
   useEffect(() => {
     if (passwordRef.current <= 1) {
@@ -90,7 +50,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
     } else {
       setPasswordIsOK(passwordRegex.test(passValue));
     }
-  }, [passValue]);
+  }, [passValue, passwordRegex]);
   useEffect(() => {
     setConfirmationPasswordIsOK(passValue === confirmPassValue);
   }, [passValue, confirmPassValue]);
@@ -197,62 +157,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
   const handleConfirmPassChange = (event) => {
     const inputValue = event.target.value;
     setConfirmPassValue(inputValue);
-
-    // if (inputValue.length >= 8) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
-  };
-
-  const handleOpenSubmitDialog = () => {
-    if (usernameValue != 0 && mailValue.length != 0 && passValue.length != 0) {
-      //各textfieldに何かしら入力があった時の処理
-      if (
-        usernameValue.match(/\S/g) === null ||
-        mailValue.match(/\S/g) === null ||
-        passValue.match(/\S/g) === null
-      ) {
-        // 空白のみの入力があった場合
-        window.alert(langValue.donot_input_blankonly);
-      } else {
-        //空白のみの入力がなかった場合
-        if (passValue.length >= 8) {
-          if (
-            usernameValue.length === 0 ||
-            mailValue.length === 0 ||
-            passValue.length === 0 ||
-            confirmPassValue.length === 0
-          ) {
-            alert(
-              "入力されていない項目があります。" +
-                "\n" +
-                "There are fields that have not been filled in."
-            );
-          } else if (emailIsOK && passwordIsOK && confirmationPasswordIsOK) {
-            setIsSubmitDialogOpen(true);
-          } else {
-            window.alert(langValue.Invalid_format_error);
-          }
-          // 文字数制限で合格した場合
-        } else {
-          //　文字数制限でアウトだった場合
-          window.alert(langValue.input_too_short);
-        }
-      }
-    } else {
-      // 入力されていないtextfieldがある場合の処理
-      window.alert(langValue.input_all);
-      if (usernameValue.length == 0) {
-        // setErrorNameMessage(langValue.mandatory);
-      }
-      if (mailValue.length == 0) {
-        // setErrorNameMessage(langValue.mandatory);
-      }
-      if (passValue.length == 0) {
-        // setErrorTeamMessage(langValue.mandatory);
-      }
-    }
   };
 
   const handleConfirmSubmit = () => {
@@ -261,8 +165,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
 
     handleSubmit();
 
-    // ポップアップを閉じる
-    setIsSubmitDialogOpen(false);
     setSubmitting(true); //送信中のポップアップを表示するためtrueにする
   };
 
@@ -277,20 +179,20 @@ export const SignUp = ({ langValue, setSubmitting }) => {
       {cookies["session"] ? (
         <AlreadyLogin langValue={langValue} />
       ) : (
-        <div className={classes.UnderHalfcircle}>
+        <div className={styles.UnderHalfcircle}>
           <h1 class="page_title">Party App</h1>
           <div className="centered-container">
             <div class="card_radius">
               <Card sx={{ minWidth: 275, maxWidth: 300 }} class="card_radius">
                 {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
-                <CardContent className={classes.WholeCard + " card_radius"}>
+                <CardContent className={styles.WholeCard + " card_radius"}>
                   <h3 class="center-card-text">{langValue.Sign_up}</h3>
 
                   <Typography
                     sx={{ fontSize: 14 }}
                     color="text.secondary"
                     gutterBottom
-                    className={classes.ovalTextField}
+                    className={styles.ovalTextField}
                   >
                     <TextField
                       label={langValue.User_name}
@@ -308,7 +210,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                     sx={{ fontSize: 14 }}
                     color="text.secondary"
                     gutterBottom
-                    className={classes.ovalTextField}
+                    className={styles.ovalTextField}
                   >
                     <br />
                     <TextField
@@ -335,7 +237,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                     sx={{ fontSize: 14 }}
                     color="text.secondary"
                     gutterBottom
-                    className={classes.ovalTextField}
+                    className={styles.ovalTextField}
                   >
                     <br />
                     <TextField
@@ -366,7 +268,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                     sx={{ fontSize: 14 }}
                     color="text.secondary"
                     gutterBottom
-                    className={classes.ovalTextField}
+                    className={styles.ovalTextField}
                   >
                     <br />
                     <TextField
@@ -396,7 +298,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                   <br />
                   <br />
 
-                  <CardActions className={classes.BlueButton}>
+                  <CardActions className={styles.BlueButton}>
                     <Button
                       size="small"
                       onClick={handleConfirmSubmit}
@@ -416,12 +318,12 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                     </Button>
                   </CardActions>
 
-                  <div className={classes.WholeCard + " center-card-text"}>
+                  <div className={styles.WholeCard + " center-card-text"}>
                     {langValue.or}
                   </div>
 
                   <CardActions
-                    className={classes.WhiteButton + " center-card-text"}
+                    className={styles.WhiteButton + " center-card-text"}
                   >
                     <Button
                       onClick={() => (document.location = "/")}
@@ -430,7 +332,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                         margin: "auto",
                         width: "50%",
                       }}
-                      className={classes.ovalTextField + " center-card-text"}
+                      className={styles.ovalTextField + " center-card-text"}
                     >
                       <div
                         style={{

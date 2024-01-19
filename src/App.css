@@ -154,12 +154,12 @@
   font-size: 12pt;
 }
 
-.plus {
-  top: 50%; /* テキストを垂直方向の中央に配置 */
-  left: 50%; /* テキストを水平方向の中央に配置 */
-  transform: translate(10%, 0%); /* 中央揃えの調整 */
+/* .plus {
+  top: 50%;
+  left: 50%; 
+  transform: translate(10%, 0%);
   border: "1px solid black";
-}
+} */
 
 .delete_button {
   background-color: #6b68ff;
@@ -198,8 +198,8 @@
   left: 50%; /* テキストを水平方向の中央に配置 */
   transform: translate(0%, -20%); /* 中央揃えの調整 */
 }
-/* .plus {
-	top: 50%;
-	left: 50%; 
-	transform: translate(20%, -15%); 
-} */
+.plus {
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(20%, 100%); */
+}
