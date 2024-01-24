@@ -17,7 +17,6 @@ function App() {
     const selectedLanguage = e.target.value;
     setLangValue(langdata[selectedLanguage]);
   };
-  console.log(process.env.PUBLIC_URL);
 
   return (
     <>
@@ -52,23 +51,23 @@ function App() {
       <Router>
         <Routes>
           <Route
-            path={process.env.PUBLIC_URL + "/"}
+            path={process.env.REACT_APP_FOR_PATH + "/"}
             element={
               <LogIn langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.PUBLIC_URL + "/SignUp"}
+            path={process.env.REACT_APP_FOR_PATH + "/SignUp"}
             element={
               <SignUp langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.PUBLIC_URL + "/Profiles"}
+            path={process.env.REACT_APP_FOR_PATH + "/Profiles"}
             element={<Profiles langValue={langValue} submitting={submitting} />}
           />
           <Route
-            path={process.env.PUBLIC_URL + "/Profile_Submit"}
+            path={process.env.REACT_APP_FOR_PATH + "/Profile_Submit"}
             element={
               <ProfileSubmit
                 langValue={langValue}

@@ -17,7 +17,7 @@ import { useCookies } from "react-cookie";
 import { NeedLogin } from "../components/NeedLogin";
 import { useLocation } from "react-router-dom";
 import styles from "./profile-submit.module.css";
-import { Select, MenuItem } from '@mui/material';
+import { Select, MenuItem } from "@mui/material";
 import { teamList } from "../components/TeamList";
 
 export default function ProfileSubmit({ langValue, setSubmitting }) {
@@ -66,7 +66,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
         setSubmitting(false);
         // setCookie("session", data["user"]);
         window.alert(langValue.submit_complete);
-        document.location = process.env.PUBLIC_URL + "/Profiles";
+        document.location = process.env.REACT_APP_FOR_PATH + "/Profiles";
       })
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
@@ -201,10 +201,13 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
           <div className={styles.BlueBack}>
             <div className="centered-container-Profile-Submit">
               <div className={styles.BlueBack} style={{ marginTop: "30px" }}>
-                <Card sx={{ minWidth: 275, maxWidth: 300 }}style={{background: "#6b68ff"}}>
+                <Card
+                  sx={{ minWidth: 275, maxWidth: 300 }}
+                  style={{ background: "#6b68ff" }}
+                >
                   <CardContent className={styles.WholeCard + " card_radius"}>
                     <Typography
-                      sx={{ fontSize: 14 , width: '90%'}}
+                      sx={{ fontSize: 14, width: "90%" }}
                       color="text.secondary"
                       gutterBottom
                       className={styles.ovalTextField}
@@ -219,18 +222,18 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                       />
                     </Typography>
                     <Typography
-                      sx={{ fontSize: 14, width: '90%', marginTop: "2vh" }} // 両方のTypographyコンポーネントに共通の幅を指定
+                      sx={{ fontSize: 14, width: "90%", marginTop: "2vh" }} // 両方のTypographyコンポーネントに共通の幅を指定
                       color="text.secondary"
                       gutterBottom
                       className={styles.ovalTextField}
                     >
                       <Select
-                        sx={{ width: '100%' }} // Selectコンポーネントには100%の幅を指定
+                        sx={{ width: "100%" }} // Selectコンポーネントには100%の幅を指定
                         labelId="team"
                         value={teamValue}
                         onChange={handleTeamChange}
                         displayEmpty
-                        inputProps={{ 'aria-label': 'team' }}
+                        inputProps={{ "aria-label": "team" }}
                       >
                         <MenuItem value="" disabled style={{ display: "none" }}>
                           <em style={{ color: "gray" }}>Team</em>
@@ -243,7 +246,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                       </Select>
                     </Typography>
                     <Typography
-                      sx={{ fontSize: 14,width:'90%' }}
+                      sx={{ fontSize: 14, width: "90%" }}
                       color="text.secondary"
                       gutterBottom
                     >
@@ -301,7 +304,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                     </CardActions>
                   </CardContent>
                 </Card>
-                <a href= {process.env.PUBLIC_URL + "/Profiles"}>
+                <a href={process.env.REACT_APP_FOR_PATH + "/Profiles"}>
                   {/* 遷移してくれる */}
                   <h6
                     style={{

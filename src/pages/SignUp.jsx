@@ -11,7 +11,6 @@ import { useCookies } from "react-cookie";
 import { AlreadyLogin } from "../components/AlreadyLogin";
 import styles from "./SignUp.module.css";
 
-
 export const SignUp = ({ langValue, setSubmitting }) => {
   const [usernameValue, setUsernameValue] = useState("");
   const [mailValue, setMailValue] = useState("");
@@ -19,14 +18,16 @@ export const SignUp = ({ langValue, setSubmitting }) => {
   const emailRef = useRef(0);
   const mailRegex = useMemo(() => {
     // ここで mailRegex オブジェクトを初期化して返します
-    return new RegExp(/^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g);
+    return new RegExp(
+      /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
+    );
   }, []);
   // const mailRegex = new RegExp(
   //   /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
   // );
-  const passwordRegex = useMemo(()=>{
+  const passwordRegex = useMemo(() => {
     return new RegExp(/^[a-zA-Z0-9]{8,}$/g);
-  },[]);
+  }, []);
   // const passwordRegex = new RegExp(/^[a-zA-Z0-9]{8,}$/g);
   const [passValue, setPassValue] = useState("");
   const passwordRef = useRef(0);
@@ -106,7 +107,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
           setSubmitting(false);
           window.alert(langValue.Signup_complete);
           setCookie("session", data["user"]);
-          document.location = process.env.PUBLIC_URL + "/Profiles";
+          document.location = process.env.REACT_APP_FOR_PATH + "/Profiles";
           // window.location.reload();
         })
         .catch((error) => {

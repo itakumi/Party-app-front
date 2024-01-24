@@ -16,7 +16,9 @@ export const LogIn = ({ langValue, setSubmitting }) => {
   const [emailIsOK, setEmailIsOK] = useState(true);
   const emailRef = useRef(0);
   const mailRegex = useMemo(() => {
-    return new RegExp(/^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g);
+    return new RegExp(
+      /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
+    );
   }, []);
 
   const [passValue, setPassValue] = useState("");
@@ -62,7 +64,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
           if (data["user"]) {
             setCookie("session", data["user"]);
             window.alert(langValue.submit_complete);
-            document.location = process.env.PUBLIC_URL + "/Profiles";
+            document.location = process.env.REACT_APP_FOR_PATH + "/Profiles";
           } else {
             window.alert(langValue.Login_fail);
           }
@@ -211,7 +213,10 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                   >
                     <Button
                       size="small"
-                      onClick={() => (document.location = process.env.PUBLIC_URL + "/SignUp")}
+                      onClick={() =>
+                        (document.location =
+                          process.env.REACT_APP_FOR_PATH + "/SignUp")
+                      }
                       style={{
                         margin: "auto",
                         width: "50%",
