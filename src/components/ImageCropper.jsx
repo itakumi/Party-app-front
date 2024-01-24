@@ -27,8 +27,6 @@ function ImageCropper({
   };
 
   const handleCrop = () => {
-    console.log(cropperRef.current);
-
     const x = 50; // 切り取り範囲の左上隅のx座標
     const y = 50; // 切り取り範囲の左上隅のy座標
     const fillColor = "#ffffff"; // 空白部分を白色で塗りつぶす

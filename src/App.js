@@ -15,10 +15,6 @@ function App() {
   const [langValue, setLangValue] = useState(langdata.English);
   const [submitting, setSubmitting] = useState(false);
 
-  // console.log(langdata.Japanese);
-  console.log(langValue.greeting);
-  console.log(langValue);
-
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
     setLangValue(langdata[selectedLanguage]);

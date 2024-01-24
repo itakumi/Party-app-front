@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Profiles.module.css";
 
 //jsonをダウンロードできる機能追加
-
+//teamのwidthもそろえる
+//eslintのバグ直し
 // 「部屋（イベント名）を作成して、それと一対のパスワードを決める。それをみんなに伝えれば入れる方式。」
 
 function MediaCard({ langValue, submitting }) {
@@ -30,7 +31,6 @@ function MediaCard({ langValue, submitting }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef();
 
-  console.log(cookies);
   const navigate = useNavigate();
 
   // メニュー外をクリックしたらメニューを非表示にする
@@ -110,7 +110,6 @@ function MediaCard({ langValue, submitting }) {
         const data = await response.json();
         setJsonData(data); // JSONデータをステートに設定
         setLoading(false);
-        console.log(data);
         // 長さが20で、すべての要素がfalseの配列を作成
         const myArray = new Array(data.length).fill(false);
         setShowFullText(myArray);
@@ -130,16 +129,12 @@ function MediaCard({ langValue, submitting }) {
   };
 
   const handleUserDelete = (itemId) => {
-    console.log(itemId + "を削除");
     setItemToDelete(itemId);
-    console.log("Dialog表示");
     setIsUserDeleteDialogOpen(true);
   };
 
   //User削除
   const deleteUser = (id) => {
-    console.log(id);
-
     const postData = {
       id: id,
     };
@@ -158,7 +153,6 @@ function MediaCard({ langValue, submitting }) {
       .then((response) => response.json())
       .then((data) => {
         // レスポンスを処理するコードをここに追加
-        console.log(data);
         fetchData();
         window.alert(langValue.delete_complete);
         // window.location.reload();
@@ -177,8 +171,6 @@ function MediaCard({ langValue, submitting }) {
 
   //Profileを削除
   const deleteProfile = (id) => {
-    console.log(id);
-
     const postData = {
       id: id,
     };
@@ -197,13 +189,10 @@ function MediaCard({ langValue, submitting }) {
       .then((response) => response.json())
       .then((data) => {
         // レスポンスを処理するコードをここに追加
-        console.log(data);
         fetchData();
         window.alert(langValue.delete_complete);
         const updatedUser = { ...cookies["session"] };
         delete updatedUser.team;
-        console.log("updatedUserは");
-        console.log(updatedUser);
         setCookie("session", updatedUser);
         window.location.reload();
       })
@@ -249,14 +238,9 @@ function MediaCard({ langValue, submitting }) {
 
   const handleEdit = () => {
     // 編集ボタン押されたときに値をsabmitに渡す
-    jsonData.map((profile) => console.log(profile));
-    // const filteredData = jsonData.filter(profile => profile.age >= 30);
-    // navigate("/Profile_Submit", { state: index});
-    // cookie 探す自分見つける
     const filteredData = jsonData.filter(
       (profile) => profile.id === cookies["session"]["id"]
     );
-    console.log(filteredData);
     // 自分の情報から、name、team、others、写真を持ってきて、Json形式にしてstate:にいれる
     if (filteredData.length !== 0) {
       navigate("/Profile_Submit", {
@@ -271,8 +255,6 @@ function MediaCard({ langValue, submitting }) {
       document.location = "/Profile_Submit";
     }
   };
-
-  console.log(jsonData);
 
   return (
     <>

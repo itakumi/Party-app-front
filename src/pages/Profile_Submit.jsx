@@ -34,15 +34,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
   const [errorOthersMessage, setErrorOthersMessage] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
-  console.log(nameValue + " " + teamValue + " " + othersValue);
-
-  console.log(
-    nameValue.length + " " + teamValue.length + " " + othersValue.length
-  );
-
   const handleSubmit = () => {
-    console.log("sessionは");
-    console.log(cookies["session"]);
     // データをJSON形式に整形
     const postData = {
       id: cookies["session"]["id"],
@@ -52,8 +44,6 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
       fileData: croppedData,
     };
 
-    console.log("File Data:", fileData); // fileDataの中身をログに出力
-
     // PythonバックエンドのURLを指定
     const backendURL = process.env.REACT_APP_BACKEND_ENTRYPOINT + "/backend"; // あなたのバックエンドのURLに置き換えてください
 
@@ -61,8 +51,6 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
     //全部[name]: [name]みたいに値をセットするのは面倒くさいので、以下の書き方でteamだけ変更する。
     setCookie("session", { ...cookies["session"], team: teamValue });
 
-    console.log("SUbmit the following data");
-    console.log(postData);
     // データをPOSTリクエストで送信
     fetch(backendURL, {
       method: "POST",
@@ -216,7 +204,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                 <Card sx={{ minWidth: 275, maxWidth: 300 }}style={{background: "#6b68ff"}}>
                   <CardContent className={styles.WholeCard + " card_radius"}>
                     <Typography
-                      sx={{ fontSize: 14 }}
+                      sx={{ fontSize: 14 , width: '90%'}}
                       color="text.secondary"
                       gutterBottom
                       className={styles.ovalTextField}
@@ -230,22 +218,22 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                         helperText={errorNameMessage}
                       />
                     </Typography>
-                    {/* <Typography
-                      sx={{ fontSize: 14 }}
+                    <Typography
+                      sx={{ fontSize: 14, width: '90%', marginTop: "2vh" }} // 両方のTypographyコンポーネントに共通の幅を指定
                       color="text.secondary"
                       gutterBottom
                       className={styles.ovalTextField}
-                    > */}
+                    >
                       <Select
-                        sx={{ width: "57vw", marginTop:"2vh" }}
+                        sx={{ width: '100%' }} // Selectコンポーネントには100%の幅を指定
                         labelId="team"
                         value={teamValue}
                         onChange={handleTeamChange}
                         displayEmpty
                         inputProps={{ 'aria-label': 'team' }}
                       >
-                        <MenuItem value="" disabled style={{display:"none"}}>
-                          <em style={{color:"gray"}}>Team</em>
+                        <MenuItem value="" disabled style={{ display: "none" }}>
+                          <em style={{ color: "gray" }}>Team</em>
                         </MenuItem>
                         {teamList.map((team) => (
                           <MenuItem key={team} value={team}>
@@ -253,8 +241,9 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                           </MenuItem>
                         ))}
                       </Select>
+                    </Typography>
                     <Typography
-                      sx={{ fontSize: 14 }}
+                      sx={{ fontSize: 14,width:'90%' }}
                       color="text.secondary"
                       gutterBottom
                     >

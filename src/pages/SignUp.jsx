@@ -103,8 +103,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
         })
         .then((data) => {
           // レスポンスを処理するコードをここに追加
-          console.log("追加された値は");
-          console.log(data);
           setSubmitting(false);
           window.alert(langValue.Signup_complete);
           setCookie("session", data["user"]);
