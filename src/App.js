@@ -2,14 +2,16 @@ import "./App.css";
 import { langdata } from "./components/Lang_pack";
 import { MenuItem, InputLabel, FormControl, Select, Box } from "@mui/material";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { LogIn } from "./pages/LogIn";
 import ProfileSubmit from "./pages/Profile_Submit";
 import Profiles from "./pages/Profiles";
 import { SignUp } from "./pages/SignUp";
-import NotFound from "./pages/NotFound";
-
-
 
 function App() {
   const [langValue, setLangValue] = useState(langdata.English);
@@ -51,16 +53,36 @@ function App() {
       </Box>
 
       <Router>
-      <Routes>
-        <Route path="/" element={<LogIn langValue={langValue} setSubmitting={setSubmitting} />} />
-        <Route path="/SignUp" element={<SignUp langValue={langValue} setSubmitting={setSubmitting} />} />
-        <Route path="/Profiles" element={<Profiles langValue={langValue} submitting={submitting} />} />
-        <Route path="/Profile_Submit" element={<ProfileSubmit langValue={langValue} setSubmitting={setSubmitting} />} />
-        {/* <Route component={NotFound} /> */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <LogIn langValue={langValue} setSubmitting={setSubmitting} />
+            }
+          />
+          <Route
+            path="/SignUp"
+            element={
+              <SignUp langValue={langValue} setSubmitting={setSubmitting} />
+            }
+          />
+          <Route
+            path="/Profiles"
+            element={<Profiles langValue={langValue} submitting={submitting} />}
+          />
+          <Route
+            path="/Profile_Submit"
+            element={
+              <ProfileSubmit
+                langValue={langValue}
+                setSubmitting={setSubmitting}
+              />
+            }
+          />
+          {/* <Route component={NotFound} /> */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
 
       {/* <br></br>
       <br></br>
