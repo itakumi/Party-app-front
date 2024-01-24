@@ -2,7 +2,7 @@ import "./App.css";
 import { langdata } from "./components/Lang_pack";
 import { MenuItem, InputLabel, FormControl, Select, Box } from "@mui/material";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LogIn } from "./pages/LogIn";
 import ProfileSubmit from "./pages/Profile_Submit";
 import Profiles from "./pages/Profiles";
@@ -48,7 +48,7 @@ function App() {
         </FormControl>
       </Box>
 
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Router>
         <Routes>
           <Route
             path={process.env.PUBLIC_URL + "/"}
@@ -77,7 +77,7 @@ function App() {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
 
       {/* <br></br>
       <br></br>
