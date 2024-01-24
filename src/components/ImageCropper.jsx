@@ -89,38 +89,43 @@ function ImageCropper({
             cropBoxResizable={true}
             crop={croppedData}
             dragMode="move"
-            // cropBoxMovable={false}
           />
           {/* <button onClick={handleCrop}>{langValue.trimming}</button>
           <button onClick={resetCrop}>{langValue.trimming_reset}</button> */}
-            <button
-              size="small"
-              onClick={handleCrop}
-              style={{backgroundColor: "#6b68ff", borderRadius: "30px 30px", border: "1px solid #6b68ff",
+          <button
+            size="small"
+            onClick={handleCrop}
+            style={{
+              backgroundColor: "#6b68ff",
+              borderRadius: "30px 30px",
+              border: "1px solid #6b68ff",
             }}
+          >
+            <div
+              style={{
+                color: "white",
+              }}
             >
-              <div
-                style={{
-                  color: "white",
-                }}
-              >
-                {langValue.trimming}
-              </div>
-            </button>
-            <button
-              size="small"
-              onClick={resetCrop}
-              style={{backgroundColor: "#6b68ff", borderRadius: "30px 30px", border: "1px solid #6b68ff",
+              {langValue.trimming}
+            </div>
+          </button>
+          <button
+            size="small"
+            onClick={resetCrop}
+            style={{
+              backgroundColor: "#6b68ff",
+              borderRadius: "30px 30px",
+              border: "1px solid #6b68ff",
             }}
+          >
+            <div
+              style={{
+                color: "white",
+              }}
             >
-              <div
-                style={{
-                  color: "white",
-                }}
-              >
-                {langValue.trimming_reset}
-              </div>
-            </button>
+              {langValue.trimming_reset}
+            </div>
+          </button>
         </div>
       )}
       {croppedData && (
