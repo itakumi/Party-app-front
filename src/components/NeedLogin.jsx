@@ -20,7 +20,7 @@ export const NeedLogin = ({ langValue, setSubmitting }) => {
 								<CardActions className={styles.BlueButton}>
 									<Button
 										size="small"
-										onClick={() => (document.location = "/SignUp")}
+										onClick={() => (document.location = process.env.PUBLIC_URL + "/SignUp")}
 										style={{
 											margin: "auto",
 											width: "50%",

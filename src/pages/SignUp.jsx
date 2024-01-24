@@ -106,7 +106,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
           setSubmitting(false);
           window.alert(langValue.Signup_complete);
           setCookie("session", data["user"]);
-          document.location = "/Profiles";
+          document.location = process.env.PUBLIC_URL + "/Profiles";
           // window.location.reload();
         })
         .catch((error) => {

@@ -26,7 +26,7 @@ export const AlreadyLogin = ({ langValue, setSubmitting }) => {
 								<CardActions className={styles.BlueButton}>
 									<Button
 										size="small"
-										onClick={() => (document.location = "/Profiles")}
+										onClick={() => (document.location = process.env.PUBLIC_URL + "/Profiles")}
 										style={{
 											margin: "auto",
 											width: "70%",
@@ -51,7 +51,7 @@ export const AlreadyLogin = ({ langValue, setSubmitting }) => {
 									className={styles.WhiteButton + " center-card-text"}
 								>
 									<Button
-										onClick={() => (document.location = "/Profile_Submit")}
+										onClick={() => (document.location = process.env.PUBLIC_URL + "/Profile_Submit")}
 										size="small"
 										style={{
 											margin: "auto",

@@ -62,7 +62,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
           if (data["user"]) {
             setCookie("session", data["user"]);
             window.alert(langValue.submit_complete);
-            document.location = "/Profiles";
+            document.location = process.env.PUBLIC_URL + "/Profiles";
           } else {
             window.alert(langValue.Login_fail);
           }
@@ -211,7 +211,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                   >
                     <Button
                       size="small"
-                      onClick={() => (document.location = "/SignUp")}
+                      onClick={() => (document.location = process.env.PUBLIC_URL + "/SignUp")}
                       style={{
                         margin: "auto",
                         width: "50%",

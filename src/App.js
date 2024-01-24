@@ -17,6 +17,7 @@ function App() {
     const selectedLanguage = e.target.value;
     setLangValue(langdata[selectedLanguage]);
   };
+  console.log(process.env.PUBLIC_URL);
 
   return (
     <>
