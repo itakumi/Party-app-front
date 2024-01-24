@@ -130,8 +130,8 @@
 	position: fixed;
 	bottom: 10px;
 	right: 10px;
-	width: 80px; 
-	height: 80px; 
+	width: 80px;
+	height: 80px;
 	background-color: #6b68ff;
 	border-radius: 100%;
 	font-weight: bold;
@@ -156,7 +156,7 @@
 
 /* .plus {
   top: 50%;
-  left: 50%; 
+  left: 50%;
   transform: translate(10%, 0%);
   border: "1px solid black";
 } */
