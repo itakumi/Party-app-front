@@ -51,23 +51,23 @@ function App() {
       <Router>
         <Routes>
           <Route
-            path={process.env.REACT_APP_FOR_PATH + "/"}
+            path={process.env.PUBLIC_URL + "/"}
             element={
               <LogIn langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.REACT_APP_FOR_PATH + "/SignUp"}
+            path={process.env.PUBLIC_URL + "/SignUp"}
             element={
               <SignUp langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.REACT_APP_FOR_PATH + "/Profiles"}
+            path={process.env.PUBLIC_URL + "/Profiles"}
             element={<Profiles langValue={langValue} submitting={submitting} />}
           />
           <Route
-            path={process.env.REACT_APP_FOR_PATH + "/Profile_Submit"}
+            path={process.env.PUBLIC_URL + "/Profile_Submit"}
             element={
               <ProfileSubmit
                 langValue={langValue}

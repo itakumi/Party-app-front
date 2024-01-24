@@ -243,7 +243,7 @@ function MediaCard({ langValue, submitting }) {
     );
     // 自分の情報から、name、team、others、写真を持ってきて、Json形式にしてstate:にいれる
     if (filteredData.length !== 0) {
-      navigate(process.env.REACT_APP_FOR_PATH + "/Profile_Submit", {
+      navigate(process.env.PUBLIC_URL + "/Profile_Submit", {
         state: {
           name: filteredData[0].name,
           team: filteredData[0].team,
@@ -252,7 +252,7 @@ function MediaCard({ langValue, submitting }) {
         },
       });
     } else {
-      document.location = process.env.REACT_APP_FOR_PATH + "/Profile_Submit";
+      document.location = process.env.PUBLIC_URL + "/Profile_Submit";
     }
   };
 

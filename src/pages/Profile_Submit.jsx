@@ -66,7 +66,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
         setSubmitting(false);
         // setCookie("session", data["user"]);
         window.alert(langValue.submit_complete);
-        document.location = process.env.REACT_APP_FOR_PATH + "/Profiles";
+        document.location = process.env.PUBLIC_URL + "/Profiles";
       })
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
@@ -304,7 +304,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                     </CardActions>
                   </CardContent>
                 </Card>
-                <a href={process.env.REACT_APP_FOR_PATH + "/Profiles"}>
+                <a href={process.env.PUBLIC_URL + "/Profiles"}>
                   {/* 遷移してくれる */}
                   <h6
                     style={{

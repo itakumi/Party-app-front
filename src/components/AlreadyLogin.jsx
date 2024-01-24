@@ -26,8 +26,7 @@ export const AlreadyLogin = ({ langValue, setSubmitting }) => {
                   <Button
                     size="small"
                     onClick={() =>
-                      (document.location =
-                        process.env.REACT_APP_FOR_PATH + "/Profiles")
+                      (document.location = process.env.PUBLIC_URL + "/Profiles")
                     }
                     style={{
                       margin: "auto",
@@ -55,7 +54,7 @@ export const AlreadyLogin = ({ langValue, setSubmitting }) => {
                   <Button
                     onClick={() =>
                       (document.location =
-                        process.env.REACT_APP_FOR_PATH + "/Profile_Submit")
+                        process.env.PUBLIC_URL + "/Profile_Submit")
                     }
                     size="small"
                     style={{

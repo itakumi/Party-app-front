@@ -21,8 +21,7 @@ export const NeedLogin = ({ langValue, setSubmitting }) => {
                   <Button
                     size="small"
                     onClick={() =>
-                      (document.location =
-                        process.env.REACT_APP_FOR_PATH + "/SignUp")
+                      (document.location = process.env.PUBLIC_URL + "/SignUp")
                     }
                     style={{
                       margin: "auto",

@@ -107,7 +107,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
           setSubmitting(false);
           window.alert(langValue.Signup_complete);
           setCookie("session", data["user"]);
-          document.location = process.env.REACT_APP_FOR_PATH + "/Profiles";
+          document.location = process.env.PUBLIC_URL + "/Profiles";
           // window.location.reload();
         })
         .catch((error) => {
@@ -325,7 +325,9 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                     className={styles.WhiteButton + " center-card-text"}
                   >
                     <Button
-                      onClick={() => (document.location = "/")}
+                      onClick={() =>
+                        (document.location = process.env.PUBLIC_URL + "/")
+                      }
                       size="small"
                       style={{
                         margin: "auto",
