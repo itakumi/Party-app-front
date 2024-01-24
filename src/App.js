@@ -2,10 +2,9 @@ import "./App.css";
 import { langdata } from "./components/Lang_pack";
 import { MenuItem, InputLabel, FormControl, Select, Box } from "@mui/material";
 import { useState } from "react";
-import Button from "@mui/material";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LogIn } from "./pages/LogIn";
-import Profile_Submit from "./pages/Profile_Submit";
+import ProfileSubmit from "./pages/Profile_Submit";
 import Profiles from "./pages/Profiles";
 import { SignUp } from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
@@ -15,10 +14,6 @@ import NotFound from "./pages/NotFound";
 function App() {
   const [langValue, setLangValue] = useState(langdata.English);
   const [submitting, setSubmitting] = useState(false);
-
-  // console.log(langdata.Japanese);
-  console.log(langValue.greeting);
-  console.log(langValue);
 
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
@@ -60,7 +55,7 @@ function App() {
         <Route path="/" element={<LogIn langValue={langValue} setSubmitting={setSubmitting} />} />
         <Route path="/SignUp" element={<SignUp langValue={langValue} setSubmitting={setSubmitting} />} />
         <Route path="/Profiles" element={<Profiles langValue={langValue} submitting={submitting} />} />
-        <Route path="/Profile_Submit" element={<Profile_Submit langValue={langValue} setSubmitting={setSubmitting} />} />
+        <Route path="/Profile_Submit" element={<ProfileSubmit langValue={langValue} setSubmitting={setSubmitting} />} />
         {/* <Route component={NotFound} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -97,20 +92,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <div>
-        <Button size="small" onClick={() => setLangValue(langdata.Japanese)}>
-          日本語
-        </Button>
-        <Button size="small" onClick={() => setLangValue(langdata.English)}>
-          English
-        </Button>
-        <Button size="small" onClick={() => setLangValue(langdata.Chinese)}>
-          中文
-        </Button>
-        <Button size="small" onClick={() => setLangValue(langdata.Hindi)}>
-          हिन्दी
-        </Button>
-      </div> */
-}

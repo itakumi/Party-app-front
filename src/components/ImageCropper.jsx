@@ -1,38 +1,7 @@
 // ImageCropper.js
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { Button } from "@mui/material";
-import CardActions from "@mui/material/CardActions";
-import { createStyles } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    WholeCard: {
-      color: "black",
-      backgroundColor: "#ffffe0",
-    },
-    BlueButton: {
-      color: "white",
-      background: "#6b68ff",
-    },
-    WhiteButton: {
-      color: "#4169e1",
-      background: "white",
-    },
-    BlueBack: {
-      background: "#6b68ff",
-      border: "none",
-    },
-    Halfcircle: {
-      width: "100%" /* 半円の横幅 */,
-      height: "100px" /* 半円の高さ */,
-      background: "#6b68ff" /* 半円の背景色 */,
-      borderRadius: "50% 50% 0 0",
-    },
-  })
-);
 
 function ImageCropper({
   fileData,
@@ -41,11 +10,6 @@ function ImageCropper({
   setCroppedData,
   langValue,
 }) {
-  const [crop, setCrop] = useState({ x: 50, y: 50 });
-  console.log("oooooooooooooooooooooooooo");
-
-  const classes = useStyles();
-
   const cropperRef = useRef(null);
 
   const onFileInputChange = (e) => {
@@ -63,8 +27,6 @@ function ImageCropper({
   };
 
   const handleCrop = () => {
-    console.log(cropperRef.current);
-
     const x = 50; // 切り取り範囲の左上隅のx座標
     const y = 50; // 切り取り範囲の左上隅のy座標
     const fillColor = "#ffffff"; // 空白部分を白色で塗りつぶす
@@ -108,7 +70,6 @@ function ImageCropper({
             padding: "8px 16px",
             backgroundColor: "#c6c6ff",
             color: "#6b68ff",
-            borderRadius: "4px",
             cursor: "pointer",
             borderRadius: "40px 40px",
             border: "1px solid #6b68ff",
@@ -126,7 +87,7 @@ function ImageCropper({
             movable={false}
             aspectRatio={5 / 3}
             cropBoxResizable={true}
-            crop={crop}
+            crop={croppedData}
             dragMode="move"
             // cropBoxMovable={false}
           />
@@ -148,7 +109,7 @@ function ImageCropper({
             </button>
             <button
               size="small"
-              onClick={handleCrop}
+              onClick={resetCrop}
               style={{backgroundColor: "#6b68ff", borderRadius: "30px 30px", border: "1px solid #6b68ff",
             }}
             >

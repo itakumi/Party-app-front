@@ -1,0 +1,34 @@
+/* WholeCard */
+.WholeCard {
+    color: black;
+    background: #fafad2;
+  }
+  
+  /* BlueButton */
+  .BlueButton {
+    color: white;
+    background: #6b68ff;
+    border-radius: 40px 40px;
+  }
+  
+  /* WhiteButton */
+  .WhiteButton {
+    color: #6b68ff;
+    background: white;
+    border-radius: 40px 40px;
+    border: 1px solid #6b68ff;
+  }
+  
+  /* ovalTextField */
+  .ovalTextField .MuiOutlinedInput-root {
+    border-radius: 40px 40px;
+  }
+  
+  /* UnderHalfcircle */
+  .UnderHalfcircle {
+    width: 100%;
+    height: 50vh;
+    background: #6b68ff;
+    border-radius: 0 0 25% 25%;
+  }
+  
