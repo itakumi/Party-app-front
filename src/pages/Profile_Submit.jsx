@@ -166,7 +166,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
               }}
               onClick={() => {
                 removeCookie("session");
-                document.location = "/";
+                document.location = process.env.PUBLIC_URL + "/";
               }}
             >
               {langValue.Log_out}

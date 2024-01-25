@@ -46,7 +46,9 @@ export const NeedLogin = ({ langValue, setSubmitting }) => {
                   className={styles.WhiteButton + " center-card-text"}
                 >
                   <Button
-                    onClick={() => (document.location = "/")}
+                    onClick={() =>
+                      (document.location = process.env.PUBLIC_URL + "/")
+                    }
                     size="small"
                     style={{
                       margin: "auto",
