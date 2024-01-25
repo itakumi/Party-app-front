@@ -40,7 +40,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
     };
 
     // PythonバックエンドのURLを指定
-    const backendURL = process.env.BACKEND_ENTRYPOINT + "/LogIn"; // あなたのバックエンドのURLに置き換えてください
+    const backendURL = process.env.REACT_APP_BACKEND_ENTRYPOINT + "/LogIn"; // あなたのバックエンドのURLに置き換えてください
 
     if (mailValue.length === 0) {
       alert(

@@ -59,7 +59,7 @@ function MediaCard({ langValue, submitting }) {
   // 		};
   // 		try {
   // 			const response = await fetch(
-  // 				process.env.BACKEND_ENTRYPOINT + "/get_json_data",
+  // 				process.env.REACT_APP_BACKEND_ENTRYPOINT + "/get_json_data",
   // 				{
   // 					method: "POST",
   // 					headers: {
@@ -98,7 +98,7 @@ function MediaCard({ langValue, submitting }) {
       // team自体が無いということはユーザーのteamを追加していないということですので、profileに何も表示しません
       try {
         const response = await fetch(
-          process.env.BACKEND_ENTRYPOINT + "/get_my_team",
+          process.env.REACT_APP_BACKEND_ENTRYPOINT + "/get_my_team",
           {
             method: "POST",
             headers: {
@@ -140,7 +140,7 @@ function MediaCard({ langValue, submitting }) {
     };
     // PythonバックエンドのURLを指定
     const backendURL =
-      process.env.BACKEND_ENTRYPOINT + "/delete_user"; // あなたのバックエンドのURLに置き換えてください
+      process.env.REACT_APP_BACKEND_ENTRYPOINT + "/delete_user"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
@@ -176,7 +176,7 @@ function MediaCard({ langValue, submitting }) {
     };
     // PythonバックエンドのURLを指定
     const backendURL =
-      process.env.BACKEND_ENTRYPOINT + "/delete_profile"; // あなたのバックエンドのURLに置き換えてください
+      process.env.REACT_APP_BACKEND_ENTRYPOINT + "/delete_profile"; // あなたのバックエンドのURLに置き換えてください
 
     // データをPOSTリクエストで送信
     fetch(backendURL, {
