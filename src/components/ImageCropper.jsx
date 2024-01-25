@@ -24,12 +24,7 @@ function ImageCropper({
       reader.readAsDataURL(file);
     }
   };
-  function sleep(waitMsec) {
-    var startMsec = new Date();
 
-    // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
-    while (new Date() - startMsec < waitMsec);
-  }
   const handleCrop = () => {
     const x = 50; // 切り取り範囲の左上隅のx座標
     const y = 50; // 切り取り範囲の左上隅のy座標
@@ -47,7 +42,6 @@ function ImageCropper({
         return;
       } else {
         setFileData("");
-        sleep(1000);
         setCroppedData(croppedCanvas.toDataURL());
       }
     }
