@@ -29,6 +29,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "postbuild": "cp build/index.html build/404.html",
     "predeploy": "npm run build",
     "start": "WATCHPACK_POLLING=true PORT=3002 react-scripts start",
     "build": "cross-env PUBLIC_URL=/Party-app-front react-scripts build",
