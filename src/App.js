@@ -16,7 +16,7 @@ function App() {
     const selectedLanguage = e.target.value;
     setLangValue(langdata[selectedLanguage]);
   };
-  console.log("REACT_APP_PATH="+process.env.REACT_APP_PATH);
+  console.log("REACT_APP_PATH=" + process.env.REACT_APP_PATH);
 
   return (
     <>
@@ -48,26 +48,26 @@ function App() {
         </FormControl>
       </Box>
 
-      <Router>
+      <Router basename={process.env.REACT_APP_PATH}>
         <Routes>
           <Route
-            path={process.env.REACT_APP_PATH + "/"}
+            path="/"
             element={
               <LogIn langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.REACT_APP_PATH + "/SignUp"}
+            path="/SignUp"
             element={
               <SignUp langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.REACT_APP_PATH + "/Profiles"}
+            path="/Profiles"
             element={<Profiles langValue={langValue} submitting={submitting} />}
           />
           <Route
-            path={process.env.REACT_APP_PATH + "/Profile_Submit"}
+            path="/Profile_Submit"
             element={
               <ProfileSubmit
                 langValue={langValue}
