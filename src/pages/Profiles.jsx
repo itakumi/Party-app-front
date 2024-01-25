@@ -30,7 +30,7 @@ function MediaCard({ langValue, submitting }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef();
-
+  console.log(process.env.PUBLIC_URL);
   const navigate = useNavigate();
 
   // メニュー外をクリックしたらメニューを非表示にする
@@ -242,7 +242,7 @@ function MediaCard({ langValue, submitting }) {
     );
     // 自分の情報から、name、team、others、写真を持ってきて、Json形式にしてstate:にいれる
     if (filteredData.length !== 0) {
-      navigate(process.env.PUBLIC_URL + "/Profile_Submit", {
+      navigate("/Profile_Submit", {
         state: {
           name: filteredData[0].name,
           team: filteredData[0].team,
