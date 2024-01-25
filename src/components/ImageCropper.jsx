@@ -1,4 +1,3 @@
-// ImageCropper.js
 import React, { useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -63,7 +62,6 @@ function ImageCropper({
           onChange={onFileInputChange}
           style={{ display: "none" }}
         />
-        {/* <Button variant="contained">File Select</Button> */}
         <div
           style={{
             display: "block",
@@ -90,8 +88,6 @@ function ImageCropper({
             crop={croppedData}
             dragMode="move"
           />
-          {/* <button onClick={handleCrop}>{langValue.trimming}</button>
-          <button onClick={resetCrop}>{langValue.trimming_reset}</button> */}
           <button
             size="small"
             onClick={handleCrop}
@@ -131,7 +127,7 @@ function ImageCropper({
       {croppedData && (
         <img
           src={croppedData}
-          alt="トリミング後の画像"
+          alt=""
           style={{ width: "auto", height: "auto", maxWidth: "100%" }}
         />
       )}

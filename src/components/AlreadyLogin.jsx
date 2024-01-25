@@ -20,7 +20,6 @@ export const AlreadyLogin = ({ langValue, setSubmitting }) => {
               sx={{ minWidth: "100%", maxWidth: "80%" }}
               class="card_radius"
             >
-              {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
               <CardContent className={styles.WholeCard + " card_radius"}>
                 <CardActions className={styles.BlueButton}>
                   <Button
@@ -72,7 +71,6 @@ export const AlreadyLogin = ({ langValue, setSubmitting }) => {
                       {langValue.Jump_Profile_Submit}
                     </div>
                   </Button>
-                  {/* </Link> */}
                 </CardActions>
               </CardContent>
             </Card>

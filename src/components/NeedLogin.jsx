@@ -15,7 +15,6 @@ export const NeedLogin = ({ langValue, setSubmitting }) => {
           <div class="card_radius">
             <h4 style={{ color: "white" }}>Oops! You need to login/SignUp</h4>
             <Card sx={{ minWidth: 275, maxWidth: "80%" }} class="card_radius">
-              {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
               <CardContent className={styles.WholeCard + " card_radius"}>
                 <CardActions className={styles.BlueButton}>
                   <Button

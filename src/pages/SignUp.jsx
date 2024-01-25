@@ -22,13 +22,9 @@ export const SignUp = ({ langValue, setSubmitting }) => {
       /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
     );
   }, []);
-  // const mailRegex = new RegExp(
-  //   /^[a-zA-Z0-9!#$%&'*+-/=?^_`{|}~.]+@([a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9]+$/g
-  // );
   const passwordRegex = useMemo(() => {
     return new RegExp(/^[a-zA-Z0-9]{8,}$/g);
   }, []);
-  // const passwordRegex = new RegExp(/^[a-zA-Z0-9]{8,}$/g);
   const [passValue, setPassValue] = useState("");
   const passwordRef = useRef(0);
   const [passwordIsOK, setPasswordIsOK] = useState(true);
@@ -122,34 +118,16 @@ export const SignUp = ({ langValue, setSubmitting }) => {
   const handleUsernameChange = (event) => {
     const inputValue = event.target.value;
     setUsernameValue(inputValue);
-
-    // if (inputValue.length <= 30) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
   };
 
   const handleMailChange = (event) => {
     const inputValue = event.target.value;
     setMailValue(inputValue);
-
-    // if (inputValue.length <= 30) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
   };
 
   const handlePassChange = (event) => {
     const inputValue = event.target.value;
     setPassValue(inputValue);
-
-    // if (inputValue.length >= 8) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
   };
 
   const handleConfirmPassChange = (event) => {
@@ -158,11 +136,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
   };
 
   const handleConfirmSubmit = () => {
-    // ボタンがクリックされたときの処理をここに記述
-    // たとえば、フォームの送信処理を行う
-
     handleSubmit();
-
     setSubmitting(true); //送信中のポップアップを表示するためtrueにする
   };
 
@@ -182,7 +156,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
           <div className="centered-container">
             <div class="card_radius">
               <Card sx={{ minWidth: 275, maxWidth: 300 }} class="card_radius">
-                {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
                 <CardContent className={styles.WholeCard + " card_radius"}>
                   <h3 class="center-card-text">{langValue.Sign_up}</h3>
 
@@ -197,11 +170,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                       value={usernameValue} //変数みたいな感じ。
                       onChange={handleUsernameChange}
                       onKeyDown={(e) => searchHandleKeyPress(e)}
-                      // className="round_shape"
-                      // error={errorNameMessage !== ""}
-                      // helperText={errorNameMessage}
                     />
-                    {/* user name */}
                   </Typography>
 
                   <Typography
@@ -221,8 +190,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                           backgroundColor: !emailIsOK ? "indianred" : "inherit",
                         }, // 背景色を変更
                       }}
-                      // error={errorTeamMessage !== ""}
-                      // helperText={errorTeamMessage}
                     />
                     {emailIsOK || (
                       <h6 style={{ color: "#bf0000" }}>
@@ -251,10 +218,7 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                             : "inherit",
                         }, // 背景色を変更
                       }}
-                      // error={errorTeamMessage !== ""}
-                      // helperText={errorTeamMessage}
-                    />{" "}
-                    {/* Password */}
+                    />
                     {passwordIsOK || (
                       <h6 style={{ color: "#bf0000" }}>
                         {langValue.Invalid_pass_format}
@@ -282,15 +246,12 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                             : "inherit",
                         }, // 背景色を変更
                       }}
-                      // error={errorTeamMessage !== ""}
-                      // helperText={errorTeamMessage}
                     />
                     {confirmationPasswordIsOK || (
                       <h6 style={{ color: "#bf0000" }}>
                         {langValue.Invalid_confirmpass_format}
                       </h6>
                     )}
-                    {/* Password */}
                   </Typography>
 
                   <br />
@@ -343,7 +304,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
                         {langValue.Log_in}
                       </div>
                     </Button>
-                    {/* </Link> */}
                   </CardActions>
                 </CardContent>
               </Card>

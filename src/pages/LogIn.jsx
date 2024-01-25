@@ -67,10 +67,8 @@ export const LogIn = ({ langValue, setSubmitting }) => {
           } else {
             window.alert(langValue.Login_fail);
           }
-          // window.location.reload();
         })
         .catch((error) => {
-          // エラーハンドリングを行うコードをここに追加
           console.error("Error:", error);
           window.alert(langValue.submit_fail);
         });
@@ -82,31 +80,15 @@ export const LogIn = ({ langValue, setSubmitting }) => {
   const handleMailChange = (event) => {
     const inputValue = event.target.value;
     setMailValue(inputValue);
-
-    // if (inputValue.length <= 30) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
   };
 
   const handlePassChange = (event) => {
     const inputValue = event.target.value;
     setPassValue(inputValue);
-
-    // if (inputValue.length >= 8) {
-    //   setErrorNameMessage("");
-    // } else {
-    //   setErrorNameMessage(langValue.please_input_30);
-    // }
   };
 
   const handleConfirmSubmit = () => {
-    // ボタンがクリックされたときの処理をここに記述
-    // たとえば、フォームの送信処理を行う
-
     handleSubmit();
-
     setSubmitting(true); //送信中のポップアップを表示するためtrueにする
   };
 
@@ -127,7 +109,6 @@ export const LogIn = ({ langValue, setSubmitting }) => {
           <div className="centered-container">
             <div class="card_radius">
               <Card sx={{ minWidth: 275, maxWidth: 300 }} class="card_radius">
-                {/* 私たちにCard contentの裏がCardなので、CSSが一見見えません */}
                 <CardContent className={styles.WholeCard + " card_radius"}>
                   <h3 class="center-card-text">{langValue.Log_in}</h3>
 
@@ -147,16 +128,12 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                           backgroundColor: !emailIsOK ? "indianred" : "inherit",
                         }, // 背景色を変更
                       }}
-                      // className="round_shape"
-                      // error={errorNameMessage !== ""}
-                      // helperText={errorNameMessage}
                     />
                     {emailIsOK || (
                       <h6 style={{ color: "#bf0000" }}>
                         {langValue.Invalid_email_format}
                       </h6>
                     )}
-                    {/* Mail */}
                   </Typography>
 
                   <Typography
@@ -172,10 +149,7 @@ export const LogIn = ({ langValue, setSubmitting }) => {
                       value={passValue}
                       onChange={handlePassChange}
                       onKeyDown={(e) => searchHandleKeyPress(e)}
-                      // error={errorTeamMessage !== ""}
-                      // helperText={errorTeamMessage}
-                    />{" "}
-                    {/* Password */}
+                    />
                   </Typography>
                   <div className="center-card-text blueword">
                     {langValue.forget_pass}

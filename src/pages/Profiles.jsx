@@ -50,41 +50,6 @@ function MediaCard({ langValue, submitting }) {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-
-  // サーバーからJSONデータを取得する関数
-  // const fetchData = async () => {
-  // 	if (cookies["session"]["team"]) {
-  // 		const postData = {
-  // 			team: cookies["session"]["team"],
-  // 		};
-  // 		try {
-  // 			const response = await fetch(
-  // 				process.env.REACT_APP_BACKEND_ENTRYPOINT + "/get_json_data",
-  // 				{
-  // 					method: "POST",
-  // 					headers: {
-  // 						"Content-Type": "application/json",
-  // 					},
-  // 					body: JSON.stringify(postData),
-  // 				}
-  // 			);
-
-  // 			const data = await response.json();
-  // 			setJsonData(data); // JSONデータをステートに設定
-  // 			setLoading(false);
-  // 			// 長さが20で、すべての要素がfalseの配列を作成
-  // 			const myArray = new Array(data.length).fill(false);
-  // 			setShowFullText(myArray);
-  // 		} catch (error) {
-  // 			console.error("データの取得に失敗しました", error);
-  // 		}
-  // 	} else {
-  // 		setJsonData([]); // JSONデータをステートに設定
-  // 		setLoading(false);
-  // 		const myArray = new Array(0).fill(false);
-  // 		setShowFullText(myArray);
-  // 	}
-  // };
   const fetchData = async () => {
     if (cookies["session"]) {
       const postData = {
@@ -161,7 +126,6 @@ function MediaCard({ langValue, submitting }) {
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
         console.error("Error:", error);
-        // window.alert("削除できませんでした");
       });
 
     // 削除が完了したらダイアログを閉じる
@@ -318,20 +282,6 @@ function MediaCard({ langValue, submitting }) {
                 </Button>
               </DialogActions>
             </Dialog>
-            {/* <p
-              style={{
-                cursor: "pointer",
-                color: "#6b68ff",
-                border: "0.5px solid #6b68ff",
-                borderRadius: "10%",
-              }}
-              onClick={() => {
-                removeCookie("session");
-                document.location = "/";
-              }}
-            >
-              {langValue.Log_out}
-            </p> */}
           </div>
           <div class="bluetext">
             <br></br>
@@ -449,14 +399,6 @@ function MediaCard({ langValue, submitting }) {
                           }}
                           className={styles.WholeCard}
                         >
-                          {/* <div
-                      style={{
-                        maxHeight: showAllOthers ? "none" : "2.4em", // 2.4emは約2行分の高さ
-                        WebkitLineClamp: showAllOthers ? "unset" : 2, // ブラウザごとに異なる可能性があるので注意
-                        display: "-webkit-box", // ブラウザごとに必要
-                      }}
-                    > */}
-
                           <h5
                             style={{
                               whiteSpace: "pre-line",
@@ -468,7 +410,6 @@ function MediaCard({ langValue, submitting }) {
                               {cookies["session"]["id"] === item.id
                                 ? langValue.You
                                 : ""}
-                              {/* {item.name.match(/.{1,17}/g).join("\n")} */}
                             </b>
                           </h5>
                           <div
@@ -478,8 +419,6 @@ function MediaCard({ langValue, submitting }) {
                             }}
                           >
                             Team:
-                            {/* Team: {item.team} */}
-                            {/* Team: {item.team.match(/.{1,17}/g).join("\n")} */}
                             {showFullText[index] //文字を省略するかしないか
                               ? item.team + "\n" + item.others
                               : foldText(item.team + "\n" + item.others)}

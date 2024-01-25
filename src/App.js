@@ -7,6 +7,7 @@ import { LogIn } from "./pages/LogIn";
 import ProfileSubmit from "./pages/Profile_Submit";
 import Profiles from "./pages/Profiles";
 import { SignUp } from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [langValue, setLangValue] = useState(langdata.English);
@@ -74,35 +75,9 @@ function App() {
               />
             }
           />
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-
-      {/* <br></br>
-      <br></br>
-
-      <div class="text">
-        <br></br>
-        <Text text={langValue.greeting} />
-        <Text text={langValue.inputprofile} />
-        <br></br>
-      </div> */}
-
-      {/* <div class="centered-container">
-        <IntroForm langValue={langValue} setSubmitting={setSubmitting} />
-      </div> */}
-
-      {/* <div class="text">
-        <Text text={langValue.profiles} />
-      </div>
-
-      <br></br>
-
-      <Profile langValue={langValue} submitting={submitting} />
-
-      <br></br>
-      <br></br>
-      <br></br> */}
     </>
   );
 }

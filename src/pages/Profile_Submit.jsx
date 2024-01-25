@@ -23,7 +23,6 @@ import { teamList } from "../components/TeamList";
 export default function ProfileSubmit({ langValue, setSubmitting }) {
   const location = useLocation();
   const myinfo = location.state;
-
   const [nameValue, setNameValue] = useState(myinfo ? myinfo.name : "");
   const [teamValue, setTeamValue] = useState(myinfo ? myinfo.team : "");
   const [othersValue, setOthersValue] = useState(myinfo ? myinfo.others : "");
@@ -63,12 +62,10 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
       .then((data) => {
         // レスポンスを処理するコードをここに追加
         setSubmitting(false);
-        // setCookie("session", data["user"]);
         window.alert(langValue.submit_complete);
         document.location = process.env.PUBLIC_URL + "/Profiles";
       })
       .catch((error) => {
-        // エラーハンドリングを行うコードをここに追加
         console.error("Error:", error);
         window.alert(langValue.submit_fail);
       });
@@ -116,12 +113,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
   };
 
   const handleConfirmSubmit = () => {
-    // ボタンがクリックされたときの処理をここに記述
-    // たとえば、フォームの送信処理を行う
-
     handleSubmit();
-
-    // ポップアップを閉じる
     setIsSubmitDialogOpen(false);
     setSubmitting(true); //送信中のポップアップを表示するためtrueにする
   };
@@ -157,10 +149,6 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
     }
   };
 
-  // const download = () => {
-  //   fetch(process.env.REACT_APP_BACKEND_ENTRYPOINT + "/download_db");
-  // };
-
   return (
     <>
       {cookies["session"] ? (
@@ -190,7 +178,6 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
               marginBottom: "0px",
               marginTop: "0px",
               display: "block",
-              // transform: "translate(0%, 50%)",
               fontWeight: "bold",
             }}
           >
