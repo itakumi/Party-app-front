@@ -1,6 +1,6 @@
 {
   "name": "party-app",
-  "homepage": "https://itakumi.github.io/Party-app-front",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
