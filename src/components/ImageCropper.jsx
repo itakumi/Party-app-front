@@ -41,6 +41,7 @@ function ImageCropper({
         console.error("クロップに失敗しました");
         return;
       } else {
+        setFileData("");
         setCroppedData(croppedCanvas.toDataURL());
       }
     }
