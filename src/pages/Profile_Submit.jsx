@@ -214,7 +214,7 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                     >
                       <br />
                       <TextField
-                        label="Name"
+                        label={langValue.name_nickname}
                         value={nameValue} //変数みたいな感じ。
                         onChange={handleNameChange} //こっちは入力して変更したときのイベント
                         error={errorNameMessage !== ""}
@@ -229,14 +229,14 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
                     >
                       <Select
                         sx={{ width: "100%" }} // Selectコンポーネントには100%の幅を指定
-                        labelId="team"
+                        labelId={langValue.team}
                         value={teamValue}
                         onChange={handleTeamChange}
                         displayEmpty
                         inputProps={{ "aria-label": "team" }}
                       >
                         <MenuItem value="" disabled style={{ display: "none" }}>
-                          <em style={{ color: "gray" }}>Team</em>
+                          <em style={{ color: "gray" }}>{langValue.team}</em>
                         </MenuItem>
                         {teamList.map((team) => (
                           <MenuItem key={team} value={team}>

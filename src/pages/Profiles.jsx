@@ -157,7 +157,7 @@ function MediaCard({ langValue, submitting }) {
         window.alert(langValue.delete_complete);
         // window.location.reload();
         removeCookie("session");
-        document.location = "/";
+        document.location = process.env.PUBLIC_URL + "/";
       })
       .catch((error) => {
         // エラーハンドリングを行うコードをここに追加
@@ -284,7 +284,7 @@ function MediaCard({ langValue, submitting }) {
                     href="#"
                     onClick={() => {
                       removeCookie("session");
-                      document.location = "/";
+                      document.location = process.env.PUBLIC_URL + "/";
                     }}
                   >
                     {langValue.Log_out}
