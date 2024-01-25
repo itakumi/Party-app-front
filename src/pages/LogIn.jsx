@@ -59,7 +59,6 @@ export const LogIn = ({ langValue, setSubmitting }) => {
         .then((response) => response.json())
         .then((data) => {
           // レスポンスを処理するコードをここに追加
-          console.log(data["user"]);
           setSubmitting(false);
           if (data["user"]) {
             setCookie("session", data["user"]);

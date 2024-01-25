@@ -66,7 +66,6 @@ export const SignUp = ({ langValue, setSubmitting }) => {
 
     // PythonバックエンドのURLを指定
     const backendURL = process.env.REACT_APP_BACKEND_ENTRYPOINT + "/SignUp"; // あなたのバックエンドのURLに置き換えてください
-    console.log("backendURL=" + backendURL);
     if (
       usernameValue.length === 0 ||
       mailValue.length === 0 ||

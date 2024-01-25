@@ -62,7 +62,6 @@ export default function ProfileSubmit({ langValue, setSubmitting }) {
       .then((response) => response.json())
       .then((data) => {
         // レスポンスを処理するコードをここに追加
-        console.log(data);
         setSubmitting(false);
         // setCookie("session", data["user"]);
         window.alert(langValue.submit_complete);

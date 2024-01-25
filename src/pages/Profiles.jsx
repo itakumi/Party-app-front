@@ -72,7 +72,6 @@ function MediaCard({ langValue, submitting }) {
   // 			const data = await response.json();
   // 			setJsonData(data); // JSONデータをステートに設定
   // 			setLoading(false);
-  // 			console.log(data);
   // 			// 長さが20で、すべての要素がfalseの配列を作成
   // 			const myArray = new Array(data.length).fill(false);
   // 			setShowFullText(myArray);

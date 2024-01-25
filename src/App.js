@@ -16,7 +16,6 @@ function App() {
     const selectedLanguage = e.target.value;
     setLangValue(langdata[selectedLanguage]);
   };
-  console.log("REACT_APP_PATH=" + process.env.REACT_APP_PATH);
 
   return (
     <>
