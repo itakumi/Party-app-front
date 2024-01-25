@@ -7,7 +7,6 @@ import { LogIn } from "./pages/LogIn";
 import ProfileSubmit from "./pages/Profile_Submit";
 import Profiles from "./pages/Profiles";
 import { SignUp } from "./pages/SignUp";
-import NotFound from "./pages/NotFound";
 
 function App() {
   const [langValue, setLangValue] = useState(langdata.English);
@@ -17,6 +16,7 @@ function App() {
     const selectedLanguage = e.target.value;
     setLangValue(langdata[selectedLanguage]);
   };
+  console.log("REACT_APP_PATH="+process.env.REACT_APP_PATH);
 
   return (
     <>
@@ -51,23 +51,23 @@ function App() {
       <Router>
         <Routes>
           <Route
-            path={process.env.PUBLIC_URL + "/"}
+            path={process.env.REACT_APP_PATH + "/"}
             element={
               <LogIn langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.PUBLIC_URL + "/SignUp"}
+            path={process.env.REACT_APP_PATH + "/SignUp"}
             element={
               <SignUp langValue={langValue} setSubmitting={setSubmitting} />
             }
           />
           <Route
-            path={process.env.PUBLIC_URL + "/Profiles"}
+            path={process.env.REACT_APP_PATH + "/Profiles"}
             element={<Profiles langValue={langValue} submitting={submitting} />}
           />
           <Route
-            path={process.env.PUBLIC_URL + "/Profile_Submit"}
+            path={process.env.REACT_APP_PATH + "/Profile_Submit"}
             element={
               <ProfileSubmit
                 langValue={langValue}
@@ -75,7 +75,7 @@ function App() {
               />
             }
           />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
 
